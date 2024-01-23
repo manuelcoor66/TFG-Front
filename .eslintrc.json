@@ -1,17 +1,11 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
+  "ignorePatterns": ["projects/**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "tsconfig.json"
-        ],
+        "project": ["tsconfig.json"],
         "createDefaultProgram": true
       },
       "extends": [
@@ -21,10 +15,7 @@
       ],
       "rules": {
         "no-console": "error",
-        "curly": [
-          "error",
-          "all"
-        ],
+        "curly": ["error", "all"],
         "lines-between-class-members": "off",
         "max-len": [
           "error",
@@ -35,9 +26,7 @@
         "no-restricted-imports": [
           "error",
           {
-            "paths": [
-              "rxjs/Rx"
-            ]
+            "paths": ["rxjs/Rx"]
           }
         ],
         "sort-imports": "error",
@@ -54,14 +43,8 @@
             "ignoreComments": true
           }
         ],
-        "object-curly-spacing": [
-          "error",
-          "always"
-        ],
-        "jsx-quotes": [
-          "error",
-          "prefer-single"
-        ],
+        "object-curly-spacing": ["error", "always"],
+        "jsx-quotes": ["error", "prefer-single"],
         "quotes": [
           "error",
           "single",
@@ -88,9 +71,7 @@
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/explicit-member-accessibility": "off",
         "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/explicit-module-boundary-types": [
-          "error"
-        ],
+        "@typescript-eslint/explicit-module-boundary-types": ["error"],
         "@typescript-eslint/no-parameter-properties": "off",
         "@typescript-eslint/no-unused-vars": [
           "error",
@@ -103,52 +84,35 @@
           "error",
           {
             "selector": "default",
-            "format": [
-              "camelCase"
-            ]
+            "format": ["camelCase"]
           },
           {
             "selector": "memberLike",
-            "modifiers": [
-              "private"
-            ],
-            "format": [
-              "camelCase"
-            ],
+            "modifiers": ["private"],
+            "format": ["camelCase"],
             "leadingUnderscore": "allow"
           },
           {
             "selector": "variable",
-            "format": [
-              "camelCase",
-              "UPPER_CASE"
-            ]
+            "format": ["camelCase", "UPPER_CASE"]
           },
           {
             "selector": "memberLike",
-            "format": [
-              "camelCase"
-            ],
+            "format": ["camelCase"],
             "leadingUnderscore": "allow"
           },
           {
             "selector": "parameter",
-            "format": [
-              "camelCase"
-            ],
+            "format": ["camelCase"],
             "leadingUnderscore": "allow"
           },
           {
             "selector": "typeLike",
-            "format": [
-              "PascalCase"
-            ]
+            "format": ["PascalCase"]
           },
           {
             "selector": "enumMember",
-            "format": [
-              "PascalCase"
-            ]
+            "format": ["PascalCase"]
           }
         ],
         "@angular-eslint/directive-selector": [
@@ -170,12 +134,8 @@
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
       "rules": {}
     }
   ]
