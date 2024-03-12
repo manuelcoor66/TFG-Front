@@ -1,0 +1,23 @@
+:host  {
+  width: 100%;
+}
+
+h1 {
+  justify-content: center;
+  display: flex;
+}
+
+.form-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  mat-label {
+    padding-bottom: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: #5c5c5c;
+    border-radius: 100px;
+  }
+}
