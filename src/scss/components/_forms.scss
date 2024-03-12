@@ -1,0 +1,162 @@
+@use '@angular/material' as mat;
+@use 'src/scss/palette' as pal;
+@use 'src/scss/utils/mixins' as mix;
+@use 'sass:map';
+
+$hint-and-error-font-size: 0.85rem;
+@mixin theme($theme) {
+  $primary: map.get($theme, primary);
+  /**
+    Angular Material overrides and default styling
+   */
+  .mat-mdc-form-field,
+  .mat-form-field-appearance-outline {
+    .mat-mdc-text-field-wrapper {
+      border: 1px solid mat.get-color-from-palette(pal.$app-grey, 300);
+      border-radius: 1.25rem;
+      background-color: mat.get-color-from-palette(pal.$app-grey, 100) !important;
+      transition: 0.1s;
+      outline: transparent;
+      outline-offset: -2px;
+      gap: 0.1rem;
+
+      // Form border
+      .mdc-notched-outline {
+        .mdc-notched-outline__leading,
+        .mdc-notched-outline__notch,
+        .mdc-notched-outline__trailing {
+          border: none;
+        }
+      }
+
+      // Separation between text input and icons
+      .mat-mdc-form-field-flex {
+        @include mix.gap-sm;
+        padding: 0 1rem;
+
+        // Prefix icon size
+        .mat-mdc-form-field-icon-prefix {
+          font-size: 1.2em;
+        }
+      }
+    }
+
+    .mat-mdc-form-field-hint-wrapper,
+    .mat-mdc-form-field-error-wrapper {
+      padding: 0;
+    }
+  }
+
+  //This is a variant form applied for searches
+  .white-background {
+    .mat-mdc-text-field-wrapper {
+      @include mix.shadow-1;
+      background-color: white !important;
+    }
+  }
+
+  // When the input is focused
+  .mat-focused {
+    .mat-mdc-text-field-wrapper {
+      outline: 2px solid mat.get-color-from-palette($primary, 500) !important;
+    }
+  }
+
+  // Invalid
+  .mat-form-field-invalid {
+    .mat-mdc-text-field-wrapper {
+      outline: 2px solid mat.get-color-from-palette(pal.$error-palette, 500) !important;
+    }
+  }
+
+  mat-hint {
+    @include mix.grey-color(500);
+    font-size: $hint-and-error-font-size;
+  }
+
+  mat-error {
+    @include mix.error-color(500);
+    font-size: $hint-and-error-font-size;
+    font-weight: 600;
+  }
+
+  .hidden-hint {
+    .mat-mdc-form-field-bottom-align {
+      display: none;
+    }
+  }
+
+  /*
+    Form input sizes
+    Each form should adapt his size to the expected input size
+   */
+  .form__input {
+    width: 100%;
+
+    &.form-xxs {
+      max-width: 6.25rem;
+    }
+
+    &.form-xs {
+      max-width: 8rem;
+    }
+
+    &.form-sm {
+      max-width: 11rem;
+    }
+
+    &.form-md {
+      max-width: 17rem;
+    }
+
+    &.form-lg {
+      max-width: 21.8rem;
+    }
+
+    &.form-xl {
+      max-width: 28rem;
+    }
+
+    &.form-xxl {
+      max-width: 34rem;
+    }
+
+    &.form-xxxl {
+      max-width: 50rem;
+    }
+
+    div.mat-form-field-prefix {
+      margin: 0.5rem;
+    }
+
+    &.no-hint {
+      .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+      }
+    }
+  }
+
+  /*
+    Form Container
+    Wraps all form fields, including groups/sections.
+    Commonly used with form HTML tag
+   */
+  .form-container {
+    @include mix.column;
+    @include mix.gap;
+  }
+}
+
+/*
+  Form Wrapper
+  Wraps form fields and labels in a flex container.
+ */
+.form-wrapper {
+  @include mix.column;
+
+  mat-label {
+    @include mix.text-sm;
+    @include mix.grey-color(800);
+    padding-bottom: 0.5rem;
+  }
+}

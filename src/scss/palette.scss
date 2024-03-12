@@ -1,0 +1,117 @@
+@use '@angular/material' as mat;
+
+$white: #fff;
+$black: #000;
+
+// Warn palette
+/* prettier-ignore */
+$error-palette: (
+  50  : #ffeaef,
+  100 : #ffcbd4,
+  200 : #ffcbd4,  // Lighter
+  300 : #E7C5C7,
+  400 : #f34757,
+  500 : #C1666B,
+  600 : #C1666B,
+  700 : #87373B,
+  800 : #87373B,  // Darker
+  900 : #bd0022,
+  A100: #046b99, // Status: Info
+  A200: #e97816, // Status: Warning
+  A400: #db0086,
+  A700: #00ae00, // Status: Success
+  contrast:
+    (
+      50  : $black,
+      100 : $black,
+      200 : $black,
+      300 : $black,
+      400 : $black,
+      500 : $white,
+      600 : $white,
+      700 : $white,
+      800 : $white,
+      900 : $white,
+      A100: $white,
+      A200: $white,
+      A400: $white,
+      A700: $white
+    )
+);
+
+$success-palette: (
+  300: #d5fcc7,
+  500: #04b800,
+  700: #2f8c45,
+  800: #2f8c89,
+  contrast: (
+    300: $black,
+    500: $white,
+    700: $white
+  )
+);
+
+$warn-palette: (
+  50: #ffeeb2,
+  100: #fff5d3,
+  200: #ffeeb2,
+  300: #ffeeb2,
+  400: #ffeeb2,
+  500: #fedb60,
+  600: #f6c720,
+  700: #fedb60,
+  800: #af8900,
+  900: #fedb60,
+  contrast: (
+    50: $black,
+    100: $black,
+    200: $black,
+    300: $black,
+    400: $black,
+    500: $black,
+    600: $white,
+    700: $white,
+    800: $white,
+    900: $white
+  )
+);
+
+$grey-palette: (
+  50: #fcfcfc,
+  100: #f8f8f8,
+  200: #f2f2f2,
+  300: #e0e0e0,
+  400: #a9a9a9,
+  500: #5c5c5c,
+  700: #333333,
+  800: #252525,
+  A100: #d5d5d5,
+  A200: #aaaaaa,
+  A400: #303030,
+  A700: #616161,
+  contrast: (
+    50: $black,
+    100: $black,
+    200: $black,
+    300: $black,
+    400: $black,
+    500: $white,
+    600: $white,
+    700: $white,
+    800: $white,
+    900: $white,
+    A100: $black,
+    A200: $black,
+    A400: $white,
+    A700: $white
+  )
+);
+
+$app-error: mat.define-palette($error-palette, 800, 300, 800);
+$app-success: mat.define-palette($success-palette, 500, 300, 700);
+$app-warn: mat.define-palette($warn-palette, 500, 300, 900);
+$app-grey: mat.define-palette($grey-palette, 500, 300, 800);
+
+// Gradients
+$category-gradient: linear-gradient(103.21deg, #f2f3f8 4.05%, #e6e9ff 90.74%);
+$category-gradient-secondary: linear-gradient(103.21deg, #f2f3f8 4.05%, #def8f7 90.74%);
