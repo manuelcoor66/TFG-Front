@@ -25,6 +25,7 @@
     "@angular/router": "^17.0.0",
     "@angular/ssr": "^17.0.10",
     "@ngx-translate/core": "^15.0.0",
+    "dcerialize": "^3.6.8",
     "express": "^4.18.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

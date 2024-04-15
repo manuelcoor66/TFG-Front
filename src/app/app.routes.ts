@@ -8,6 +8,8 @@ import { NgModule } from '@angular/core';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
+import {HttpClient} from "@angular/common/http";
+import {UserService} from "../services/user.service";
 
 export const routes: Routes = [
   {

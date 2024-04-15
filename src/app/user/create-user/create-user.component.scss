@@ -4,11 +4,25 @@
 
 h1 {
   justify-content: center;
+  align-items: center;
   display: flex;
+}
+
+button {
+  background-color: #046b99;
+}
+
+.prueba {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1rem;
 }
 
 .form-wrapper {
   align-items: center;
+  justify-content: center;
   display: flex;
   flex-direction: column;
   width: 100%;
