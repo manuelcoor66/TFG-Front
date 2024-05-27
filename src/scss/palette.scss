@@ -1,4 +1,4 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
 $white: #fff;
 $black: #000;
@@ -47,8 +47,8 @@ $success-palette: (
   contrast: (
     300: $black,
     500: $white,
-    700: $white
-  )
+    700: $white,
+  ),
 );
 
 $warn-palette: (
@@ -72,8 +72,8 @@ $warn-palette: (
     600: $white,
     700: $white,
     800: $white,
-    900: $white
-  )
+    900: $white,
+  ),
 );
 
 $grey-palette: (
@@ -103,8 +103,8 @@ $grey-palette: (
     A100: $black,
     A200: $black,
     A400: $white,
-    A700: $white
-  )
+    A700: $white,
+  ),
 );
 
 $app-error: mat.define-palette($error-palette, 800, 300, 800);
@@ -114,4 +114,8 @@ $app-grey: mat.define-palette($grey-palette, 500, 300, 800);
 
 // Gradients
 $category-gradient: linear-gradient(103.21deg, #f2f3f8 4.05%, #e6e9ff 90.74%);
-$category-gradient-secondary: linear-gradient(103.21deg, #f2f3f8 4.05%, #def8f7 90.74%);
+$category-gradient-secondary: linear-gradient(
+  103.21deg,
+  #f2f3f8 4.05%,
+  #def8f7 90.74%
+);

@@ -8,7 +8,7 @@ describe('CreateUserComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ CreateUserComponent, TranslateModule.forRoot()]
+      imports: [CreateUserComponent, TranslateModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CreateUserComponent);

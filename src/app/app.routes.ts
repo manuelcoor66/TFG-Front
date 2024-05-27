@@ -8,42 +8,42 @@ import { NgModule } from '@angular/core';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
-import {HttpClient} from "@angular/common/http";
-import {UserService} from "../services/user.service";
+import { HttpClient } from '@angular/common/http';
+import { UserService } from '../services/user.service';
 
 export const routes: Routes = [
   {
     path: '',
     redirectTo: '/home',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'account',
-    component: AccountComponent
+    component: AccountComponent,
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
   },
   {
     path: 'subscription',
-    component: SubscriptionComponent
+    component: SubscriptionComponent,
   },
   {
     path: 'create-user',
-    component: CreateUserComponent
+    component: CreateUserComponent,
   },
 ];
 

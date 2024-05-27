@@ -1,7 +1,7 @@
-@use '@angular/material' as mat;
-@use 'src/scss/palette' as pal;
-@use 'src/scss/utils/mixins' as mix;
-@use 'sass:map';
+@use "@angular/material" as mat;
+@use "src/scss/palette" as pal;
+@use "src/scss/utils/mixins" as mix;
+@use "sass:map";
 
 $hint-and-error-font-size: 0.85rem;
 @mixin theme($theme) {
@@ -14,7 +14,10 @@ $hint-and-error-font-size: 0.85rem;
     .mat-mdc-text-field-wrapper {
       border: 1px solid mat.get-color-from-palette(pal.$app-grey, 300);
       border-radius: 1.25rem;
-      background-color: mat.get-color-from-palette(pal.$app-grey, 100) !important;
+      background-color: mat.get-color-from-palette(
+        pal.$app-grey,
+        100
+      ) !important;
       transition: 0.1s;
       outline: transparent;
       outline-offset: -2px;
@@ -151,12 +154,18 @@ $hint-and-error-font-size: 0.85rem;
   Form Wrapper
   Wraps form fields and labels in a flex container.
  */
-.form-wrapper {
-  @include mix.column;
+.form__wrapper {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 
   mat-label {
-    @include mix.text-sm;
-    @include mix.grey-color(800);
     padding-bottom: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: #5c5c5c;
+    border-radius: 100px;
   }
 }

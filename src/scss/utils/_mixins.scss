@@ -1,7 +1,7 @@
-@use '@angular/material' as mat;
-@use 'src/scss/palette' as pal;
-@use 'sass:map';
-@import 'screen';
+@use "@angular/material" as mat;
+@use "src/scss/palette" as pal;
+@use "sass:map";
+@import "screen";
 
 @mixin stylize-text($font-size, $font-weight, $line-height) {
   font-size: $font-size;
@@ -63,6 +63,10 @@
   Gap shortcuts
   Used to standardize the use of given gaps in the app according to the standardized design
  */
+@mixin gap-xl() {
+  gap: 2rem;
+}
+
 @mixin gap-lg() {
   gap: 1.5rem;
 }
@@ -248,7 +252,12 @@
   background: mat.get-color-from-palette($primary, $color);
 }
 
-@mixin primary-background-gradient($theme, $degrees: 103.21deg, $start: 500, $end: 400) {
+@mixin primary-background-gradient(
+  $theme,
+  $degrees: 103.21deg,
+  $start: 500,
+  $end: 400
+) {
   $primary: map.get($theme, primary);
   background: linear-gradient(
     $degrees,

@@ -1,4 +1,4 @@
-import { autoserializeAs } from "dcerialize";
+import { autoserializeAs } from 'dcerialize';
 
 export class User {
   /**
@@ -35,15 +35,15 @@ export class User {
     name?: string,
     lastName?: string,
     email?: string,
-    securityWord?: string,
     password?: string,
+    securityWord?: string,
     id?: number,
   ) {
     this.name = name;
     this.last_names = lastName;
     this.email = email;
-    this.security_word = securityWord;
     this.password = password;
+    this.security_word = securityWord;
     this.id = id;
   }
 }
