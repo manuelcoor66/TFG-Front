@@ -12,6 +12,7 @@ import {MatInput} from "@angular/material/input";
 import {NgIf} from "@angular/common";
 import {User} from "../../../models/user";
 import {UserService} from "../../../services/user.service";
+import {SnackbarService} from "../../../services/snackbar.service";
 
 @Component({
   selector: 'app-change-password-modal',
@@ -22,6 +23,7 @@ import {UserService} from "../../../services/user.service";
 })
 export class ChangePasswordModalComponent {
   private userService = inject(UserService);
+  private snackbarService = inject(SnackbarService)
 
   /**
    * Login form
@@ -60,8 +62,12 @@ export class ChangePasswordModalComponent {
 
   changePassword(): void {
     if (this.loginForm.valid) {
-      if (this.actualUser.password == this.loginForm.get('old_password')?.value)
+      if (this.actualUser.password == this.loginForm.get('old_password')?.value) {
         this.actualUser.password = this.loginForm.get('new_password')?.value
+      }
+      else {
+        this.snackbarService.openSnackBar('La contraseña actual no existe o la introducida es la actual');
+      }
     }
   }
 }

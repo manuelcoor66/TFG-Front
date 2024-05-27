@@ -13,6 +13,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { User } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
 import { matchValidator } from '../../utils/functions';
+import {catchError} from "rxjs";
+import {SnackbarService} from "../../../services/snackbar.service";
 
 @Component({
   selector: 'app-create-user',
@@ -30,6 +32,7 @@ import { matchValidator } from '../../utils/functions';
 })
 export class CreateUserComponent {
   private userService = inject(UserService);
+  private snackbarService = inject(SnackbarService)
 
   /**
    * Login form
@@ -74,7 +77,14 @@ export class CreateUserComponent {
         this.loginForm.get('security_word')?.value,
       );
       // this.loginForm.disable();
-      this.userService.createUser(user).subscribe();
+      this.userService.createUser(user)
+        .pipe(
+          catchError((err) => {
+           this.snackbarService.openSnackBar(err)
+          throw err;
+        }),
+        )
+        .subscribe();
     }
   }
 }
