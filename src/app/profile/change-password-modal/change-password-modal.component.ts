@@ -33,26 +33,25 @@ export class ChangePasswordModalComponent {
    */
   public actualUser!: User;
 
-  private EMAIL_REGEX = new RegExp(
-    '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(.*[!@#$%^&*+=\\\\?\\-<>|(){}\'\\";:/€].*)',
-  );
-
   constructor() {
     this.userService.getUser(40).subscribe((user) => {
-      // console.log(user)
-      // this.actualUser = user;
+      this.actualUser = user;
+      console.log(this.actualUser)
 
       this.loginForm = new FormGroup({
-        old_password: new FormControl('', Validators.required),
+        old_password: new FormControl('', [
+          Validators.required,
+          Validators.minLength(8)
+        ]),
         new_password: new FormControl('', [
           Validators.required,
           Validators.minLength(8),
-          Validators.pattern(this.EMAIL_REGEX),
           matchValidator('new_password_repeat', true),
           // matchValidator(user.password as string, true),
         ]),
         new_password_repeat: new FormControl('', [
           Validators.required,
+          Validators.minLength(8),
           matchValidator('new_password'),
         ]),
       });
@@ -61,16 +60,8 @@ export class ChangePasswordModalComponent {
 
   changePassword(): void {
     if (this.loginForm.valid) {
-      const user = new User(
-        this.loginForm.get('name')?.value,
-        this.loginForm.get('lastnames')?.value,
-        this.loginForm.get('email')?.value,
-        this.loginForm.get('password')?.value,
-        this.loginForm.get('security_word')?.value,
-      );
-      // this.loginForm.disable();
-      console.log(user)
-      this.userService.createUser(user).subscribe();
+      if (this.actualUser.password == this.loginForm.get('old_password')?.value)
+        this.actualUser.password = this.loginForm.get('new_password')?.value
     }
   }
 }

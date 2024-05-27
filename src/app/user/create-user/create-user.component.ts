@@ -44,16 +44,18 @@ export class CreateUserComponent {
     this.loginForm = new FormGroup({
       name: new FormControl('', Validators.required),
       lastnames: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.pattern(this.EMAIL_REGEX)
+      ]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern(this.EMAIL_REGEX),
         matchValidator('password_repeat', true),
       ]),
       password_repeat: new FormControl('', [
         Validators.required,
-        matchValidator('password', true),
+        matchValidator('password'),
       ]),
       security_word: new FormControl('', [Validators.required]),
     });

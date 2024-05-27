@@ -101,13 +101,13 @@
     </div>
 
     <div class="form-wrapper">
-      <mat-label>Confirmar contraseña</mat-label>
+      <mat-label>Confirmar Contraseña</mat-label>
       <mat-form-field>
         <input
           matInput
           class="form__input"
           placeholder="Contraseña"
-          type="password_repeat"
+          type="password"
           formControlName="password_repeat"
           name="password_repeat"
           required
@@ -115,9 +115,7 @@
         <mat-error *ngIf="loginForm.get('password_repeat')?.hasError('name')">
           'Incorrecto'
         </mat-error>
-        <mat-error
-          *ngIf="loginForm.get('password_repeat')?.hasError('required')"
-        >
+        <mat-error *ngIf="loginForm.get('password_repeat')?.hasError('required')">
           'Requerido'
         </mat-error>
       </mat-form-field>
