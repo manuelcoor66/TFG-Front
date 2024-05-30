@@ -108,14 +108,16 @@
           class="form__input"
           placeholder="Contraseña"
           type="password"
-          formControlName="password_repeat"
-          name="password_repeat"
+          formControlName="passwordRepeat"
+          name="passwordRepeat"
           required
         />
-        <mat-error *ngIf="loginForm.get('password_repeat')?.hasError('name')">
+        <mat-error *ngIf="loginForm.get('passwordRepeat')?.hasError('name')">
           'Incorrecto'
         </mat-error>
-        <mat-error *ngIf="loginForm.get('password_repeat')?.hasError('required')">
+        <mat-error
+          *ngIf="loginForm.get('passwordRepeat')?.hasError('required')"
+        >
           'Requerido'
         </mat-error>
       </mat-form-field>
@@ -128,15 +130,15 @@
           matInput
           class="form__input"
           placeholder="Palabra de seguridad"
-          type="security_word"
-          formControlName="security_word"
-          name="security_word"
+          type="securityWord"
+          formControlName="securityWord"
+          name="securityWord"
           required
         />
-        <mat-error *ngIf="loginForm.get('security_word')?.hasError('name')">
+        <mat-error *ngIf="loginForm.get('securityWord')?.hasError('name')">
           'Incorrecto'
         </mat-error>
-        <mat-error *ngIf="loginForm.get('security_word')?.hasError('required')">
+        <mat-error *ngIf="loginForm.get('securityWord')?.hasError('required')">
           'Requerido'
         </mat-error>
       </mat-form-field>

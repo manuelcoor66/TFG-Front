@@ -1,20 +1,20 @@
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgIf } from '@angular/common';
+import { SnackbarService } from '../../../services/snackbar.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { User } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
+import { catchError } from 'rxjs';
 import { matchValidator } from '../../utils/functions';
-import {catchError} from "rxjs";
-import {SnackbarService} from "../../../services/snackbar.service";
 
 @Component({
   selector: 'app-create-user',
@@ -32,15 +32,15 @@ import {SnackbarService} from "../../../services/snackbar.service";
 })
 export class CreateUserComponent {
   private userService = inject(UserService);
-  private snackbarService = inject(SnackbarService)
+  private snackbarService = inject(SnackbarService);
 
   /**
    * Login form
    */
   public loginForm: FormGroup;
 
-  private EMAIL_REGEX = new RegExp(
-    '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(.*[!@#$%^&*+=\\\\?\\-<>|(){}\'\\";:/€].*)',
+  private emailRegex = new RegExp(
+    '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'
   );
 
   constructor() {
@@ -49,18 +49,18 @@ export class CreateUserComponent {
       lastnames: new FormControl('', Validators.required),
       email: new FormControl('', [
         Validators.required,
-        Validators.pattern(this.EMAIL_REGEX)
+        Validators.pattern(this.emailRegex)
       ]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
-        matchValidator('password_repeat', true),
+        matchValidator('passwordRepeat', true),
       ]),
-      password_repeat: new FormControl('', [
+      passwordRepeat: new FormControl('', [
         Validators.required,
         matchValidator('password'),
       ]),
-      security_word: new FormControl('', [Validators.required]),
+      securityWord: new FormControl('', [Validators.required]),
     });
   }
 
@@ -74,15 +74,16 @@ export class CreateUserComponent {
         this.loginForm.get('lastnames')?.value,
         this.loginForm.get('email')?.value,
         this.loginForm.get('password')?.value,
-        this.loginForm.get('security_word')?.value,
+        this.loginForm.get('securityWord')?.value,
       );
       // this.loginForm.disable();
-      this.userService.createUser(user)
+      this.userService
+        .createUser(user)
         .pipe(
           catchError((err) => {
-           this.snackbarService.openSnackBar(err)
-          throw err;
-        }),
+            this.snackbarService.openSnackBar(err.error.message);
+            throw err;
+          }),
         )
         .subscribe();
     }

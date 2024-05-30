@@ -19,7 +19,7 @@ export class User {
   /**
    * User last name
    */
-  @autoserializeAs(() => String) last_names?: string;
+  @autoserializeAs(() => String, 'last_names') lastNames?: string;
 
   /**
    * User last name
@@ -29,21 +29,21 @@ export class User {
   /**
    * User last name
    */
-  @autoserializeAs(() => String) security_word?: string;
+  @autoserializeAs(() => String, 'security_word') securityWord?: string;
 
   constructor(
     name?: string,
-    lastName?: string,
+    lastNames?: string,
     email?: string,
     password?: string,
     securityWord?: string,
     id?: number,
   ) {
     this.name = name;
-    this.last_names = lastName;
+    this.lastNames = lastNames;
     this.email = email;
     this.password = password;
-    this.security_word = securityWord;
+    this.securityWord = securityWord;
     this.id = id;
   }
 }
