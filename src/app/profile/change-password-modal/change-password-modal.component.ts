@@ -7,12 +7,15 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { LocalStorageService } from '../../../services/local-storage.service';
 import { MatButton } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
 import { NgIf } from '@angular/common';
 import { SnackbarService } from '../../../services/snackbar.service';
 import { User } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
+import { catchError } from 'rxjs';
 import { matchValidator } from '../../utils/functions';
 
 @Component({
@@ -34,6 +37,8 @@ import { matchValidator } from '../../utils/functions';
 export class ChangePasswordModalComponent {
   private userService = inject(UserService);
   private snackbarService = inject(SnackbarService);
+  private localStorageService = inject(LocalStorageService);
+  private dialog = inject(MatDialog);
 
   /**
    * Login form
@@ -46,26 +51,24 @@ export class ChangePasswordModalComponent {
   public actualUser!: User;
 
   constructor() {
-    this.userService.getUser(40).subscribe((user) => {
-      this.actualUser = user;
+    this.actualUser = this.localStorageService.getItem('user');
 
-      this.loginForm = new FormGroup({
-        oldPassword: new FormControl('', [
-          Validators.required,
-          Validators.minLength(8),
-        ]),
-        newPassword: new FormControl('', [
-          Validators.required,
-          Validators.minLength(8),
-          matchValidator('newPasswordRepeat', true),
-          // matchValidator(user.password as string, true),
-        ]),
-        newPasswordRepeat: new FormControl('', [
-          Validators.required,
-          Validators.minLength(8),
-          matchValidator('newPassword'),
-        ]),
-      });
+    this.loginForm = new FormGroup({
+      oldPassword: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+      ]),
+      newPassword: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+        matchValidator('newPasswordRepeat', true),
+        // matchValidator(user.password as string, true),
+      ]),
+      newPasswordRepeat: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+        matchValidator('newPassword'),
+      ]),
     });
   }
 
@@ -74,7 +77,20 @@ export class ChangePasswordModalComponent {
       if (
         this.actualUser.password == this.loginForm.get('oldPassword')?.value
       ) {
+        this.userService
+          .changePassword(
+            this.actualUser.email as string,
+            this.loginForm.get('newPassword')?.value,
+          )
+          .pipe(
+            catchError((err) => {
+              this.snackbarService.openSnackBar(err.error.message);
+              throw err;
+            }),
+          )
+          .subscribe();
         this.actualUser.password = this.loginForm.get('newPassword')?.value;
+        this.dialog.closeAll();
       } else {
         this.snackbarService.openSnackBar(
           'La contraseña actual no existe o la introducida es la actual',

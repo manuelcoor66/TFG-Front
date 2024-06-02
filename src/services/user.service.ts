@@ -37,4 +37,17 @@ export class UserService {
       }),
     );
   }
+
+  changePassword(email: string, password: string): Observable<void> {
+    return this.http
+      .patch<void>(
+        `${this.path}/change-password?email=${email}&new_password=${password}`,
+        {},
+      )
+      .pipe(
+        catchError((err) => {
+          throw err;
+        }),
+      );
+  }
 }

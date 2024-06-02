@@ -40,7 +40,7 @@ export class CreateUserComponent {
   public loginForm: FormGroup;
 
   private emailRegex = new RegExp(
-    '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'
+    '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$',
   );
 
   constructor() {
@@ -49,7 +49,7 @@ export class CreateUserComponent {
       lastnames: new FormControl('', Validators.required),
       email: new FormControl('', [
         Validators.required,
-        Validators.pattern(this.emailRegex)
+        Validators.pattern(this.emailRegex),
       ]),
       password: new FormControl('', [
         Validators.required,
