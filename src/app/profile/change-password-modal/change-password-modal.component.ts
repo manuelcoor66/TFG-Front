@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -9,7 +9,7 @@ import {
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import { MatButton } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
 import { NgIf } from '@angular/common';
 import { SnackbarService } from '../../../services/snackbar.service';
@@ -40,6 +40,8 @@ export class ChangePasswordModalComponent {
   private localStorageService = inject(LocalStorageService);
   private dialog = inject(MatDialog);
 
+  forgotPassword = false;
+
   /**
    * Login form
    */
@@ -50,11 +52,13 @@ export class ChangePasswordModalComponent {
    */
   public actualUser!: User;
 
-  constructor() {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+    this.forgotPassword = this.data?.forgotPassword;
+    console.log(this.localStorageService.getItem('user'));
     this.actualUser = this.localStorageService.getItem('user');
 
     this.loginForm = new FormGroup({
-      oldPassword: new FormControl('', [
+      checkForm: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
       ]),
@@ -75,7 +79,11 @@ export class ChangePasswordModalComponent {
   changePassword(): void {
     if (this.loginForm.valid) {
       if (
-        this.actualUser.password == this.loginForm.get('oldPassword')?.value
+        (!this.forgotPassword &&
+          this.actualUser.password == this.loginForm.get('checkForm')?.value) ||
+        (this.forgotPassword &&
+          this.actualUser.securityWord ==
+            this.loginForm.get('checkForm')?.value)
       ) {
         this.userService
           .changePassword(
@@ -90,10 +98,13 @@ export class ChangePasswordModalComponent {
           )
           .subscribe();
         this.actualUser.password = this.loginForm.get('newPassword')?.value;
+        this.localStorageService.setItem('user', this.actualUser);
         this.dialog.closeAll();
       } else {
         this.snackbarService.openSnackBar(
-          'La contraseña actual no existe o la introducida es la actual',
+          this.forgotPassword
+            ? 'La contraseña actual no existe o la introducida es la actual'
+            : 'La contraseña palabra de seguridad es incorrecta',
         );
       }
     }

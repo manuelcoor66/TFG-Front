@@ -22,12 +22,12 @@ export class User {
   @autoserializeAs(() => String, 'last_names') lastNames?: string;
 
   /**
-   * User last name
+   * User password
    */
   @autoserializeAs(() => String) password?: string;
 
   /**
-   * User last name
+   * Security word
    */
   @autoserializeAs(() => String, 'security_word') securityWord?: string;
 

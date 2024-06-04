@@ -4,6 +4,7 @@ import { LocalStorageService } from '../../services/local-storage.service';
 import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from '../../services/user.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-profile',
@@ -17,15 +18,21 @@ export class ProfileComponent implements OnInit {
   private userService = inject(UserService);
   private localStorageService = inject(LocalStorageService);
 
+  private actualUser?: User;
+
   ngOnInit(): void {
     this.userService.getUser(48).subscribe((user) => {
-      this.localStorageService.setItem('user', user);
+      this.actualUser = user;
     });
+
+    console.log(this.actualUser?.securityWord);
+    this.localStorageService.setItem('user', this.actualUser as User);
   }
 
   public async openChangePasswordModal(): Promise<void> {
     this.dialog.open(ChangePasswordModalComponent, {
       width: '36rem',
+      data: { forgotPassword: true },
     });
   }
 }
