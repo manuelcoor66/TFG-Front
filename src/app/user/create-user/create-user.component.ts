@@ -81,7 +81,7 @@ export class CreateUserComponent {
         .createUser(user)
         .pipe(
           catchError((err) => {
-            this.snackbarService.openSnackBar(err.error.message);
+            this.snackbarService.openSnackBar(err.error.message, 'success');
             throw err;
           }),
         )

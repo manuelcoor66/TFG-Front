@@ -9,7 +9,7 @@ export class User {
   /**
    * User email
    */
-  @autoserializeAs(() => String) email?: string;
+  @autoserializeAs(() => String) email: string;
 
   /**
    * User name
@@ -32,9 +32,9 @@ export class User {
   @autoserializeAs(() => String, 'security_word') securityWord?: string;
 
   constructor(
+    email: string,
     name?: string,
     lastNames?: string,
-    email?: string,
     password?: string,
     securityWord?: string,
     id?: number,
@@ -45,5 +45,10 @@ export class User {
     this.password = password;
     this.securityWord = securityWord;
     this.id = id;
+  }
+
+  updateNames(user: User): void {
+    this.name = user.name;
+    this.lastNames = user.lastNames;
   }
 }

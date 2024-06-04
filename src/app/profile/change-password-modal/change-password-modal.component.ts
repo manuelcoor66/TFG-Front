@@ -6,10 +6,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import { MatButton } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
 import { NgIf } from '@angular/common';
 import { SnackbarService } from '../../../services/snackbar.service';
@@ -52,9 +52,8 @@ export class ChangePasswordModalComponent {
    */
   public actualUser!: User;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { forgotPassword: boolean }) {
     this.forgotPassword = this.data?.forgotPassword;
-    console.log(this.localStorageService.getItem('user'));
     this.actualUser = this.localStorageService.getItem('user');
 
     this.loginForm = new FormGroup({
@@ -92,19 +91,24 @@ export class ChangePasswordModalComponent {
           )
           .pipe(
             catchError((err) => {
-              this.snackbarService.openSnackBar(err.error.message);
+              this.snackbarService.openSnackBar(err.error.message, 'success');
               throw err;
             }),
           )
           .subscribe();
         this.actualUser.password = this.loginForm.get('newPassword')?.value;
         this.localStorageService.setItem('user', this.actualUser);
+        this.snackbarService.openSnackBar(
+          'Contraseña cambiada con éxito',
+          'success',
+        );
         this.dialog.closeAll();
       } else {
         this.snackbarService.openSnackBar(
           this.forgotPassword
             ? 'La contraseña actual no existe o la introducida es la actual'
             : 'La contraseña palabra de seguridad es incorrecta',
+          'warning',
         );
       }
     }

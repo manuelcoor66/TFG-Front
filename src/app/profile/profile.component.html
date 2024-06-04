@@ -1,5 +1,103 @@
 <div class="profile">
-  <div CLASS="profile__principal"></div>
+  <div class="profile_int">
+    <form
+      novalidate
+      class="form-container"
+      [formGroup]="loginForm"
+      (ngSubmit)="changePassword()"
+    >
+      <div class="form-wrapper">
+        <mat-label>{{ "Nombre" }}</mat-label>
+        <mat-form-field>
+          <input
+            matInput
+            class="form__input"
+            placeholder="Nombre"
+            type="name"
+            formControlName="name"
+            name="name"
+            required
+          />
+          <mat-error *ngIf="loginForm.get('name')?.hasError('checkForm')">
+            'Incorrecto'
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('name')?.hasError('required')">
+            'Requerido'
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('name')?.hasError('pattern')">
+            'pattern'
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('name')?.hasError('minlength')">
+            'minlenght'
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('name')?.hasError('maxlength')">
+            'maxlength'
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-wrapper">
+        <div class="form-wrapper">
+          <mat-label>Apellidos</mat-label>
+          <mat-form-field>
+            <input
+              matInput
+              class="form__input"
+              placeholder="Apellidos"
+              type="lastNames"
+              formControlName="lastNames"
+              name="lastNames"
+              required
+            />
+            <mat-error
+              *ngIf="loginForm.get('lastNames')?.hasError('newPassword')"
+            >
+              'Incorrecto'
+            </mat-error>
+            <mat-error *ngIf="loginForm.get('lastNames')?.hasError('required')">
+              'Requerido'
+            </mat-error>
+            <mat-error
+              *ngIf="loginForm.get('lastNames')?.hasError('minlength')"
+            >
+              'minLength'
+            </mat-error>
+            <mat-error
+              *ngIf="loginForm.get('lastNames')?.hasError('maxlength')"
+            >
+              'maxlength'
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-wrapper">
+          <mat-label>Email</mat-label>
+          <mat-form-field>
+            <input
+              matInput
+              class="form__input"
+              placeholder="Email"
+              type="email"
+              formControlName="email"
+              name="email"
+              required
+            />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="modal__button">
+        <button
+          mat-button
+          type="submit"
+          data-test-id="login-button"
+          appLoadingButton
+        >
+          Cambiar
+        </button>
+      </div>
+    </form>
+  </div>
   <button
     mat-button
     type="submit"

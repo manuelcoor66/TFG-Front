@@ -1,9 +1,9 @@
 import { Observable, catchError, map } from 'rxjs';
+import { Deserialize } from 'dcerialize';
 import { HttpClient } from '@angular/common/http';
+import { IJsonObject } from 'dcerialize';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
-import { Deserialize } from 'dcerialize';
-import { IJsonObject } from 'dcerialize';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +45,25 @@ export class UserService {
     return this.http
       .patch<void>(
         `${this.path}/change-password?email=${email}&new_password=${password}`,
+        {},
+      )
+      .pipe(
+        catchError((err) => {
+          throw err;
+        }),
+      );
+  }
+  modifyUser(
+    email: string,
+    name?: string,
+    lastNames?: string,
+    password?: string,
+    securityWord?: string,
+  ): Observable<void> {
+    return this.http
+      .patch<void>(
+        `${this.path}/modify-user?name=${name}&last_names=${lastNames}&email=${email}
+        &password=${password}&security_word=${securityWord},`,
         {},
       )
       .pipe(

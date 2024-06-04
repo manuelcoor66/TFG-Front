@@ -24,6 +24,22 @@
   }
 }
 
+.profile_int {
+  margin: 2rem 2rem 4rem;
+}
+
 button {
   background-color: #046b99;
+}
+
+.modal {
+  margin: 2rem;
+
+  &__button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1rem;
+  }
 }

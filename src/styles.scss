@@ -8,3 +8,20 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+mat-snack-bar-container {
+  text-align: center;
+}
+
+.mat-mdc-snack-bar-container {
+  &.warning {
+    --mdc-snackbar-container-color: #d1d1d1;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #ff2929;
+  }
+  &.success {
+    --mdc-snackbar-container-color: #d1d1d1;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #03ab2e;
+  }
+}
