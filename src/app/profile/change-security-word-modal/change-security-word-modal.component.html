@@ -1,0 +1,120 @@
+<div class="modal">
+  <h1 class="modal__title">Cambiar palabra de seguridad</h1>
+
+  <div>
+    <form
+      novalidate
+      class="form-container"
+      [formGroup]="loginForm"
+      (ngSubmit)="changeSecurityWord()"
+    >
+      <div class="form-wrapper modal__old_pass">
+        <mat-label>{{
+          forgotSecurityWord ? "Palabra de seguridad" : "Contraseña actual"
+        }}</mat-label>
+        <mat-form-field>
+          <input
+            matInput
+            class="form__input"
+            placeholder="{{
+              forgotSecurityWord ? 'Palabra de seguridad' : 'Contraseña actual'
+            }}"
+            type="password"
+            formControlName="checkForm"
+            name="checkForm"
+            required
+          />
+          <mat-error *ngIf="loginForm.get('checkForm')?.hasError('checkForm')">
+            'Incorrecto'
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('checkForm')?.hasError('required')">
+            'Requerido'
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('checkForm')?.hasError('pattern')">
+            'pattern'
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('checkForm')?.hasError('minlength')">
+            'minlenght'
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="modal__new_pass">
+        <div class="form-wrapper">
+          <mat-label>Nueva palabra de seguridad</mat-label>
+          <mat-form-field>
+            <input
+              matInput
+              class="form__input"
+              placeholder="Nueva palabra de seguridad"
+              type="password"
+              formControlName="newSecurityWord"
+              name="newSecurityWord"
+              required
+            />
+            <mat-error
+              *ngIf="loginForm.get('newSecurityWord')?.hasError('newSecurityWord')"
+            >
+              'Incorrecto'
+            </mat-error>
+            <mat-error
+              *ngIf="loginForm.get('newSecurityWord')?.hasError('required')"
+            >
+              'Requerido'
+            </mat-error>
+            <mat-error
+              *ngIf="loginForm.get('newSecurityWord')?.hasError('minlength')"
+            >
+              'minLength'
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-wrapper">
+          <mat-label>Repetir nueva palabra de seguridad</mat-label>
+          <mat-form-field>
+            <input
+              matInput
+              class="form__input"
+              placeholder="Repetir nueva palabra de seguridad"
+              type="password"
+              formControlName="newSecurityWordRepeat"
+              name="newSecurityWordRepeat"
+              required
+            />
+            <mat-error
+              *ngIf="
+                loginForm
+                  .get('newSecurityWordRepeat')
+                  ?.hasError('newSecurityWordRepeat')
+              "
+            >
+              'Incorrecto'
+            </mat-error>
+            <mat-error
+              *ngIf="loginForm.get('newSecurityWordRepeat')?.hasError('required')"
+            >
+              'Requerido'
+            </mat-error>
+            <mat-error
+              *ngIf="loginForm.get('newSecurityWordRepeat')?.hasError('minlength')"
+            >
+              'minLength'
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="modal__button">
+        <button
+          mat-button
+          type="submit"
+          data-test-id="login-button"
+          appLoadingButton
+        >
+          Cambiar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

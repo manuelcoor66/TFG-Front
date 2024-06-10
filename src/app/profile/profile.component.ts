@@ -16,6 +16,7 @@ import { SnackbarService } from '../../services/snackbar.service';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
 import { catchError } from 'rxjs';
+import {ChangeSecurityWordModalComponent} from "./change-security-word-modal/change-security-word-modal.component";
 
 @Component({
   selector: 'app-profile',
@@ -79,6 +80,13 @@ export class ProfileComponent implements OnInit {
     this.dialog.open(ChangePasswordModalComponent, {
       width: '36rem',
       data: { forgotPassword: true },
+    });
+  }
+
+  public async openChangeSecurityPasswordModal(): Promise<void> {
+    this.dialog.open(ChangeSecurityWordModalComponent, {
+      width: '36rem',
+      data: { forgotSecurityWord: true },
     });
   }
 

@@ -25,3 +25,8 @@ mat-snack-bar-container {
     --mdc-snackbar-supporting-text-color: #03ab2e;
   }
 }
+
+.mat-mdc-form-field-error-wrapper {
+  display: flex;
+  justify-content: center;
+}

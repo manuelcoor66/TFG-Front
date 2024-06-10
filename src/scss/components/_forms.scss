@@ -47,6 +47,8 @@ $hint-and-error-font-size: 0.85rem;
     .mat-mdc-form-field-hint-wrapper,
     .mat-mdc-form-field-error-wrapper {
       padding: 0;
+      display: flex !important;
+      justify-content: center !important;
     }
   }
 
