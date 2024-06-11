@@ -1,9 +1,9 @@
 import { Observable, catchError, map } from 'rxjs';
+import { Deserialize } from 'dcerialize';
 import { HttpClient } from '@angular/common/http';
+import { IJsonObject } from 'dcerialize';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
-import { Deserialize } from 'dcerialize';
-import { IJsonObject } from 'dcerialize';
 
 @Injectable({
   providedIn: 'root',

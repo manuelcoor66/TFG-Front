@@ -3,8 +3,8 @@ import { ChangePasswordModalComponent } from './change-password-modal/change-pas
 import { LocalStorageService } from '../../services/local-storage.service';
 import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -25,7 +25,6 @@ export class ProfileComponent implements OnInit {
       this.actualUser = user;
     });
 
-    console.log(this.actualUser?.securityWord);
     this.localStorageService.setItem('user', this.actualUser as User);
   }
 

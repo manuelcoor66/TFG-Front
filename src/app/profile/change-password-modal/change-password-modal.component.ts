@@ -6,10 +6,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { DataForgotPassword } from '../../../definitions/data.inteface';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import { MatButton } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
 import { NgIf } from '@angular/common';
 import { SnackbarService } from '../../../services/snackbar.service';
@@ -52,9 +53,8 @@ export class ChangePasswordModalComponent {
    */
   public actualUser!: User;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DataForgotPassword) {
     this.forgotPassword = this.data?.forgotPassword;
-    console.log(this.localStorageService.getItem('user'));
     this.actualUser = this.localStorageService.getItem('user');
 
     this.loginForm = new FormGroup({
