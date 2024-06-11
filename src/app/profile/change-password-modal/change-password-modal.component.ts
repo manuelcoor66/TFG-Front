@@ -18,6 +18,7 @@ import { User } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
 import { catchError } from 'rxjs';
 import { matchValidator } from '../../utils/functions';
+import { HashService } from '../../../services/hash.service';
 
 @Component({
   selector: 'app-change-password-modal',
@@ -40,6 +41,7 @@ export class ChangePasswordModalComponent {
   private snackbarService = inject(SnackbarService);
   private localStorageService = inject(LocalStorageService);
   private dialog = inject(MatDialog);
+  private hashService = inject(HashService);
 
   forgotPassword = false;
 
@@ -80,7 +82,12 @@ export class ChangePasswordModalComponent {
     if (this.loginForm.valid) {
       if (
         (!this.forgotPassword &&
-          this.actualUser.password == this.loginForm.get('checkForm')?.value) ||
+          this.hashService.comparePassword(
+            this.actualUser.password as string,
+            this.hashService.hashPassword(
+              this.loginForm.get('checkForm')?.value,
+            ),
+          )) ||
         (this.forgotPassword &&
           this.actualUser.securityWord ==
             this.loginForm.get('checkForm')?.value)
@@ -88,7 +95,9 @@ export class ChangePasswordModalComponent {
         this.userService
           .changePassword(
             this.actualUser.email as string,
-            this.loginForm.get('newPassword')?.value,
+            this.hashService.hashPassword(
+              this.loginForm.get('newPassword')?.value,
+            ),
           )
           .pipe(
             catchError((err) => {
@@ -97,7 +106,9 @@ export class ChangePasswordModalComponent {
             }),
           )
           .subscribe();
-        this.actualUser.password = this.loginForm.get('newPassword')?.value;
+        this.actualUser.password = this.hashService.hashPassword(
+          this.loginForm.get('newPassword')?.value,
+        );
         this.localStorageService.setItem('user', this.actualUser);
         this.dialog.closeAll();
       } else {
