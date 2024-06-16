@@ -1,0 +1,161 @@
+<ng-container>
+  <h1>Introduzca sus datos personales</h1>
+
+  <form
+    novalidate
+    class="form-container"
+    [formGroup]="loginForm"
+    (ngSubmit)="createUser()"
+  >
+    <div class="form-wrapper">
+      <mat-label>Nombre</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          class="form__input"
+          placeholder="Nombre"
+          type="name"
+          formControlName="name"
+          name="name"
+          required
+        />
+        <mat-error *ngIf="loginForm.get('name')?.hasError('name')">
+          'Incorrecto'
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('name')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper">
+      <mat-label>Apellidos</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          class="form__input"
+          placeholder="Apellidos"
+          type="lastnames"
+          formControlName="lastnames"
+          name="lastnames"
+          required
+        />
+        <mat-error *ngIf="loginForm.get('lastnames')?.hasError('name')">
+          'Incorrecto'
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('lastnames')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper">
+      <mat-label>Correo</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          class="form__input"
+          placeholder="Correo"
+          type="email"
+          formControlName="email"
+          name="email"
+          required
+        />
+        <mat-error *ngIf="loginForm.get('email')?.hasError('name')">
+          'Incorrecto'
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('pattern')">
+          'Formato incorrecto'
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper">
+      <mat-label>Contraseña</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          class="form__input"
+          placeholder="Contraseña"
+          type="password"
+          formControlName="password"
+          name="password"
+          required
+        />
+        <mat-error *ngIf="loginForm.get('password')?.hasError('name')">
+          'Incorrecto'
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('pattern')">
+          'pattern'
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('minLength')">
+          'minLength'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper">
+      <mat-label>Confirmar Contraseña</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          class="form__input"
+          placeholder="Contraseña"
+          type="password"
+          formControlName="passwordRepeat"
+          name="passwordRepeat"
+          required
+        />
+        <mat-error *ngIf="loginForm.get('passwordRepeat')?.hasError('name')">
+          'Incorrecto'
+        </mat-error>
+        <mat-error
+          *ngIf="loginForm.get('passwordRepeat')?.hasError('required')"
+        >
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper">
+      <mat-label>Palabra de seguridad</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          class="form__input"
+          placeholder="Palabra de seguridad"
+          type="securityWord"
+          formControlName="securityWord"
+          name="securityWord"
+          required
+        />
+        <mat-error *ngIf="loginForm.get('securityWord')?.hasError('name')">
+          'Incorrecto'
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('securityWord')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="button">
+      <button
+        mat-button
+        class="btn--primary btn--lg"
+        type="submit"
+        data-test-id="login-button"
+        appLoadingButton
+      >
+        <!--        <ion-icon name="log-in-outline"></ion-icon>-->
+        <!--        {{ 'LoginComponent.Login' | translate }}-->
+        Crear
+      </button>
+    </div>
+  </form>
+</ng-container>

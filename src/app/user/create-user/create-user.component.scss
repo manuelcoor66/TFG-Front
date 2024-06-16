@@ -1,7 +1,24 @@
 :host {
+  width: 100%;
+}
+
+h1 {
+  justify-content: center;
   align-items: center;
   display: flex;
-  flex-direction: column;
+}
+
+button {
+  background-color: #046b99;
+}
+
+.button {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1rem;
+  border-radius: 10px;
 }
 
 .form-wrapper {
@@ -20,17 +37,4 @@
     color: #5c5c5c;
     border-radius: 100px;
   }
-}
-
-.button {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 1rem;
-  border-radius: 10px;
-}
-
-button {
-  background-color: #046b99;
 }

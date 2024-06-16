@@ -13,35 +13,36 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: '/home',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'account',
-    component: AccountComponent
+    component: AccountComponent,
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    // canActivate: [AuthGuard]
   },
   {
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
   },
   {
     path: 'subscription',
-    component: SubscriptionComponent
+    component: SubscriptionComponent,
   },
   {
     path: 'create-user',
-    component: CreateUserComponent
+    component: CreateUserComponent,
   },
 ];
 

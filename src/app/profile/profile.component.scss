@@ -1,0 +1,29 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid grey;
+  border-radius: 10px;
+  width: 90%;
+  height: 80%;
+  margin: 5%;
+
+  &__principal {
+    width: 80%;
+    height: 80%;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+    width: auto;
+    border-radius: 10px;
+  }
+}
+
+button {
+  background-color: #046b99;
+}

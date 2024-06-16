@@ -1,22 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CreateUserComponent } from './create-user.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { LoginComponent } from './login.component';
+import { TranslateModule } from '@ngx-translate/core';
 
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+describe('CreateUserComponent', () => {
+  let component: CreateUserComponent;
+  let fixture: ComponentFixture<CreateUserComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        LoginComponent,
-        BrowserAnimationsModule,
+        CreateUserComponent,
         HttpClientTestingModule,
+        BrowserAnimationsModule,
+        TranslateModule.forRoot(),
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(CreateUserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,20 +1,20 @@
 $bp-xxlarge: 2560px;
-$mq-xxlarge: '(max-width: #{$bp-xxlarge})';
+$mq-xxlarge: "(max-width: #{$bp-xxlarge})";
 
 $bp-xlarge: 1920px;
-$mq-xlarge: '(max-width: #{$bp-xlarge})';
+$mq-xlarge: "(max-width: #{$bp-xlarge})";
 
 $bp-large: 1500px;
-$mq-large: '(max-width: #{$bp-large})';
+$mq-large: "(max-width: #{$bp-large})";
 
 $bp-medium: 1280px;
-$mq-medium: '(max-width: #{$bp-medium})';
+$mq-medium: "(max-width: #{$bp-medium})";
 
 $bp-small: 960px;
-$mq-small: '(max-width: #{$bp-small})';
+$mq-small: "(max-width: #{$bp-small})";
 
 $bp-xsmall: 599px;
-$mq-xsmall: '(max-width: #{$bp-xsmall})';
+$mq-xsmall: "(max-width: #{$bp-xsmall})";
 
 // Small devices
 @mixin xs {
@@ -66,7 +66,7 @@ $mq-xsmall: '(max-width: #{$bp-xsmall})';
 
 // Custom devices
 @mixin rwd($screen) {
-  @media (min-width: $screen + 'px') {
+  @media (min-width: $screen + "px") {
     @content;
   }
 }
