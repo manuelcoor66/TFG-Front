@@ -9,7 +9,11 @@ describe('ProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProfileComponent, HttpClientTestingModule, BrowserAnimationsModule],
+      imports: [
+        ProfileComponent,
+        HttpClientTestingModule,
+        BrowserAnimationsModule,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProfileComponent);

@@ -83,10 +83,10 @@ export class UserService {
     password?: string,
     securityWord?: string,
   ): Observable<void> {
+    console.log(password);
     return this.http
       .patch<void>(
-        `${this.path}/modify-user?name=${name}&last_names=${lastNames}&email=${email}
-        &password=${password}&security_word=${securityWord},`,
+        `${this.path}/modify-user?name=${name}&last_names=${lastNames}&email=${email}&password=${password}&security_word=${securityWord},`,
         {},
       )
       .pipe(

@@ -97,21 +97,24 @@ export class ProfileComponent implements OnInit {
             this.actualuser.email,
             this.loginForm.get('name')?.value,
             this.loginForm.get('lastNames')?.value,
+            this.actualuser.password,
+            this.actualuser.securityWord,
           )
           .pipe(
             catchError((err) => {
-              this.snackbarService.openSnackBar(err.error.message, 'success');
+              this.snackbarService.openSnackBar(err.error.message, 'warning');
               throw err;
             }),
           )
-          .subscribe();
-        this.actualuser.name = this.loginForm.get('name')?.value;
-        this.actualuser.lastNames = this.loginForm.get('lastNames')?.value;
-        this.localStorageService.setItem('user', this.actualuser);
-        this.snackbarService.openSnackBar(
-          'Datos cambiados con éxito',
-          'success',
-        );
+          .subscribe(() => {
+            this.actualuser.name = this.loginForm.get('name')?.value;
+            this.actualuser.lastNames = this.loginForm.get('lastNames')?.value;
+            this.localStorageService.setItem('user', this.actualuser);
+            this.snackbarService.openSnackBar(
+              'Datos cambiados con éxito',
+              'success',
+            );
+          });
       } else {
         this.snackbarService.openSnackBar('Cambie algún dato', 'warning');
       }

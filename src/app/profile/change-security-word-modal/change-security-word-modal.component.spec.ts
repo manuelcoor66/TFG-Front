@@ -10,10 +10,12 @@ describe('ChangeSecurityWordModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ChangeSecurityWordModalComponent, HttpClientTestingModule, BrowserAnimationsModule],
-      providers: [
-        { provide: MAT_DIALOG_DATA, useValue: {} },
-      ]
+      imports: [
+        ChangeSecurityWordModalComponent,
+        HttpClientTestingModule,
+        BrowserAnimationsModule,
+      ],
+      providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ChangeSecurityWordModalComponent);
