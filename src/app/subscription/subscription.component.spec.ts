@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SubscriptionComponent } from './subscription.component';
 
 describe('SubscriptionComponent', () => {
@@ -8,7 +8,8 @@ describe('SubscriptionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SubscriptionComponent],
+      declarations: [SubscriptionComponent],
+      imports: [BrowserAnimationsModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SubscriptionComponent);
