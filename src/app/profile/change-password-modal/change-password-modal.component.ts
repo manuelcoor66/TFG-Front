@@ -8,6 +8,8 @@ import {
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { DataForgotPassword } from '../../../definitions/data.inteface';
+import { HashService } from '../../../services/hash.service';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import { MatButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
@@ -39,6 +41,7 @@ export class ChangePasswordModalComponent {
   private snackbarService = inject(SnackbarService);
   private localStorageService = inject(LocalStorageService);
   private dialog = inject(MatDialog);
+  private hashService = inject(HashService);
 
   forgotPassword = false;
 
@@ -79,7 +82,10 @@ export class ChangePasswordModalComponent {
     if (this.loginForm.valid) {
       if (
         (!this.forgotPassword &&
-          this.actualUser.password == this.loginForm.get('checkForm')?.value) ||
+          this.hashService.comparePassword(
+            this.loginForm.get('checkForm')?.value,
+            this.actualUser.password as string,
+          )) ||
         (this.forgotPassword &&
           this.actualUser.securityWord ==
             this.loginForm.get('checkForm')?.value)
@@ -87,7 +93,9 @@ export class ChangePasswordModalComponent {
         this.userService
           .changePassword(
             this.actualUser.email as string,
-            this.loginForm.get('newPassword')?.value,
+            this.hashService.hashPassword(
+              this.loginForm.get('newPassword')?.value,
+            ),
           )
           .pipe(
             catchError((err) => {
@@ -96,7 +104,9 @@ export class ChangePasswordModalComponent {
             }),
           )
           .subscribe();
-        this.actualUser.password = this.loginForm.get('newPassword')?.value;
+        this.actualUser.password = this.hashService.hashPassword(
+          this.loginForm.get('newPassword')?.value,
+        );
         this.localStorageService.setItem('user', this.actualUser);
         this.snackbarService.openSnackBar(
           'Contraseña cambiada con éxito',

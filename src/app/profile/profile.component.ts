@@ -16,7 +16,7 @@ import { SnackbarService } from '../../services/snackbar.service';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
 import { catchError } from 'rxjs';
-import {ChangeSecurityWordModalComponent} from "./change-security-word-modal/change-security-word-modal.component";
+import { ChangeSecurityWordModalComponent } from "./change-security-word-modal/change-security-word-modal.component";
 
 @Component({
   selector: 'app-profile',
@@ -52,9 +52,6 @@ export class ProfileComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.userService.getUser(48).subscribe((user) => {
-      this.localStorageService.setItem('user', user);
-    });
 
     this.actualuser = this.localStorageService.getItem('user');
 
@@ -79,7 +76,7 @@ export class ProfileComponent implements OnInit {
   public async openChangePasswordModal(): Promise<void> {
     this.dialog.open(ChangePasswordModalComponent, {
       width: '36rem',
-      data: { forgotPassword: true },
+      data: { forgotPassword: false },
     });
   }
 

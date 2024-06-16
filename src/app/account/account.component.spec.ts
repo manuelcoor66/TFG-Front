@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AccountComponent } from './account.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AccountComponent', () => {
   let component: AccountComponent;
@@ -8,7 +8,8 @@ describe('AccountComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AccountComponent],
+      declarations: [AccountComponent],
+      imports: [BrowserAnimationsModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AccountComponent);

@@ -5,6 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { HashService } from '../../../services/hash.service';
 import { MatButton } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -33,6 +34,7 @@ import { matchValidator } from '../../utils/functions';
 export class CreateUserComponent {
   private userService = inject(UserService);
   private snackbarService = inject(SnackbarService);
+  private hashService = inject(HashService);
 
   /**
    * Login form
@@ -73,7 +75,7 @@ export class CreateUserComponent {
         this.loginForm.get('name')?.value,
         this.loginForm.get('lastnames')?.value,
         this.loginForm.get('email')?.value,
-        this.loginForm.get('password')?.value,
+        this.hashService.hashPassword(this.loginForm.get('password')?.value),
         this.loginForm.get('securityWord')?.value,
       );
       // this.loginForm.disable();
