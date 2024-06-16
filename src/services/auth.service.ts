@@ -1,26 +1,26 @@
-import {inject, Injectable} from '@angular/core';
-import { User } from "../models/user";
-import {LocalStorageService} from "./local-storage.service";
+import { Injectable, inject } from '@angular/core';
+import { LocalStorageService } from './local-storage.service';
+import { User } from '../models/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private localStorageService = inject(LocalStorageService);
 
-  private readonly TOKEN_KEY = 'user';
+  private readonly tokenKey = 'user';
 
-  constructor() { }
+  constructor() {}
 
   login(user: User): void {
-    this.localStorageService.setItem(this.TOKEN_KEY, user);
+    this.localStorageService.setItem(this.tokenKey, user);
   }
 
   logout(): void {
-    this.localStorageService.removeItem(this.TOKEN_KEY);
+    this.localStorageService.removeItem(this.tokenKey);
   }
 
   isLoggedIn(): boolean {
-    return this.localStorageService.getItem(this.TOKEN_KEY) !== null;
+    return this.localStorageService.getItem(this.tokenKey) !== null;
   }
 }

@@ -9,8 +9,8 @@ export class HashService {
 
   hashPassword(password: string): string {
     const salt = bcrypt.genSaltSync(10);
-    const hashedPassword = bcrypt.hashSync(password, salt);
-    return hashedPassword;
+
+    return bcrypt.hashSync(password, salt);
   }
 
   comparePassword(password: string, hash: string): boolean {

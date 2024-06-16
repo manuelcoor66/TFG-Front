@@ -9,6 +9,7 @@ import {
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { DataForgotPassword } from '../../../definitions/data.inteface';
+import { HashService } from '../../../services/hash.service';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import { MatButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
@@ -18,7 +19,6 @@ import { User } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
 import { catchError } from 'rxjs';
 import { matchValidator } from '../../utils/functions';
-import { HashService } from '../../../services/hash.service';
 
 @Component({
   selector: 'app-change-password-modal',
@@ -84,7 +84,7 @@ export class ChangePasswordModalComponent {
         (!this.forgotPassword &&
           this.hashService.comparePassword(
             this.loginForm.get('checkForm')?.value,
-            this.actualUser.password as string
+            this.actualUser.password as string,
           )) ||
         (this.forgotPassword &&
           this.actualUser.securityWord ==
