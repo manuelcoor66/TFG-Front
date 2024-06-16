@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import { HashService } from '../../../services/hash.service';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import { MatButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
@@ -32,17 +31,16 @@ import { matchValidator } from '../../utils/functions';
     NgIf,
     ReactiveFormsModule,
   ],
-  templateUrl: './change-password-modal.component.html',
-  styleUrls: ['./change-password-modal.component.scss'],
+  templateUrl: './change-security-word-modal.component.html',
+  styleUrls: ['./change-security-word-modal.component.scss'],
 })
-export class ChangePasswordModalComponent {
+export class ChangeSecurityWordModalComponent {
   private userService = inject(UserService);
   private snackbarService = inject(SnackbarService);
   private localStorageService = inject(LocalStorageService);
   private dialog = inject(MatDialog);
-  private hashService = inject(HashService);
 
-  forgotPassword = false;
+  forgotSecurityWord = false;
 
   /**
    * Login form
@@ -55,9 +53,9 @@ export class ChangePasswordModalComponent {
   public actualUser!: User;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { forgotPassword: boolean },
+    @Inject(MAT_DIALOG_DATA) public data: { forgotSecurityWord: boolean },
   ) {
-    this.forgotPassword = this.data?.forgotPassword;
+    this.forgotSecurityWord = this.data?.forgotSecurityWord;
     this.actualUser = this.localStorageService.getItem('user');
 
     this.loginForm = new FormGroup({
@@ -65,38 +63,33 @@ export class ChangePasswordModalComponent {
         Validators.required,
         Validators.minLength(8),
       ]),
-      newPassword: new FormControl('', [
+      newSecurityWord: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
-        matchValidator('newPasswordRepeat', true),
+        matchValidator('newSecurityWordRepeat', true),
         // matchValidator(user.password as string, true),
       ]),
-      newPasswordRepeat: new FormControl('', [
+      newSecurityWordRepeat: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
-        matchValidator('newPassword'),
+        matchValidator('newSecurityWord'),
       ]),
     });
   }
 
-  changePassword(): void {
+  changeSecurityWord(): void {
     if (this.loginForm.valid) {
       if (
-        (!this.forgotPassword &&
-          this.hashService.comparePassword(
-            this.loginForm.get('checkForm')?.value,
-            this.actualUser.password as string,
-          )) ||
-        (this.forgotPassword &&
+        (this.forgotSecurityWord &&
           this.actualUser.securityWord ==
-            this.loginForm.get('checkForm')?.value)
+            this.loginForm.get('checkForm')?.value) ||
+        (!this.forgotSecurityWord &&
+          this.actualUser.password == this.loginForm.get('checkForm')?.value)
       ) {
         this.userService
-          .changePassword(
+          .changeSecurityWord(
             this.actualUser.email as string,
-            this.hashService.hashPassword(
-              this.loginForm.get('newPassword')?.value,
-            ),
+            this.loginForm.get('newSecurityWord')?.value,
           )
           .pipe(
             catchError((err) => {
@@ -105,20 +98,19 @@ export class ChangePasswordModalComponent {
             }),
           )
           .subscribe();
-        this.actualUser.password = this.hashService.hashPassword(
-          this.loginForm.get('newPassword')?.value,
-        );
+        this.actualUser.securityWord =
+          this.loginForm.get('newSecurityWord')?.value;
         this.localStorageService.setItem('user', this.actualUser);
         this.snackbarService.openSnackBar(
-          'Contraseña cambiada con éxito',
+          'Palabra de seguridad cambiada con éxito',
           'success',
         );
         this.dialog.closeAll();
       } else {
         this.snackbarService.openSnackBar(
-          this.forgotPassword
-            ? 'La contraseña actual no existe o la introducida es la actual'
-            : 'La palabra de seguridad introducida es incorrecta',
+          this.forgotSecurityWord
+            ? 'La palabra de seguridad actual no existe o la introducida es la actual'
+            : 'La contraseña introducida es incorrecta',
           'warning',
         );
       }

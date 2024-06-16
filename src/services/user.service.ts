@@ -62,4 +62,39 @@ export class UserService {
         }),
       );
   }
+
+  changeSecurityWord(email: string, securityWord: string): Observable<void> {
+    return this.http
+      .patch<void>(
+        `${this.path}/change-security-word?email=${email}&security_word=${securityWord}`,
+        {},
+      )
+      .pipe(
+        catchError((err) => {
+          throw err;
+        }),
+      );
+  }
+
+  modifyUser(
+    email: string,
+    name?: string,
+    lastNames?: string,
+    password?: string,
+    securityWord?: string,
+  ): Observable<void> {
+    console.log(password);
+
+    return this.http
+      .patch<void>(
+        `${this.path}/modify-user?name=${name}&last_names=${lastNames}` +
+            `&email=${email}&password=${password}&security_word=${securityWord}`,
+        {},
+      )
+      .pipe(
+        catchError((err) => {
+          throw err;
+        }),
+      );
+  }
 }

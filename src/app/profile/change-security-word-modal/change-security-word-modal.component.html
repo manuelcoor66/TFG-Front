@@ -1,23 +1,23 @@
 <div class="modal">
-  <h1 class="modal__title">Cambiar contraseña</h1>
+  <h1 class="modal__title">Cambiar palabra de seguridad</h1>
 
   <div>
     <form
       novalidate
       class="form-container"
       [formGroup]="loginForm"
-      (ngSubmit)="changePassword()"
+      (ngSubmit)="changeSecurityWord()"
     >
       <div class="form-wrapper modal__old_pass">
         <mat-label>{{
-          forgotPassword ? "Palabra de seguridad" : "Contraseña actual"
+          forgotSecurityWord ? "Palabra de seguridad" : "Contraseña actual"
         }}</mat-label>
         <mat-form-field>
           <input
             matInput
             class="form__input"
             placeholder="{{
-              forgotPassword ? 'Palabra de seguridad' : 'Contraseña actual'
+              forgotSecurityWord ? 'Palabra de seguridad' : 'Contraseña actual'
             }}"
             type="password"
             formControlName="checkForm"
@@ -41,29 +41,31 @@
 
       <div class="modal__new_pass">
         <div class="form-wrapper">
-          <mat-label>Nueva contraseña</mat-label>
+          <mat-label>Nueva palabra de seguridad</mat-label>
           <mat-form-field>
             <input
               matInput
               class="form__input"
-              placeholder="Nueva contraseña"
+              placeholder="Nueva palabra de seguridad"
               type="password"
-              formControlName="newPassword"
-              name="newPassword"
+              formControlName="newSecurityWord"
+              name="newSecurityWord"
               required
             />
             <mat-error
-              *ngIf="loginForm.get('newPassword')?.hasError('newPassword')"
+              *ngIf="
+                loginForm.get('newSecurityWord')?.hasError('newSecurityWord')
+              "
             >
               'Incorrecto'
             </mat-error>
             <mat-error
-              *ngIf="loginForm.get('newPassword')?.hasError('required')"
+              *ngIf="loginForm.get('newSecurityWord')?.hasError('required')"
             >
               'Requerido'
             </mat-error>
             <mat-error
-              *ngIf="loginForm.get('newPassword')?.hasError('minlength')"
+              *ngIf="loginForm.get('newSecurityWord')?.hasError('minlength')"
             >
               'minLength'
             </mat-error>
@@ -71,33 +73,37 @@
         </div>
 
         <div class="form-wrapper">
-          <mat-label>Repetir nueva contraseña</mat-label>
+          <mat-label>Repetir nueva palabra de seguridad</mat-label>
           <mat-form-field>
             <input
               matInput
               class="form__input"
-              placeholder="Repetir nueva contraseña"
+              placeholder="Repetir nueva palabra de seguridad"
               type="password"
-              formControlName="newPasswordRepeat"
-              name="newPasswordRepeat"
+              formControlName="newSecurityWordRepeat"
+              name="newSecurityWordRepeat"
               required
             />
             <mat-error
               *ngIf="
                 loginForm
-                  .get('newPasswordRepeat')
-                  ?.hasError('newPasswordRepeat')
+                  .get('newSecurityWordRepeat')
+                  ?.hasError('newSecurityWordRepeat')
               "
             >
               'Incorrecto'
             </mat-error>
             <mat-error
-              *ngIf="loginForm.get('newPasswordRepeat')?.hasError('required')"
+              *ngIf="
+                loginForm.get('newSecurityWordRepeat')?.hasError('required')
+              "
             >
               'Requerido'
             </mat-error>
             <mat-error
-              *ngIf="loginForm.get('newPasswordRepeat')?.hasError('minlength')"
+              *ngIf="
+                loginForm.get('newSecurityWordRepeat')?.hasError('minlength')
+              "
             >
               'minLength'
             </mat-error>

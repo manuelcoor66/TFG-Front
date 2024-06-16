@@ -1,24 +1,49 @@
 .profile {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   border: 2px solid grey;
   border-radius: 10px;
   width: 90%;
   height: 80%;
   margin: 5%;
+  gap: 1rem;
 
   &__principal {
     width: 80%;
     height: 80%;
   }
+}
+
+.form-wrapper {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 0.5rem;
+  gap: 0.5rem;
+
+  mat-label {
+    padding-bottom: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: #5c5c5c;
+    border-radius: 100px;
+  }
+}
+
+.profile_int {
+  gap: 3rem;
+  flex-direction: column;
+  display: flex;
 
   &__button {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 10%;
+    margin-top: 2%;
+    height: 5%;
     width: auto;
     border-radius: 10px;
   }
@@ -26,4 +51,28 @@
 
 button {
   background-color: #046b99;
+}
+
+h1 {
+  height: 10%;
+  margin-top: 15%;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.modal {
+  margin: 2rem;
+
+  &__button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1rem;
+  }
+}
+
+.divider {
+  border-top: 1px solid gray;
 }

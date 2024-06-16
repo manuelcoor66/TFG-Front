@@ -1,22 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChangeSecurityWordModalComponent } from './change-security-word-modal.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ProfileComponent } from './profile.component';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-describe('ProfileComponent', () => {
-  let component: ProfileComponent;
-  let fixture: ComponentFixture<ProfileComponent>;
+describe('ChangeSecurityWordModalComponent', () => {
+  let component: ChangeSecurityWordModalComponent;
+  let fixture: ComponentFixture<ChangeSecurityWordModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        ProfileComponent,
+        ChangeSecurityWordModalComponent,
         HttpClientTestingModule,
         BrowserAnimationsModule,
       ],
+      providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ProfileComponent);
+    fixture = TestBed.createComponent(ChangeSecurityWordModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
