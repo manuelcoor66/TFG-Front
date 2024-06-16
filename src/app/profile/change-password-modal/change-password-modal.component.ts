@@ -83,10 +83,8 @@ export class ChangePasswordModalComponent {
       if (
         (!this.forgotPassword &&
           this.hashService.comparePassword(
-            this.actualUser.password as string,
-            this.hashService.hashPassword(
-              this.loginForm.get('checkForm')?.value,
-            ),
+            this.loginForm.get('checkForm')?.value,
+            this.actualUser.password as string
           )) ||
         (this.forgotPassword &&
           this.actualUser.securityWord ==
@@ -114,8 +112,8 @@ export class ChangePasswordModalComponent {
       } else {
         this.snackbarService.openSnackBar(
           this.forgotPassword
-            ? 'La contraseña actual no existe o la introducida es la actual'
-            : 'La contraseña palabra de seguridad es incorrecta',
+            ? 'La contraseña palabra de seguridad es incorrecta'
+            : 'La contraseña actual no existe o la introducida es la actual',
         );
       }
     }

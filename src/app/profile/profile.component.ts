@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
   public async openChangePasswordModal(): Promise<void> {
     this.dialog.open(ChangePasswordModalComponent, {
       width: '36rem',
-      data: { forgotPassword: true },
+      data: { forgotPassword: false },
     });
   }
 }

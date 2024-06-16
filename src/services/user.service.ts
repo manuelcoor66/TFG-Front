@@ -41,6 +41,15 @@ export class UserService {
     );
   }
 
+  getUserByEmail(email: string): Observable<User> {
+    return this.http.get<IJsonObject>(`${this.path}/email/${email}`).pipe(
+      map((user) => Deserialize(user, () => User)),
+      catchError((err) => {
+        throw err;
+      }),
+    );
+  }
+
   changePassword(email: string, password: string): Observable<void> {
     return this.http
       .patch<void>(

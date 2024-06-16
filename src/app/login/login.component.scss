@@ -1,0 +1,36 @@
+:host {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-wrapper {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0.5rem;
+  gap: 0.5rem;
+
+  mat-label {
+    padding-bottom: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: #5c5c5c;
+    border-radius: 100px;
+  }
+}
+
+.button {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1rem;
+  border-radius: 10px;
+}
+
+button {
+  background-color: #046b99;
+}
