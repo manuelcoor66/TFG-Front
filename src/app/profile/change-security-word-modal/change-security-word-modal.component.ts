@@ -52,7 +52,9 @@ export class ChangeSecurityWordModalComponent {
    */
   public actualUser!: User;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { forgotSecurityWord: boolean }) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { forgotSecurityWord: boolean },
+  ) {
     this.forgotSecurityWord = this.data?.forgotSecurityWord;
     this.actualUser = this.localStorageService.getItem('user');
 
@@ -76,11 +78,11 @@ export class ChangeSecurityWordModalComponent {
   }
 
   changeSecurityWord(): void {
-    console.log(this.forgotSecurityWord)
     if (this.loginForm.valid) {
       if (
         (this.forgotSecurityWord &&
-          this.actualUser.securityWord == this.loginForm.get('checkForm')?.value) ||
+          this.actualUser.securityWord ==
+            this.loginForm.get('checkForm')?.value) ||
         (!this.forgotSecurityWord &&
           this.actualUser.password == this.loginForm.get('checkForm')?.value)
       ) {
@@ -96,7 +98,8 @@ export class ChangeSecurityWordModalComponent {
             }),
           )
           .subscribe();
-        this.actualUser.securityWord = this.loginForm.get('newSecurityWord')?.value;
+        this.actualUser.securityWord =
+          this.loginForm.get('newSecurityWord')?.value;
         this.localStorageService.setItem('user', this.actualUser);
         this.snackbarService.openSnackBar(
           'Palabra de seguridad cambiada con éxito',

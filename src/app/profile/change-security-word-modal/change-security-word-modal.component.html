@@ -53,7 +53,9 @@
               required
             />
             <mat-error
-              *ngIf="loginForm.get('newSecurityWord')?.hasError('newSecurityWord')"
+              *ngIf="
+                loginForm.get('newSecurityWord')?.hasError('newSecurityWord')
+              "
             >
               'Incorrecto'
             </mat-error>
@@ -92,12 +94,16 @@
               'Incorrecto'
             </mat-error>
             <mat-error
-              *ngIf="loginForm.get('newSecurityWordRepeat')?.hasError('required')"
+              *ngIf="
+                loginForm.get('newSecurityWordRepeat')?.hasError('required')
+              "
             >
               'Requerido'
             </mat-error>
             <mat-error
-              *ngIf="loginForm.get('newSecurityWordRepeat')?.hasError('minlength')"
+              *ngIf="
+                loginForm.get('newSecurityWordRepeat')?.hasError('minlength')
+              "
             >
               'minLength'
             </mat-error>

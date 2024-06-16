@@ -63,12 +63,10 @@ export class UserService {
       );
   }
 
-  changeSecurityWord(email: string, security_word: string): Observable<void> {
-    console.log(security_word)
-
+  changeSecurityWord(email: string, securityWord: string): Observable<void> {
     return this.http
       .patch<void>(
-        `${this.path}/change-security-word?email=${email}&security_word=${security_word}`,
+        `${this.path}/change-security-word?email=${email}&security_word=${securityWord}`,
         {},
       )
       .pipe(

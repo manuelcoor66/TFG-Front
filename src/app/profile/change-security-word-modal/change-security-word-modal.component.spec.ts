@@ -8,10 +8,9 @@ describe('ChangeSecurityWordModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ChangeSecurityWordModalComponent]
-    })
-    .compileComponents();
-    
+      imports: [ChangeSecurityWordModalComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(ChangeSecurityWordModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

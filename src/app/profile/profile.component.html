@@ -57,14 +57,10 @@
           <mat-error *ngIf="loginForm.get('lastNames')?.hasError('required')">
             'Requerido'
           </mat-error>
-          <mat-error
-            *ngIf="loginForm.get('lastNames')?.hasError('minlength')"
-          >
+          <mat-error *ngIf="loginForm.get('lastNames')?.hasError('minlength')">
             'minLength'
           </mat-error>
-          <mat-error
-            *ngIf="loginForm.get('lastNames')?.hasError('maxlength')"
-          >
+          <mat-error *ngIf="loginForm.get('lastNames')?.hasError('maxlength')">
             'maxlength'
           </mat-error>
         </mat-form-field>
@@ -99,11 +95,7 @@
     <div class="divider"></div>
 
     <div class="modal__button">
-      <button
-      mat-button
-      type="submit"
-      (click)="openChangePasswordModal()"
-      >
+      <button mat-button type="submit" (click)="openChangePasswordModal()">
         Cambiar contraseña
       </button>
     </div>

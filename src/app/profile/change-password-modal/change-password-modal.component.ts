@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import { DataForgotPassword } from '../../../definitions/data.inteface';
 import { HashService } from '../../../services/hash.service';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import { MatButton } from '@angular/material/button';
@@ -55,7 +54,9 @@ export class ChangePasswordModalComponent {
    */
   public actualUser!: User;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { forgotPassword: boolean }) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { forgotPassword: boolean },
+  ) {
     this.forgotPassword = this.data?.forgotPassword;
     this.actualUser = this.localStorageService.getItem('user');
 

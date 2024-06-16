@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { ChangePasswordModalComponent } from './change-password-modal/change-password-modal.component';
+import { ChangeSecurityWordModalComponent } from './change-security-word-modal/change-security-word-modal.component';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,7 +17,6 @@ import { SnackbarService } from '../../services/snackbar.service';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
 import { catchError } from 'rxjs';
-import { ChangeSecurityWordModalComponent } from "./change-security-word-modal/change-security-word-modal.component";
 
 @Component({
   selector: 'app-profile',
@@ -52,7 +52,6 @@ export class ProfileComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-
     this.actualuser = this.localStorageService.getItem('user');
 
     this.loginForm = new FormGroup({
