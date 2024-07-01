@@ -1,0 +1,20 @@
+<div class="container">
+  <h1>Ligas</h1>
+
+  <div
+    (click)="goToLeagueDetail(league.id)"
+    class="league-container"
+    *ngFor="let league of leagues?.items"
+  >
+    <div class="league-dates">
+      <h2>{{ league.name }}</h2>
+      <p>{{ league.description }}</p>
+      <span>Creado por: </span>
+      <span class="underline-league">{{ league.createdBy }}</span>
+    </div>
+    <div>
+      <span>Matriculaciones: </span>
+      <span class="underline-league">{{ league.enrolments }} usuarios</span>
+    </div>
+  </div>
+</div>

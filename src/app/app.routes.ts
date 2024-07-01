@@ -3,6 +3,8 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from '../services/auth.guard';
 import { CreateUserComponent } from './user/create-user/create-user.component';
 import { HomeComponent } from './home/home.component';
+import { LeagueDetailComponent } from './league/league-detail/league-detail.component';
+import { LeaguesComponent } from './league/leagues.component';
 import { LoginComponent } from './login/login.component';
 import { LoginGuard } from '../services/login.guard';
 import { NgModule } from '@angular/core';
@@ -30,13 +32,23 @@ export const routes: Routes = [
     canActivate: [LoginGuard],
   },
   {
+    path: 'create-user',
+    component: CreateUserComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'subscription',
     component: SubscriptionComponent,
   },
   {
-    path: 'create-user',
-    component: CreateUserComponent,
-    canActivate: [AuthGuard],
+    path: 'leagues',
+    component: LeaguesComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'league/:id',
+    component: LeagueDetailComponent,
+    canActivate: [LoginGuard],
   },
 ];
 

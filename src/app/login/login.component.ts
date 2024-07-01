@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { SnackbarService } from '../../services/snackbar.service';
 import { UserService } from '../../services/user.service';
 import { catchError } from 'rxjs';
+import { emailRegex } from '../../utils/utils';
 
 @Component({
   selector: 'app-login',
@@ -45,15 +46,11 @@ export class LoginComponent {
    */
   public loginForm: FormGroup;
 
-  private emailRegex = new RegExp(
-    '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$',
-  );
-
   constructor() {
     this.loginForm = new FormGroup({
       email: new FormControl('', [
         Validators.required,
-        Validators.pattern(this.emailRegex),
+        Validators.pattern(emailRegex),
       ]),
       password: new FormControl('', [
         Validators.required,
