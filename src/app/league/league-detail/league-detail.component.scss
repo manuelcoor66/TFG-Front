@@ -1,0 +1,39 @@
+::ng-deep .mat-typography {
+  margin: 2rem;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.breadcumb {
+  color: #5c5c5c;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+}
+
+.league-details {
+  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.league-border {
+  border: 1px solid gray;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 15%;
+  padding: 1rem;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+button {
+  background-color: #046b99;
+}

@@ -7,11 +7,13 @@ import { LocalStorageService } from '../../services/local-storage.service';
 import { SnackbarService } from '../../services/snackbar.service';
 import { UserService } from '../../services/user.service';
 import { catchError } from 'rxjs';
+import {MatButton} from "@angular/material/button";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-league',
   standalone: true,
-  imports: [NgForOf, NgIf, RouterLink],
+  imports: [NgForOf, NgIf, RouterLink, MatButton],
   templateUrl: './leagues.component.html',
   styleUrls: ['./leagues.component.scss'],
 })
@@ -20,19 +22,23 @@ export class LeaguesComponent implements OnInit {
   private localStorageService = inject(LocalStorageService);
   private snackbarService = inject(SnackbarService);
   private router = inject(Router);
-  private userService = inject(UserService);
 
   /**
    * leagues
    */
   leagues?: LeagueList;
 
+  /**
+   * Current user data
+   */
+  currentUser?: User;
+
   ngOnInit(): void {
     this.leagueService
       .getAllLeagues()
       .pipe(
         catchError((err) => {
-          this.snackbarService.openSnackBar(err.error.message);
+          this.snackbarService.openSnackBar(err.error.message, 'warning');
           throw err;
         }),
       )
@@ -40,9 +46,22 @@ export class LeaguesComponent implements OnInit {
         this.leagues = leagues;
         this.localStorageService.setItem('leagues', leagues.items);
       });
+
+    this.currentUser = this.localStorageService.getItem('user')
   }
 
   goToLeagueDetail(id: number): void {
     this.router.navigateByUrl('/league/' + id);
+  }
+
+  deleteLeague(id: number): void {
+    this.leagueService.deleteLeagueById(id)
+    .pipe(
+        catchError((err) => {
+          this.snackbarService.openSnackBar(err.error.message, 'warning');
+          throw err;
+        }),
+      )
+      .subscribe()
   }
 }

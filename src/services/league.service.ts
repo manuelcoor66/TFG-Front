@@ -34,4 +34,17 @@ export class LeagueService {
       }),
     );
   }
+
+  getLeagueById(id: number): Observable<League> {
+    return this.http.get<IJsonObject>(`${this.path}/${id}`).pipe(
+      map((leagues) => Deserialize(leagues, () => League)),
+      catchError((err) => {
+        throw err;
+      }),
+    );
+  }
+
+  deleteLeagueById(id: number): Observable<object> {
+    return this.http.delete(`${this.path}/id/${id}`);
+  }
 }

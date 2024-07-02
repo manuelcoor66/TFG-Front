@@ -22,6 +22,11 @@ export class League {
   @autoserializeAs(() => String, 'created_by') createdBy: string;
 
   /**
+   * Created By
+   */
+  @autoserializeAs(() => String, 'created_by_id') createdById: number;
+
+  /**
    * Enrolments
    */
   @autoserializeAs(() => Number) enrolments: number;
@@ -56,6 +61,7 @@ export class League {
     name: string,
     description: string,
     createdBy: string,
+    createdById: number,
     enrolments: number,
     pointsVictory: number,
     pointsDefeat: number,
@@ -67,6 +73,7 @@ export class League {
     this.name = name;
     this.description = description;
     this.createdBy = createdBy;
+    this.createdById = createdById
     this.enrolments = enrolments;
     this.pointsVictory = pointsVictory;
     this.pointsDefeat = pointsDefeat;

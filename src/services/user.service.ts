@@ -1,7 +1,6 @@
 import { Observable, catchError, map } from 'rxjs';
-import { Deserialize } from 'dcerialize';
+import { Deserialize, IJsonObject } from 'dcerialize';
 import { HttpClient } from '@angular/common/http';
-import { IJsonObject } from 'dcerialize';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 

@@ -17,7 +17,15 @@
 }
 
 .league-dates {
-  width: 60%;
+  width: 89%;
+}
+
+.league-enrolments {
+  display: flex;
+  flex-direction: column;
+  //align-items: end;
+  align-items: center;
+  gap: 40%;
 }
 
 .underline-league {
@@ -25,4 +33,10 @@
   font: 16px/24px;
   font-size: 1rem;
   line-height: 1.5rem;
+}
+
+button {
+  width: 40%;
+  background-color: #046b99;
+  border-radius: 0.5rem;
 }

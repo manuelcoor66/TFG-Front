@@ -17,6 +17,7 @@ import { SnackbarService } from '../../services/snackbar.service';
 import { UserService } from '../../services/user.service';
 import { catchError } from 'rxjs';
 import { emailRegex } from '../../utils/utils';
+import {EnrolmentService} from "../../services/enrolment.service";
 
 @Component({
   selector: 'app-login',
@@ -40,6 +41,7 @@ export class LoginComponent {
   private hashService = inject(HashService);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private enrolmentService = inject(EnrolmentService);
 
   /**
    * Login form
@@ -77,7 +79,9 @@ export class LoginComponent {
               user.password as string,
             )
           ) {
-            this.authService.login(user);
+            this.enrolmentService.getUserEnrolments(user.id as number).subscribe((enrolmentList) => {
+              this.authService.login(user, enrolmentList);
+            })
             this.router.navigateByUrl('/home');
           }
         });

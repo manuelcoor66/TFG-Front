@@ -1,1 +1,44 @@
-<p>league-detail works!</p>
+<div class="league-details">
+  <div>
+    <span class="breadcumb pointer" (click)="goToLeagues()">Ligas</span>
+    <span class="breadcumb"> / {{ leagueDetail?.name }}</span>
+  </div>
+
+  <div>
+    <h1>{{ leagueDetail?.name }}</h1>
+    <h2>{{ leagueDetail?.description }}</h2>
+  </div>
+</div>
+
+<div class="league-border">
+  <div>
+    <p>Usuarios matriculados</p>
+    <p class="underline">{{ leagueDetail?.enrolments }} usuarios</p>
+  </div>
+  <div>
+    <p>Creado por:</p>
+    <p class="underline">{{ leagueDetail?.createdBy }}</p>
+  </div>
+  <button
+    *ngIf="!isEnrolled()"
+    mat-button
+    class="btn--primary btn--lg"
+    type="submit"
+    data-test-id="login-button"
+    appLoadingButton
+    (click)="enrolOnLeague()"
+  >
+    Matricularse
+  </button>
+  <button
+    *ngIf="isEnrolled()"
+    mat-button
+    class="btn--primary btn--lg"
+    type="submit"
+    data-test-id="login-button"
+    appLoadingButton
+    (click)="enrolOnLeague()"
+  >
+    Desmatricularse
+  </button>
+</div>

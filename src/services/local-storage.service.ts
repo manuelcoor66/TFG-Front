@@ -1,4 +1,5 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Enrolment } from '../models/enrolment';
 import { League } from '../models/league';
 import { User } from '../models/user';
 import { isPlatformBrowser } from '@angular/common';
@@ -24,7 +25,7 @@ export class LocalStorageService {
     return true;
   }
 
-  setItem(key: string, value: User | League[]): void {
+  setItem(key: string, value: User | League[] | Enrolment[]): void {
     if (this.isLocalStorageAvailable()) {
       const jsonValue = JSON.stringify(value);
       localStorage.setItem(key, jsonValue);
