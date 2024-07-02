@@ -92,6 +92,7 @@ export class LeagueDetailComponent implements OnInit {
         }),
       )
       .subscribe((enrolment) => {
+        this.isEnroled = true;
         this.enrolments?.push(enrolment);
         this.localStorageService.setItem('enrolments', this.enrolments as Enrolment[])
         this.snackbarService.openSnackBar('Usuario matriculado con éxito', 'success');
@@ -109,6 +110,7 @@ export class LeagueDetailComponent implements OnInit {
         }),
       )
       .subscribe((enrolments) => {
+        this.isEnroled = false;
         this.localStorageService.setItem('enrolments', enrolments.items)
         this.snackbarService.openSnackBar('Usuario desmatriculado con éxito', 'success');
       })

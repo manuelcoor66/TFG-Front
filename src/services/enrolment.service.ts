@@ -40,7 +40,7 @@ export class EnrolmentService {
   }
 
   finalizeEnrolment(league_id: number, user_id: number): Observable<EnrolmentList> {
-    return this.http.put<EnrolmentList>(`${this.path}/finalize_enrolment`, { user_id: user_id, league_id: league_id}).pipe(
+    return this.http.put<EnrolmentList>(`${this.path}/finalize_enrolment?user_id=${user_id}&league_id=${league_id}`, {}).pipe(
       catchError((err) => {
           throw err;
         }),

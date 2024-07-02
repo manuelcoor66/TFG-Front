@@ -15,8 +15,6 @@ export class AuthService {
   constructor() {}
 
   login(user: User, enrolmentList: EnrolmentList): void {
-    console.log(user)
-    console.log(enrolmentList)
     this.localStorageService.setItem(this.userToken, user);
     this.localStorageService.setItem(this.enrolmentToken, enrolmentList.items);
   }
