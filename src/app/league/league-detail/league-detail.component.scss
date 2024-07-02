@@ -16,6 +16,15 @@
   gap: 2rem;
   display: flex;
   flex-direction: column;
+
+  &__principal {
+    display: flex;
+    flex-direction: row;
+
+    &__90 {
+      width: 95%;
+    }
+  }
 }
 
 .league-border {

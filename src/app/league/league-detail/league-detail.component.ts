@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, inject, OnInit } from '@angular/core';
+import {Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit} from '@angular/core';
 import { EnrolmentService } from '../../../services/enrolment.service';
 import { League } from '../../../models/league';
 import { LeagueService } from '../../../services/league.service';
@@ -10,15 +10,18 @@ import { catchError } from 'rxjs';
 import {LocalStorageService} from "../../../services/local-storage.service";
 import {Enrolment} from "../../../models/enrolment";
 import {NgIf} from "@angular/common";
+import {MatIconModule} from "@angular/material/icon";
 
 @Component({
   selector: 'app-league-detail',
   standalone: true,
   imports: [
     MatButton,
-    NgIf
+    NgIf,
+    MatIconModule
   ],
   templateUrl: './league-detail.component.html',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   styleUrl: './league-detail.component.scss',
 })
 export class LeagueDetailComponent implements OnInit {
