@@ -73,7 +73,7 @@ export class League {
     this.name = name;
     this.description = description;
     this.createdBy = createdBy;
-    this.createdById = createdById
+    this.createdById = createdById;
     this.enrolments = enrolments;
     this.pointsVictory = pointsVictory;
     this.pointsDefeat = pointsDefeat;

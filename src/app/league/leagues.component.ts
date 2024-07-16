@@ -5,10 +5,9 @@ import { LeagueList } from '../../models/league';
 import { LeagueService } from '../../services/league.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { SnackbarService } from '../../services/snackbar.service';
-import { UserService } from '../../services/user.service';
 import { catchError } from 'rxjs';
-import {MatButton} from "@angular/material/button";
-import {User} from "../../models/user";
+import { MatButton } from '@angular/material/button';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-league',
@@ -47,7 +46,7 @@ export class LeaguesComponent implements OnInit {
         this.localStorageService.setItem('leagues', leagues.items);
       });
 
-    this.currentUser = this.localStorageService.getItem('user')
+    this.currentUser = this.localStorageService.getItem('user');
   }
 
   goToLeagueDetail(id: number): void {
@@ -55,13 +54,14 @@ export class LeaguesComponent implements OnInit {
   }
 
   deleteLeague(id: number): void {
-    this.leagueService.deleteLeagueById(id)
-    .pipe(
+    this.leagueService
+      .deleteLeagueById(id)
+      .pipe(
         catchError((err) => {
           this.snackbarService.openSnackBar(err.error.message, 'warning');
           throw err;
         }),
       )
-      .subscribe()
+      .subscribe();
   }
 }

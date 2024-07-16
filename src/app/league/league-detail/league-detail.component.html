@@ -9,39 +9,129 @@
       <h1>{{ leagueDetail?.name }}</h1>
       <h2>{{ leagueDetail?.description }}</h2>
     </div>
-    <mat-icon class="pointer">more_vert</mat-icon>
+    <div *ngIf="isCreator()" [matMenuTriggerFor]="actions">
+      <mat-icon class="pointer">more_vert</mat-icon>
+    </div>
+    <mat-menu #actions xPosition="before">
+      <button class="options__button pointer">
+        <mat-icon svgIcon="edit"></mat-icon>
+        Editar liga
+      </button>
+      <button class="options__button pointer" (click)="deleteLeague()">
+        <mat-icon svgIcon="delete"></mat-icon>
+        Borrar liga
+      </button>
+    </mat-menu>
   </div>
 </div>
 
 <div class="league-border">
-  <div>
-    <p>Usuarios matriculados</p>
-    <p class="underline">{{ leagueDetail?.enrolments }} usuarios</p>
+  <div class="league-border__container">
+    <div class="league-border__container__icon">
+      <mat-icon>group</mat-icon>
+      <div>
+        <p>Usuarios matriculados:</p>
+        <p class="underline">{{ leagueDetail?.enrolments }} usuarios</p>
+      </div>
+    </div>
+    <div class="league-border__container__icon">
+      <mat-icon>account_circle</mat-icon>
+      <div>
+        <p>Creado por:</p>
+        <p class="underline">{{ leagueDetail?.createdBy }}</p>
+      </div>
+    </div>
+    <div class="league-border__container__icon">
+      <mat-icon>date_range</mat-icon>
+      <div *ngIf="isStarted()">
+        <p>Semanas restantes:</p>
+        <p class="underline">{{ weeksLeft() }} semanas</p>
+      </div>
+      <div *ngIf="!isStarted()">
+        <p>Fecha de inicio:</p>
+        <p class="underline">{{ leagueDetail?.dateStart?.getDay() }}/{{ leagueDetail?.dateStart?.getMonth() }}/{{ leagueDetail?.dateStart?.getFullYear() }}</p>
+      </div>
+    </div>
+    <div>
+      <button
+        *ngIf="!isEnrolled() && !this.isEnroled"
+        mat-button
+        class="btn--primary btn--lg enrol-button"
+        type="submit"
+        data-test-id="login-button"
+        appLoadingButton
+        (click)="enrolOnLeague()"
+      >
+        <mat-icon>add_circle</mat-icon>
+        Matricularse
+      </button>
+
+      <button
+        *ngIf="isEnrolled() || isEnroled"
+        mat-button
+        class="btn--primary btn--lg enrol-button"
+        type="submit"
+        data-test-id="login-button"
+        appLoadingButton
+        (click)="deleteEnrolment()"
+      >
+        <mat-icon>cancel</mat-icon>
+        Desmatricularse
+      </button>
+    </div>
   </div>
-  <div>
-    <p>Creado por:</p>
-    <p class="underline">{{ leagueDetail?.createdBy }}</p>
-  </div>
-  <button
-    *ngIf="!isEnrolled() && !this.isEnroled"
-    mat-button
-    class="btn--primary btn--lg"
-    type="submit"
-    data-test-id="login-button"
-    appLoadingButton
-    (click)="enrolOnLeague()"
-  >
-    Matricularse
-  </button>
-  <button
-    *ngIf="isEnrolled() || isEnroled"
-    mat-button
-    class="btn--primary btn--lg"
-    type="submit"
-    data-test-id="login-button"
-    appLoadingButton
-    (click)="deleteEnrolment()"
-  >
-    Desmatricularse
-  </button>
 </div>
+
+<mat-tab-group>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="pointer">sports</mat-icon> Partidos
+    </ng-template>
+    <div class="tab">
+      <p>Contenido del Tab 1</p>
+    </div>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="pointer">scoreboard</mat-icon> Resultados
+    </ng-template>
+    <div class="matches">
+      <div class="tab pointer" *ngFor="let match of finalizedMatches?.items" (mouseenter)="showMessage = true" (mouseleave)="showMessage = false">
+        <div *ngIf="fourPlayers(match) && match">
+          <div class="match-container">
+            <div class="match-container__text">
+              <div class="match-container__name">
+                <div>{{ match.playerName1 }}</div>
+                <div>{{ match.playerName2 }}</div>
+              </div>
+              <div class="match-container__name">
+                <div>{{ match.playerName3 }}</div>
+                <div>{{ match.playerName4 }}</div>
+              </div>
+              <span class="match-container__result">{{ match.result }}</span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!fourPlayers(match)">
+          <div class="match-container">
+            <div class="match-container__text">
+              <div class="match-container__name">
+                <div>{{ match.playerName1 }}</div>
+                <div>{{ match.playerName2 }}</div>
+              </div>
+              <span class="match-container__result">{{ match.result }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="pointer">leaderboard</mat-icon> Clasificación
+    </ng-template>
+    <div class="tab">
+      <app-user-table></app-user-table>
+    </div>
+  </mat-tab>
+</mat-tab-group>

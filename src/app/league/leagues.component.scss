@@ -6,6 +6,16 @@
   gap: 1rem;
 }
 
+.leagues-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  h1 {
+    width: 95%;
+  }
+}
+
 .league-container {
   display: flex;
   flex-direction: row;
@@ -39,4 +49,13 @@ button {
   width: 40%;
   background-color: #046b99;
   border-radius: 0.5rem;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  width: 9rem;
+  border-radius: 10px;
 }

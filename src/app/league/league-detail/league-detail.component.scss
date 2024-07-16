@@ -2,6 +2,29 @@
   margin: 2rem;
 }
 
+::ng-deep .mat-mdc-menu-content {
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+::ng-deep .cdk-overlay-connected-position-bounding-box {
+  top: 13% !important;
+}
+
+::ng-deep .mat-mdc-tab-list {
+  padding-top: 1rem;
+}
+
+::ng-deep .mat-mdc-tab .mdc-tab__text-label {
+  gap: 1rem;
+}
+
+::ng-deep .cdk-overlay-container {
+  position: absolute;
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -30,13 +53,24 @@
 .league-border {
   border: 1px solid gray;
   border-radius: 1rem;
-  display: flex;
-  flex-direction: row;
-  gap: 15%;
   padding: 1rem;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
+  margin: 1rem;
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+
+    &__icon {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+      align-items: center;
+      margin-right: 0.5rem;
+    }
+  }
 }
 
 .underline {
@@ -45,4 +79,77 @@
 
 button {
   background-color: #046b99;
+}
+
+.options {
+  top: 13%;
+
+  &__button {
+    background: transparent;
+    border: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.tab {
+  padding-top: 1rem;
+}
+
+table {
+  width: 100%;
+  padding-bottom: 2rem;
+}
+
+.mat-elevation-z8 {
+  display: flex;
+  flex-direction: column;
+}
+
+.paginator-container {
+  margin-top: auto;
+}
+
+.matches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10%;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.enrol-button {
+  max-width: 100%;
+}
+
+.match-container {
+  border: 1px solid black;
+  border-radius: 1rem;
+  padding: 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  align-items: center;
+
+  &__text {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  &__name {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    font-weight: 500;
+  }
+
+  &__result {
+    display: flex;
+    justify-content: center;
+    text-decoration: underline;
+    font: 16px/24px;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
 }

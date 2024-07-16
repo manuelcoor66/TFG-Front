@@ -1,5 +1,16 @@
 <div class="container">
-  <h1>Ligas</h1>
+  <div class="leagues-title">
+    <h1>Ligas</h1>
+    <button
+      mat-button
+      class="btn--primary btn--lg button"
+      type="submit"
+      data-test-id="login-button"
+      appLoadingButton
+    >
+      Crear nueva
+    </button>
+  </div>
 
   <div
     (click)="goToLeagueDetail(league.id)"
