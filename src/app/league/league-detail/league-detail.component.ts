@@ -253,5 +253,12 @@ export class LeagueDetailComponent implements OnInit {
     return 0;
   }
 
+  getMonth(): number {
+    if (this.leagueDetail)
+      return this.leagueDetail?.dateStart.getMonth() + 1;
+
+    return 0;
+  }
+
   protected readonly fourPlayers = fourPlayers;
 }
