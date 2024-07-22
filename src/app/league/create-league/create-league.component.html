@@ -1,0 +1,171 @@
+<ng-container>
+  <h1>Introduzca los datos requeridos</h1>
+
+  <form
+    novalidate
+    class="form-container"
+    [formGroup]="leagueForm"
+    (ngSubmit)="createLeague()"
+  >
+    <div class="form-wrapper">
+      <mat-label>Nombre</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          class="form__input"
+          placeholder="Nombre"
+          type="name"
+          formControlName="name"
+          name="name"
+          required
+        />
+        <mat-error *ngIf="leagueForm.get('name')?.hasError('name')">
+          'Incorrecto'
+        </mat-error>
+        <mat-error *ngIf="leagueForm.get('name')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper">
+      <mat-label>Descripción</mat-label>
+      <mat-form-field>
+        <textarea
+          matInput
+          class="form__input"
+          placeholder="Descripción"
+          type="description"
+          formControlName="description"
+          name="description"
+          required
+          rows="4"
+        >
+        </textarea>
+        <mat-error *ngIf="leagueForm.get('description')?.hasError('name')">
+          'Incorrecto'
+        </mat-error>
+        <mat-error *ngIf="leagueForm.get('description')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper">
+      <mat-label>Puntos por victoria</mat-label>
+      <mat-form-field>
+        <mat-select
+          class="form__input"
+          placeholder="Elige una cantidad"
+          formControlName="pointsVictory"
+          name="pointsVictory"
+          required
+        >
+          <mat-option
+            *ngFor="let point of pointsVictoryOptions"
+            [value]="point"
+          >
+            {{ point }}
+          </mat-option>
+        </mat-select>
+        <mat-error
+          *ngIf="leagueForm.get('pointsVictory')?.hasError('required')"
+        >
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper">
+      <mat-label>Puntos por derrota</mat-label>
+      <mat-form-field>
+        <mat-select
+          class="form__input"
+          placeholder="Elige una cantidad"
+          formControlName="pointsDefeat"
+          name="pointsDefeat"
+          required
+        >
+          <mat-option *ngFor="let point of pointsDefeatOptions" [value]="point">
+            {{ point }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="leagueForm.get('pointsDefeat')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper">
+      <mat-label>Lugar</mat-label>
+      <mat-form-field>
+        <mat-select
+          class="form__input"
+          placeholder="Elige un lugar"
+          formControlName="place"
+          name="place"
+          required
+        >
+          <mat-option *ngFor="let place of places" [value]="place.id">
+            {{ place.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="leagueForm.get('place')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper">
+      <mat-label>Semanas de duración</mat-label>
+      <mat-form-field>
+        <mat-select
+          class="form__input"
+          placeholder="Elige una cantidad"
+          formControlName="weeks"
+          name="weeks"
+          required
+        >
+          <mat-option *ngFor="let week of weeksLeagueOptions" [value]="week">
+            {{ week }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="leagueForm.get('weeks')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper">
+      <mat-label>Selecciona una fecha de inicio</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          placeholder="Elige una fecha de inicio"
+          formControlName="dateStart"
+          required
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="leagueForm.get('dateStart')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="button">
+      <button
+        mat-button
+        class="btn--primary btn--lg"
+        type="submit"
+        data-test-id="login-button"
+        appLoadingButton
+      >
+        <!--        <ion-icon name="log-in-outline"></ion-icon>-->
+        <!--        {{ 'LoginComponent.Login' | translate }}-->
+        Crear
+      </button>
+    </div>
+  </form>
+</ng-container>

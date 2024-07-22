@@ -61,7 +61,7 @@ export class LeagueDetailComponent implements OnInit {
   private matIconRegistry = inject(MatIconRegistry);
   private domSanitizer = inject(DomSanitizer);
   private dialog = inject(MatDialog);
-  private matchesService = inject(MatchesService)
+  private matchesService = inject(MatchesService);
 
   /**
    * League detail data
@@ -91,12 +91,12 @@ export class LeagueDetailComponent implements OnInit {
   /**
    * Finalized league matches
    */
-  finalizedMatches?: MatchesList
+  finalizedMatches?: MatchesList;
 
   /**
    * Finalized league matches
    */
-  activeMatches!: MatchesList
+  activeMatches!: MatchesList;
 
   showMessage = false;
 
@@ -113,13 +113,17 @@ export class LeagueDetailComponent implements OnInit {
     );
 
     this.route.params.subscribe((params) => {
-      this.matchesService.getActiveLeagueMatches(params['id']).subscribe((matches) => {
-        this.finalizedMatches = matches;
-      });
+      this.matchesService
+        .getActiveLeagueMatches(params['id'])
+        .subscribe((matches) => {
+          this.finalizedMatches = matches;
+        });
 
-      this.matchesService.getFinalizedLeagueMatches(params['id']).subscribe((matches) => {
-        this.activeMatches = matches;
-      });
+      this.matchesService
+        .getFinalizedLeagueMatches(params['id'])
+        .subscribe((matches) => {
+          this.activeMatches = matches;
+        });
     });
   }
 
@@ -237,17 +241,16 @@ export class LeagueDetailComponent implements OnInit {
   }
 
   isStarted(): boolean {
-    if(this.leagueDetail)
-      return (this.leagueDetail?.dateStart < new Date());
+    if (this.leagueDetail) return this.leagueDetail?.dateStart < new Date();
 
     return false;
   }
 
   weeksLeft(): number {
-    if(this.leagueDetail)
-      return (this.leagueDetail?.weeks - this.leagueDetail?.weeksPlayed)
+    if (this.leagueDetail)
+      return this.leagueDetail?.weeks - this.leagueDetail?.weeksPlayed;
 
-    return 0
+    return 0;
   }
 
   protected readonly fourPlayers = fourPlayers;

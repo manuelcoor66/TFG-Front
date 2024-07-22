@@ -10,6 +10,7 @@ import { LoginGuard } from '../services/login.guard';
 import { NgModule } from '@angular/core';
 import { ProfileComponent } from './profile/profile.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
+import { CreateLeagueComponent } from './league/create-league/create-league.component';
 
 export const routes: Routes = [
   {
@@ -48,6 +49,11 @@ export const routes: Routes = [
   {
     path: 'league/:id',
     component: LeagueDetailComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'create-league',
+    component: CreateLeagueComponent,
     canActivate: [LoginGuard],
   },
 ];

@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
-import {Enrolment, EnrolmentList, EnrolmentTableList} from '../models/enrolment';
+import {
+  Enrolment,
+  EnrolmentList,
+  EnrolmentTableList,
+} from '../models/enrolment';
 import { Deserialize, IJsonObject } from 'dcerialize';
 
 @Injectable({

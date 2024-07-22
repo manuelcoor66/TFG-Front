@@ -53,15 +53,7 @@ export class LeaguesComponent implements OnInit {
     this.router.navigateByUrl('/league/' + id);
   }
 
-  deleteLeague(id: number): void {
-    this.leagueService
-      .deleteLeagueById(id)
-      .pipe(
-        catchError((err) => {
-          this.snackbarService.openSnackBar(err.error.message, 'warning');
-          throw err;
-        }),
-      )
-      .subscribe();
+  createLeague(): void {
+    this.router.navigateByUrl('/create-league');
   }
 }

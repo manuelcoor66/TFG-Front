@@ -49,7 +49,11 @@
       </div>
       <div *ngIf="!isStarted()">
         <p>Fecha de inicio:</p>
-        <p class="underline">{{ leagueDetail?.dateStart?.getDay() }}/{{ leagueDetail?.dateStart?.getMonth() }}/{{ leagueDetail?.dateStart?.getFullYear() }}</p>
+        <p class="underline">
+          {{ leagueDetail?.dateStart?.getDay() }}/{{
+            leagueDetail?.dateStart?.getMonth()
+          }}/{{ leagueDetail?.dateStart?.getFullYear() }}
+        </p>
       </div>
     </div>
     <div>
@@ -96,7 +100,12 @@
       <mat-icon class="pointer">scoreboard</mat-icon> Resultados
     </ng-template>
     <div class="matches">
-      <div class="tab pointer" *ngFor="let match of finalizedMatches?.items" (mouseenter)="showMessage = true" (mouseleave)="showMessage = false">
+      <div
+        class="tab pointer"
+        *ngFor="let match of finalizedMatches?.items"
+        (mouseenter)="showMessage = true"
+        (mouseleave)="showMessage = false"
+      >
         <div *ngIf="fourPlayers(match) && match">
           <div class="match-container">
             <div class="match-container__text">

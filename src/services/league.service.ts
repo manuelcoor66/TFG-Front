@@ -47,4 +47,26 @@ export class LeagueService {
   deleteLeagueById(id: number): Observable<object> {
     return this.http.delete(`${this.path}/id/${id}`);
   }
+
+  createLeague(
+    name: string,
+    description: string,
+    createdBy: number,
+    pointsVictory: number,
+    pointsDefeat: number,
+    weeks: number,
+    dateStart: string,
+    place: number,
+  ): Observable<League> {
+    return this.http
+      .post<League>(
+        `${this.path}/create-league?name=${name}&description=${description}&created_by=${createdBy}&points_victory=${pointsVictory}&place=${place}&points_defeat=${pointsDefeat}&weeks=${weeks}&date_start=${dateStart}`,
+        {},
+      )
+      .pipe(
+        catchError((err) => {
+          throw err;
+        }),
+      );
+  }
 }

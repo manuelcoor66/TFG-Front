@@ -27,20 +27,24 @@ export class MatchesService {
   }
 
   getFinalizedLeagueMatches(league_id: number): Observable<MatchesList> {
-    return this.http.get<IJsonObject>(`${this.path}/finalized/league/${league_id}`).pipe(
-      map((leagues) => Deserialize(leagues, () => MatchesList)),
-      catchError((err) => {
-        throw err;
-      }),
-    );
+    return this.http
+      .get<IJsonObject>(`${this.path}/finalized/league/${league_id}`)
+      .pipe(
+        map((leagues) => Deserialize(leagues, () => MatchesList)),
+        catchError((err) => {
+          throw err;
+        }),
+      );
   }
 
   getActiveLeagueMatches(league_id: number): Observable<MatchesList> {
-    return this.http.get<IJsonObject>(`${this.path}/finalized/league/${league_id}`).pipe(
-      map((leagues) => Deserialize(leagues, () => MatchesList)),
-      catchError((err) => {
-        throw err;
-      }),
-    );
+    return this.http
+      .get<IJsonObject>(`${this.path}/finalized/league/${league_id}`)
+      .pipe(
+        map((leagues) => Deserialize(leagues, () => MatchesList)),
+        catchError((err) => {
+          throw err;
+        }),
+      );
   }
 }

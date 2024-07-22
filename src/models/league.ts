@@ -42,6 +42,11 @@ export class League {
   @autoserializeAs(() => Number, 'points_defeat') pointsDefeat: number;
 
   /**
+   * Place
+   */
+  @autoserializeAs(() => Number) place: number;
+
+  /**
    * Weeks
    */
   @autoserializeAs(() => Number) weeks: number;
@@ -65,6 +70,7 @@ export class League {
     enrolments: number,
     pointsVictory: number,
     pointsDefeat: number,
+    place: number,
     weeks: number,
     weeksPlayed: number,
     dateStart: Date,
@@ -77,6 +83,7 @@ export class League {
     this.enrolments = enrolments;
     this.pointsVictory = pointsVictory;
     this.pointsDefeat = pointsDefeat;
+    this.place = place;
     this.weeks = weeks;
     this.weeksPlayed = weeksPlayed;
     this.dateStart = dateStart;
