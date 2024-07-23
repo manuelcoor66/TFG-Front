@@ -44,7 +44,7 @@ export class League {
   /**
    * Place
    */
-  @autoserializeAs(() => Number) place: number;
+  @autoserializeAs(() => String) place: string;
 
   /**
    * Weeks
@@ -70,7 +70,7 @@ export class League {
     enrolments: number,
     pointsVictory: number,
     pointsDefeat: number,
-    place: number,
+    place: string,
     weeks: number,
     weeksPlayed: number,
     dateStart: Date,

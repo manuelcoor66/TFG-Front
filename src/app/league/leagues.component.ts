@@ -8,11 +8,12 @@ import { SnackbarService } from '../../services/snackbar.service';
 import { catchError } from 'rxjs';
 import { MatButton } from '@angular/material/button';
 import { User } from '../../models/user';
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-league',
   standalone: true,
-  imports: [NgForOf, NgIf, RouterLink, MatButton],
+  imports: [NgForOf, NgIf, RouterLink, MatButton, MatIcon],
   templateUrl: './leagues.component.html',
   styleUrls: ['./leagues.component.scss'],
 })
@@ -43,6 +44,7 @@ export class LeaguesComponent implements OnInit {
       )
       .subscribe((leagues) => {
         this.leagues = leagues;
+        console.log(leagues)
         this.localStorageService.setItem('leagues', leagues.items);
       });
 

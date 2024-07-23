@@ -55,6 +55,14 @@ export class UserTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor() {
+   this.loadEnrolments();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
+  loadEnrolments() {
     this.route.params.subscribe((params) => {
       this.enrolmentService
         .getLeagueEnrolmentsTable(params['id'])
@@ -64,7 +72,7 @@ export class UserTableComponent implements AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  refreshData() {
+    this.loadEnrolments();
   }
 }

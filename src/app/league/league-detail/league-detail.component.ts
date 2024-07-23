@@ -2,8 +2,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
-  inject,
-  OnInit,
+  inject, OnDestroy,
+  OnInit, ViewChild,
 } from '@angular/core';
 import { EnrolmentService } from '../../../services/enrolment.service';
 import { League } from '../../../models/league';
@@ -51,7 +51,7 @@ import { fourPlayers } from '../../../utils/shared-functions';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   styleUrls: ['./league-detail.component.scss'],
 })
-export class LeagueDetailComponent implements OnInit {
+export class LeagueDetailComponent implements OnInit, OnDestroy {
   private leagueService = inject(LeagueService);
   private route = inject(ActivatedRoute);
   private snackbarService = inject(SnackbarService);
@@ -98,7 +98,12 @@ export class LeagueDetailComponent implements OnInit {
    */
   activeMatches!: MatchesList;
 
+  /**
+   * Whetever to show message
+   */
   showMessage = false;
+
+  @ViewChild(UserTableComponent) userTable!: UserTableComponent;
 
   constructor() {
     this.matIconRegistry.addSvgIcon(
@@ -129,7 +134,6 @@ export class LeagueDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.localStorageService.getItem('user');
-    this.enrolments = this.localStorageService.getItem('enrolments');
 
     this.route.params.subscribe((params) => {
       this.isEnroled = this.enrolments?.some(
@@ -148,6 +152,15 @@ export class LeagueDetailComponent implements OnInit {
           this.leagueDetail = league;
         });
     });
+
+    this.enrolmentService.getLeagueEnrolments(this.leagueId).subscribe((enrolments) => {
+      this.enrolments = enrolments.items;
+      this.localStorageService.setItem('enrolments', enrolments.items)
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.localStorageService.removeItem('enrolments');
   }
 
   goToLeagues(): void {
@@ -156,7 +169,7 @@ export class LeagueDetailComponent implements OnInit {
 
   isEnrolled(): boolean {
     return this.enrolments?.some(
-      (element) => element.leagueId == this.leagueId,
+      (element) => element.userId == this.currentUser?.id,
     ) as boolean;
   }
 
@@ -206,7 +219,9 @@ export class LeagueDetailComponent implements OnInit {
         )
         .subscribe((enrolment) => {
           this.isEnroled = true;
+          this.userTable.refreshData();
           this.enrolments?.push(enrolment);
+          console.log(this.enrolments)
           this.localStorageService.setItem(
             'enrolments',
             this.enrolments as Enrolment[],
@@ -231,6 +246,8 @@ export class LeagueDetailComponent implements OnInit {
         )
         .subscribe((enrolments) => {
           this.isEnroled = false;
+          this.userTable.refreshData();
+
           this.localStorageService.setItem('enrolments', enrolments.items);
           this.snackbarService.openSnackBar(
             'Usuario desmatriculado con éxito',
