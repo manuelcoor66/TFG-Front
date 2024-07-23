@@ -4,11 +4,11 @@ import { Router, RouterLink } from '@angular/router';
 import { LeagueList } from '../../models/league';
 import { LeagueService } from '../../services/league.service';
 import { LocalStorageService } from '../../services/local-storage.service';
-import { SnackbarService } from '../../services/snackbar.service';
-import { catchError } from 'rxjs';
 import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { SnackbarService } from '../../services/snackbar.service';
 import { User } from '../../models/user';
-import {MatIcon} from "@angular/material/icon";
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-league',
@@ -44,7 +44,6 @@ export class LeaguesComponent implements OnInit {
       )
       .subscribe((leagues) => {
         this.leagues = leagues;
-        console.log(leagues)
         this.localStorageService.setItem('leagues', leagues.items);
       });
 

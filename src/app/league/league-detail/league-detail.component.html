@@ -50,9 +50,9 @@
       <div *ngIf="!isStarted()">
         <p>Fecha de inicio:</p>
         <p class="underline">
-          {{ leagueDetail?.dateStart?.getDate() }}/{{
-            getMonth()
-          }}/{{ leagueDetail?.dateStart?.getFullYear() }}
+          {{ leagueDetail?.dateStart?.getDate() }}/{{ getMonth() }}/{{
+            leagueDetail?.dateStart?.getFullYear()
+          }}
         </p>
       </div>
     </div>

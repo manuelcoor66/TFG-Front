@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { DatePipe, NgForOf, NgIf } from '@angular/common';
 import {
   FormControl,
   FormGroup,
@@ -6,21 +7,22 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { DatePipe, NgForOf, NgIf } from '@angular/common';
 import {
   MatOption,
   MatSelect,
   MatSelectModule,
 } from '@angular/material/select';
-import { SnackbarService } from '../../../services/snackbar.service';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import { LeagueService } from '../../../services/league.service';
 import { LocalStorageService } from '../../../services/local-storage.service';
-import {Router} from "@angular/router";
+import { MatButton } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInput } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { Place } from '../../../models/places';
+import { PlacesService } from '../../../services/places.service';
+import { Router } from '@angular/router';
+import { SnackbarService } from '../../../services/snackbar.service';
 
 @Component({
   selector: 'app-create-league',
@@ -51,6 +53,7 @@ export class CreateLeagueComponent {
   private leagueService = inject(LeagueService);
   private localStorageService = inject(LocalStorageService);
   private router = inject(Router);
+  private placesService = inject(PlacesService);
 
   /**
    * Login form
@@ -75,10 +78,7 @@ export class CreateLeagueComponent {
   /**
    *
    */
-  places = [
-    { id: 1, name: 'FuenteNueva' },
-    { id: 2, name: 'Cartuja' },
-  ];
+  places?: Place[];
 
   constructor() {
     this.leagueForm = new FormGroup({
@@ -90,9 +90,13 @@ export class CreateLeagueComponent {
       weeks: new FormControl('', Validators.required),
       dateStart: new FormControl('', Validators.required),
     });
+
+    this.placesService.getAllPlaces().subscribe((places) => {
+      this.places = places.items;
+    });
   }
 
-  createLeague() {
+  createLeague(): void {
     if (this.leagueForm.valid) {
       if (
         this.leagueForm.get('pointsVictory')?.value >
@@ -129,6 +133,7 @@ export class CreateLeagueComponent {
     const day = ('0' + date.getDate()).slice(-2);
     const month = ('0' + (date.getMonth() + 1)).slice(-2); // Months are 0-based
     const year = date.getFullYear();
+
     return `${year}-${month}-${day}`;
   }
 }

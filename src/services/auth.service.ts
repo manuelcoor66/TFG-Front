@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
+import { EnrolmentList } from '../models/enrolment';
 import { LocalStorageService } from './local-storage.service';
 import { User } from '../models/user';
-import { EnrolmentList } from '../models/enrolment';
 
 @Injectable({
   providedIn: 'root',

@@ -1,35 +1,38 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-  Component,
   CUSTOM_ELEMENTS_SCHEMA,
-  inject, OnDestroy,
-  OnInit, ViewChild,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  inject,
 } from '@angular/core';
-import { EnrolmentService } from '../../../services/enrolment.service';
-import { League } from '../../../models/league';
-import { LeagueService } from '../../../services/league.service';
-import { MatButton } from '@angular/material/button';
-import { SnackbarService } from '../../../services/snackbar.service';
-import { User } from '../../../models/user';
-import { catchError } from 'rxjs';
-import { LocalStorageService } from '../../../services/local-storage.service';
-import { Enrolment } from '../../../models/enrolment';
-import { NgForOf, NgIf } from '@angular/common';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
-import { DomSanitizer } from '@angular/platform-browser';
 import {
   MatTab,
   MatTabContent,
   MatTabGroup,
   MatTabLabel,
 } from '@angular/material/tabs';
-import { MatDialog } from '@angular/material/dialog';
+import { NgForOf, NgIf } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Enrolment } from '../../../models/enrolment';
+import { EnrolmentService } from '../../../services/enrolment.service';
 import { GeneralModalComponent } from '../../shared-components/general-modal/general-modal.component';
-import { UserTableComponent } from '../user-table/user-table.component';
+import { League } from '../../../models/league';
+import { LeagueService } from '../../../services/league.service';
+import { LocalStorageService } from '../../../services/local-storage.service';
+import { MatButton } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { MatchesList } from '../../../models/matches';
 import { MatchesService } from '../../../services/matches.service';
+import { SnackbarService } from '../../../services/snackbar.service';
+import { User } from '../../../models/user';
+import { UserTableComponent } from '../user-table/user-table.component';
+import { catchError } from 'rxjs';
 import { fourPlayers } from '../../../utils/shared-functions';
+
 
 @Component({
   selector: 'app-league-detail',
@@ -153,10 +156,12 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
         });
     });
 
-    this.enrolmentService.getLeagueEnrolments(this.leagueId).subscribe((enrolments) => {
-      this.enrolments = enrolments.items;
-      this.localStorageService.setItem('enrolments', enrolments.items)
-    })
+    this.enrolmentService
+      .getLeagueEnrolments(this.leagueId)
+      .subscribe((enrolments) => {
+        this.enrolments = enrolments.items;
+        this.localStorageService.setItem('enrolments', enrolments.items);
+      });
   }
 
   ngOnDestroy(): void {
@@ -177,7 +182,7 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
     return this.leagueDetail?.createdById == this.currentUser?.id;
   }
 
-  deleteLeague() {
+  deleteLeague(): void {
     const dialogRef = this.dialog.open(GeneralModalComponent, {
       width: '36rem',
       data: { forgotPassword: false },
@@ -193,7 +198,7 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
             }),
           )
           .subscribe(() => {
-            let leagues = this.localStorageService.getItem('leagues');
+            const leagues = this.localStorageService.getItem('leagues');
             leagues.splice(this.leagueDetail, 1);
             this.localStorageService.setItem('leagues', leagues);
 
@@ -221,7 +226,6 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
           this.isEnroled = true;
           this.userTable.refreshData();
           this.enrolments?.push(enrolment);
-          console.log(this.enrolments)
           this.localStorageService.setItem(
             'enrolments',
             this.enrolments as Enrolment[],
@@ -258,21 +262,20 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
   }
 
   isStarted(): boolean {
-    if (this.leagueDetail) return this.leagueDetail?.dateStart < new Date();
+    if (this.leagueDetail) {return this.leagueDetail?.dateStart < new Date();}
 
     return false;
   }
 
   weeksLeft(): number {
     if (this.leagueDetail)
-      return this.leagueDetail?.weeks - this.leagueDetail?.weeksPlayed;
+    {return this.leagueDetail?.weeks - this.leagueDetail?.weeksPlayed;}
 
     return 0;
   }
 
   getMonth(): number {
-    if (this.leagueDetail)
-      return this.leagueDetail?.dateStart.getMonth() + 1;
+    if (this.leagueDetail) {return this.leagueDetail?.dateStart.getMonth() + 1;}
 
     return 0;
   }

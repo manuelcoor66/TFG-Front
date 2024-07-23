@@ -17,8 +17,8 @@ export class MatchesService {
     this.path = 'http://127.0.0.1:5000/matches';
   }
 
-  getAllMatchesOfALeague(league_id: number): Observable<MatchesList> {
-    return this.http.get<IJsonObject>(`${this.path}/${league_id}`).pipe(
+  getAllMatchesOfALeague(leagueId: number): Observable<MatchesList> {
+    return this.http.get<IJsonObject>(`${this.path}/${leagueId}`).pipe(
       map((leagues) => Deserialize(leagues, () => MatchesList)),
       catchError((err) => {
         throw err;
@@ -26,9 +26,9 @@ export class MatchesService {
     );
   }
 
-  getFinalizedLeagueMatches(league_id: number): Observable<MatchesList> {
+  getFinalizedLeagueMatches(leagueId: number): Observable<MatchesList> {
     return this.http
-      .get<IJsonObject>(`${this.path}/finalized/league/${league_id}`)
+      .get<IJsonObject>(`${this.path}/finalized/league/${leagueId}`)
       .pipe(
         map((leagues) => Deserialize(leagues, () => MatchesList)),
         catchError((err) => {
@@ -37,9 +37,9 @@ export class MatchesService {
       );
   }
 
-  getActiveLeagueMatches(league_id: number): Observable<MatchesList> {
+  getActiveLeagueMatches(leagueId: number): Observable<MatchesList> {
     return this.http
-      .get<IJsonObject>(`${this.path}/finalized/league/${league_id}`)
+      .get<IJsonObject>(`${this.path}/finalized/league/${leagueId}`)
       .pipe(
         map((leagues) => Deserialize(leagues, () => MatchesList)),
         catchError((err) => {

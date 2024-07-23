@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { AuthService } from '../../services/auth.service';
+import { EnrolmentService } from '../../services/enrolment.service';
 import { HashService } from '../../services/hash.service';
 import { LoadingService } from '../../services/loading.service';
 import { MatButton } from '@angular/material/button';
@@ -17,7 +18,6 @@ import { SnackbarService } from '../../services/snackbar.service';
 import { UserService } from '../../services/user.service';
 import { catchError } from 'rxjs';
 import { emailRegex } from '../../utils/utils';
-import { EnrolmentService } from '../../services/enrolment.service';
 
 @Component({
   selector: 'app-login',

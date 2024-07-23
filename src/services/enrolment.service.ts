@@ -1,12 +1,12 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { catchError, map, Observable } from 'rxjs';
+import { Deserialize, IJsonObject } from 'dcerialize';
 import {
   Enrolment,
   EnrolmentList,
   EnrolmentTableList,
 } from '../models/enrolment';
-import { Deserialize, IJsonObject } from 'dcerialize';
+import { Observable, catchError, map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -22,13 +22,13 @@ export class EnrolmentService {
   }
 
   createEnrolment(
-    league_id: number,
-    user_id: number,
+    leagueId: number,
+    userId: number,
     paid: boolean,
   ): Observable<Enrolment> {
     return this.http
       .post<Enrolment>(
-        `${this.path}/create_enrolment?user_id=${user_id}&league_id=${league_id}&paid=${paid}`,
+        `${this.path}/create_enrolment?user_id=${userId}&league_id=${leagueId}&paid=${paid}`,
         {},
       )
       .pipe(
@@ -38,8 +38,8 @@ export class EnrolmentService {
       );
   }
 
-  getUserEnrolments(user_id: number): Observable<EnrolmentList> {
-    return this.http.get<IJsonObject>(`${this.path}/user/${user_id}`).pipe(
+  getUserEnrolments(userId: number): Observable<EnrolmentList> {
+    return this.http.get<IJsonObject>(`${this.path}/user/${userId}`).pipe(
       map((enrolments) => Deserialize(enrolments, () => EnrolmentList)),
       catchError((err) => {
         throw err;
@@ -47,8 +47,8 @@ export class EnrolmentService {
     );
   }
 
-  getLeagueEnrolments(league_id: number): Observable<EnrolmentList> {
-    return this.http.get<IJsonObject>(`${this.path}/league/${league_id}`).pipe(
+  getLeagueEnrolments(leagueId: number): Observable<EnrolmentList> {
+    return this.http.get<IJsonObject>(`${this.path}/league/${leagueId}`).pipe(
       map((enrolments) => Deserialize(enrolments, () => EnrolmentList)),
       catchError((err) => {
         throw err;
@@ -56,8 +56,8 @@ export class EnrolmentService {
     );
   }
 
-  getLeagueEnrolmentsTable(league_id: number): Observable<EnrolmentTableList> {
-    return this.http.get<IJsonObject>(`${this.path}/table/${league_id}`).pipe(
+  getLeagueEnrolmentsTable(leagueId: number): Observable<EnrolmentTableList> {
+    return this.http.get<IJsonObject>(`${this.path}/table/${leagueId}`).pipe(
       map((enrolments) => Deserialize(enrolments, () => EnrolmentTableList)),
       catchError((err) => {
         throw err;
@@ -66,12 +66,12 @@ export class EnrolmentService {
   }
 
   finalizeEnrolment(
-    league_id: number,
-    user_id: number,
+    leagueId: number,
+    userId: number,
   ): Observable<EnrolmentList> {
     return this.http
       .put<EnrolmentList>(
-        `${this.path}/finalize_enrolment?user_id=${user_id}&league_id=${league_id}`,
+        `${this.path}/finalize_enrolment?user_id=${userId}&league_id=${leagueId}`,
         {},
       )
       .pipe(

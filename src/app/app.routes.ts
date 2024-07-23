@@ -1,6 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AuthGuard } from '../services/auth.guard';
+import { CreateLeagueComponent } from './league/create-league/create-league.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
 import { HomeComponent } from './home/home.component';
 import { LeagueDetailComponent } from './league/league-detail/league-detail.component';
@@ -10,7 +11,6 @@ import { LoginGuard } from '../services/login.guard';
 import { NgModule } from '@angular/core';
 import { ProfileComponent } from './profile/profile.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
-import { CreateLeagueComponent } from './league/create-league/create-league.component';
 
 export const routes: Routes = [
   {

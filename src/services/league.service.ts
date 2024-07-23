@@ -60,7 +60,9 @@ export class LeagueService {
   ): Observable<League> {
     return this.http
       .post<League>(
-        `${this.path}/create-league?name=${name}&description=${description}&created_by=${createdBy}&points_victory=${pointsVictory}&place=${place}&points_defeat=${pointsDefeat}&weeks=${weeks}&date_start=${dateStart}`,
+        `${this.path}/create-league?name=${name}&description=${description}
+        &created_by=${createdBy}&points_victory=${pointsVictory}&place=${place}
+        &points_defeat=${pointsDefeat}&weeks=${weeks}&date_start=${dateStart}`,
         {},
       )
       .pipe(

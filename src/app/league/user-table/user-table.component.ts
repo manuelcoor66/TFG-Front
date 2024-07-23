@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -12,15 +12,10 @@ import {
   MatTable,
   MatTableDataSource,
 } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { ClassificationTable } from '../../../utils/models';
-import { EnrolmentService } from '../../../services/enrolment.service';
-import {
-  Enrolment,
-  EnrolmentList,
-  EnrolmentTable,
-} from '../../../models/enrolment';
 import { ActivatedRoute } from '@angular/router';
+import { EnrolmentService } from '../../../services/enrolment.service';
+import { EnrolmentTable } from '../../../models/enrolment';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-user-table',
@@ -55,14 +50,14 @@ export class UserTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor() {
-   this.loadEnrolments();
+    this.loadEnrolments();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
 
-  loadEnrolments() {
+  loadEnrolments(): void {
     this.route.params.subscribe((params) => {
       this.enrolmentService
         .getLeagueEnrolmentsTable(params['id'])
@@ -72,7 +67,7 @@ export class UserTableComponent implements AfterViewInit {
     });
   }
 
-  refreshData() {
+  refreshData(): void {
     this.loadEnrolments();
   }
 }
