@@ -23,6 +23,8 @@ import { Place } from '../../../models/places';
 import { PlacesService } from '../../../services/places.service';
 import { Router } from '@angular/router';
 import { SnackbarService } from '../../../services/snackbar.service';
+import { Sport } from '../../../models/sports';
+import { SportsService } from '../../../services/sports.service';
 
 @Component({
   selector: 'app-create-league',
@@ -54,6 +56,7 @@ export class CreateLeagueComponent {
   private localStorageService = inject(LocalStorageService);
   private router = inject(Router);
   private placesService = inject(PlacesService);
+  private sportsService = inject(SportsService);
 
   /**
    * Login form
@@ -76,9 +79,14 @@ export class CreateLeagueComponent {
   weeksLeagueOptions = [4, 5, 6, 7, 8, 9, 10];
 
   /**
-   *
+   * All the places
    */
   places?: Place[];
+
+  /**
+   * All the places
+   */
+  sports?: Sport[];
 
   constructor() {
     this.leagueForm = new FormGroup({
@@ -87,12 +95,17 @@ export class CreateLeagueComponent {
       pointsVictory: new FormControl('', Validators.required),
       pointsDefeat: new FormControl('', Validators.required),
       place: new FormControl('', Validators.required),
+      sport: new FormControl('', Validators.required),
       weeks: new FormControl('', Validators.required),
       dateStart: new FormControl('', Validators.required),
     });
 
     this.placesService.getAllPlaces().subscribe((places) => {
       this.places = places.items;
+    });
+
+    this.sportsService.getAllSports().subscribe((sports) => {
+      this.sports = sports.items;
     });
   }
 
@@ -116,6 +129,7 @@ export class CreateLeagueComponent {
             this.leagueForm.get('weeks')?.value,
             formattedDate,
             this.leagueForm.get('place')?.value,
+            this.leagueForm.get('sport')?.value,
           )
           .subscribe(() => {
             this.router.navigateByUrl('/leagues');

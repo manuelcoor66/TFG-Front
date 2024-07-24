@@ -117,6 +117,26 @@
     </div>
 
     <div class="form-wrapper">
+      <mat-label>Deporte</mat-label>
+      <mat-form-field>
+        <mat-select
+          class="form__input"
+          placeholder="Elige un deporte"
+          formControlName="sport"
+          name="sport"
+          required
+        >
+          <mat-option *ngFor="let sport of sports" [value]="sport.id">
+            {{ sport.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="leagueForm.get('place')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper">
       <mat-label>Semanas de duración</mat-label>
       <mat-form-field>
         <mat-select

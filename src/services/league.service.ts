@@ -57,12 +57,13 @@ export class LeagueService {
     weeks: number,
     dateStart: string,
     place: number,
+    sport: number
   ): Observable<League> {
     return this.http
       .post<League>(
         `${this.path}/create-league?name=${name}&description=${description}
         &created_by=${createdBy}&points_victory=${pointsVictory}&place=${place}
-        &points_defeat=${pointsDefeat}&weeks=${weeks}&date_start=${dateStart}`,
+        &sport_id=${sport}&points_defeat=${pointsDefeat}&weeks=${weeks}&date_start=${dateStart}`,
         {},
       )
       .pipe(
