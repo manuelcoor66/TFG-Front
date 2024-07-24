@@ -57,7 +57,7 @@ export class LeagueService {
     weeks: number,
     dateStart: string,
     place: number,
-    sport: number
+    sport: number,
   ): Observable<League> {
     return this.http
       .post<League>(

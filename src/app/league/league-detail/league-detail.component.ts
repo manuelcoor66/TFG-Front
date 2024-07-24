@@ -33,7 +33,6 @@ import { UserTableComponent } from '../user-table/user-table.component';
 import { catchError } from 'rxjs';
 import { fourPlayers } from '../../../utils/shared-functions';
 
-
 @Component({
   selector: 'app-league-detail',
   standalone: true,
@@ -262,20 +261,25 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
   }
 
   isStarted(): boolean {
-    if (this.leagueDetail) {return this.leagueDetail?.dateStart < new Date();}
+    if (this.leagueDetail) {
+      return this.leagueDetail?.dateStart < new Date();
+    }
 
     return false;
   }
 
   weeksLeft(): number {
-    if (this.leagueDetail)
-    {return this.leagueDetail?.weeks - this.leagueDetail?.weeksPlayed;}
+    if (this.leagueDetail) {
+      return this.leagueDetail?.weeks - this.leagueDetail?.weeksPlayed;
+    }
 
     return 0;
   }
 
   getMonth(): number {
-    if (this.leagueDetail) {return this.leagueDetail?.dateStart.getMonth() + 1;}
+    if (this.leagueDetail) {
+      return this.leagueDetail?.dateStart.getMonth() + 1;
+    }
 
     return 0;
   }
