@@ -1,4 +1,4 @@
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8" *ngIf="!isEmpty">
   <table mat-table [dataSource]="dataSource">
     <!-- ID Column -->
     <ng-container matColumnDef="id">
@@ -42,3 +42,4 @@
     </mat-paginator>
   </div>
 </div>
+<app-no-data *ngIf="isEmpty" [data]="emptyData"></app-no-data>

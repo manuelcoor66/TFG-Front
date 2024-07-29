@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
+import { EMPTY, catchError } from 'rxjs';
 import {
   MatCell,
   MatCellDef,
@@ -16,6 +17,8 @@ import { ActivatedRoute } from '@angular/router';
 import { EnrolmentService } from '../../../services/enrolment.service';
 import { EnrolmentTable } from '../../../models/enrolment';
 import { MatPaginator } from '@angular/material/paginator';
+import { NgIf } from '@angular/common';
+import { NoDataComponent } from '../../shared-components/no-data/no-data.component';
 
 @Component({
   selector: 'app-user-table',
@@ -32,6 +35,8 @@ import { MatPaginator } from '@angular/material/paginator';
     MatRowDef,
     MatTable,
     MatHeaderCellDef,
+    NgIf,
+    NoDataComponent,
   ],
   templateUrl: './user-table.component.html',
   styleUrls: ['./user-table.component.scss'],
@@ -42,10 +47,14 @@ export class UserTableComponent implements AfterViewInit {
 
   displayedColumns: string[] = ['id', 'name', 'points', 'wins', 'defeats'];
 
-  // dataSource = new MatTableDataSource<ClassificationTable>(
-  //   CLASSIFICATION_DATA.sort((a, b) => b.points - a.points),
-  // );
   dataSource = new MatTableDataSource<EnrolmentTable>();
+
+  /**
+   * Whether is empty
+   */
+  isEmpty = true;
+
+  emptyData = 'No existen usuarios, vuelva a intentarlo más tarde';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -61,8 +70,16 @@ export class UserTableComponent implements AfterViewInit {
     this.route.params.subscribe((params) => {
       this.enrolmentService
         .getLeagueEnrolmentsTable(params['id'])
+        .pipe(
+          catchError(() => {
+            this.isEmpty = true;
+
+            return EMPTY;
+          }),
+        )
         .subscribe((enrolments) => {
           this.dataSource.data = enrolments.items;
+          this.isEmpty = enrolments.total === 0;
         });
     });
   }

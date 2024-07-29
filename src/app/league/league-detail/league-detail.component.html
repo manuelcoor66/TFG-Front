@@ -92,14 +92,15 @@
       <mat-icon class="pointer">sports</mat-icon> Partidos
     </ng-template>
     <div class="tab">
-      <p>Contenido del Tab 1</p>
+      <p *ngIf="!isEmptyActive">Contenido del Tab 1</p>
+      <app-no-data *ngIf="isEmptyActive" [data]="emptyActiveData"></app-no-data>
     </div>
   </mat-tab>
   <mat-tab>
     <ng-template mat-tab-label>
       <mat-icon class="pointer">scoreboard</mat-icon> Resultados
     </ng-template>
-    <div class="matches">
+    <div class="matches" *ngIf="!isEmptyFinalized">
       <div
         class="tab pointer"
         *ngFor="let match of finalizedMatches?.items"
@@ -134,6 +135,10 @@
         </div>
       </div>
     </div>
+    <app-no-data
+      *ngIf="isEmptyFinalized"
+      [data]="emptyFinalizedData"
+    ></app-no-data>
   </mat-tab>
   <mat-tab>
     <ng-template mat-tab-label>

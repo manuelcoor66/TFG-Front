@@ -18,7 +18,7 @@
     class="league-container"
     *ngFor="let league of leagues?.items"
   >
-    <div class="league-dates">
+    <div class="league-dates" *ngIf="!isEmpty">
       <h2>{{ league.name }}</h2>
       <p>{{ league.description }}</p>
       <span>Creado por: </span>
@@ -41,4 +41,5 @@
       </div>
     </div>
   </div>
+  <app-no-data *ngIf="isEmpty" [data]="emptyData"></app-no-data>
 </div>

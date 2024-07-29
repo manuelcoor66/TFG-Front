@@ -7,6 +7,7 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
+import { EMPTY, catchError } from 'rxjs';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import {
@@ -27,10 +28,10 @@ import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatchesList } from '../../../models/matches';
 import { MatchesService } from '../../../services/matches.service';
+import { NoDataComponent } from '../../shared-components/no-data/no-data.component';
 import { SnackbarService } from '../../../services/snackbar.service';
 import { User } from '../../../models/user';
 import { UserTableComponent } from '../user-table/user-table.component';
-import { catchError } from 'rxjs';
 import { fourPlayers } from '../../../utils/shared-functions';
 
 @Component({
@@ -48,6 +49,7 @@ import { fourPlayers } from '../../../utils/shared-functions';
     MatTabLabel,
     UserTableComponent,
     NgForOf,
+    NoDataComponent,
   ],
   templateUrl: './league-detail.component.html',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -101,9 +103,32 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
   activeMatches!: MatchesList;
 
   /**
-   * Whetever to show message
+   * Whether to show message
    */
   showMessage = false;
+
+  /**
+   * Whether is empty the actives matches
+   */
+  isEmptyActive = true;
+
+  /**
+   * Whether is empty the finalized matches
+   */
+  isEmptyFinalized = true;
+
+  /**
+   * Empty active data text
+   */
+  emptyActiveData =
+    'No se encuentran partidos en activo, si quiere apuntarse a uno, va a tener que crearlo ' +
+    'en el botón de arriba a la derecha';
+
+  /**
+   * Empty finalized data text
+   */
+  emptyFinalizedData =
+    'Todavía no se ha terminado ningún partido de esta liga, si quiere ver los partidos vaya a la primera pestaña';
 
   @ViewChild(UserTableComponent) userTable!: UserTableComponent;
 
@@ -122,14 +147,30 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
     this.route.params.subscribe((params) => {
       this.matchesService
         .getActiveLeagueMatches(params['id'])
+        .pipe(
+          catchError(() => {
+            this.isEmptyActive = true;
+
+            return EMPTY;
+          }),
+        )
         .subscribe((matches) => {
           this.finalizedMatches = matches;
+          this.isEmptyActive = matches.total === 0;
         });
 
       this.matchesService
         .getFinalizedLeagueMatches(params['id'])
+        .pipe(
+          catchError(() => {
+            this.isEmptyFinalized = true;
+
+            return EMPTY;
+          }),
+        )
         .subscribe((matches) => {
           this.activeMatches = matches;
+          this.isEmptyFinalized = matches.total === 0;
         });
     });
   }
