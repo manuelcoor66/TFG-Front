@@ -27,6 +27,27 @@
   overflow: hidden;
 }
 
+.league-container-disable {
+  flex: 1;
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+  border: 1px solid gray;
+  border-radius: 1rem;
+  overflow: hidden;
+  color: gray;
+}
+
+.prueba {
+  background-color: #333; // Color de fondo
+  color: #fff; // Color del texto
+  font-size: 14px; // Tamaño del texto
+  padding: 8px; // Espaciado interno
+  border-radius: 4px; // Bordes redondeados
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); // Sombra del tooltip
+  pointer-events: none; // Hace que el tooltip no sea clicable
+}
+
 .league-dates {
   width: 89%;
   min-width: 13%;

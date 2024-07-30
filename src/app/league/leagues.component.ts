@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { NgForOf, NgIf } from '@angular/common';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { LeagueList } from '../../models/league';
 import { LeagueService } from '../../services/league.service';
@@ -10,11 +10,12 @@ import { NoDataComponent } from '../shared-components/no-data/no-data.component'
 import { SnackbarService } from '../../services/snackbar.service';
 import { User } from '../../models/user';
 import { catchError } from 'rxjs';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-league',
   standalone: true,
-  imports: [NgForOf, NgIf, RouterLink, MatButton, MatIcon, NoDataComponent],
+  imports: [NgForOf, NgIf, RouterLink, MatButton, MatIcon, NoDataComponent, NgClass, MatTooltipModule],
   templateUrl: './leagues.component.html',
   styleUrls: ['./leagues.component.scss'],
 })
@@ -66,7 +67,9 @@ export class LeaguesComponent implements OnInit {
   }
 
   goToLeagueDetail(id: number): void {
-    this.router.navigateByUrl('/league/' + id);
+    if (this.leagues?.items[id].weeksPlayed === this.leagues?.items[id].weeks) {
+      this.router.navigateByUrl('/league/' + id);
+    }
   }
 
   createLeague(): void {

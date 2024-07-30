@@ -14,32 +14,36 @@
   </div>
 
   <div
-    (click)="goToLeagueDetail(league.id)"
-    class="league-container"
     *ngFor="let league of leagues?.items"
+    (click)="goToLeagueDetail(league.id)"
   >
-    <div class="league-dates" *ngIf="!isEmpty">
-      <h2>{{ league.name }}</h2>
-      <p>{{ league.description }}</p>
-      <span>Creado por: </span>
-      <span class="underline-league">{{ league.createdBy }}</span>
-    </div>
-    <div class="league-info">
-      <div class="league-info__place">
-        <mat-icon>{{ league.sportIcon }}</mat-icon>
-        <span>{{ league.sport }}</span>
+    <div [ngClass]="league.weeksPlayed === league.weeks ? 'league-container-disable' : 'league-container'"
+         [matTooltip]="league.weeksPlayed === league.weeks ? 'Esta liga se ha terminado por lo tanto no se puede acceder a ella' : ''"
+         matTooltipClass="prueba">
+      <div class="league-dates" *ngIf="!isEmpty">
+        <h2>{{ league.name }}</h2>
+        <p>{{ league.description }}</p>
+        <span>Creado por: </span>
+        <span class="underline-league">{{ league.createdBy }}</span>
       </div>
-      <div class="league-info__place">
-        <mat-icon>location_on</mat-icon>
-        <span>{{ league.place }}</span>
-      </div>
-      <div class="league-info__enrolments">
-        <div>
-          <span>Matriculaciones: </span>
-          <span class="underline-league">{{ league.enrolments }} usuarios</span>
+      <div class="league-info">
+        <div class="league-info__place">
+          <mat-icon>{{ league.sportIcon }}</mat-icon>
+          <span>{{ league.sport }}</span>
+        </div>
+        <div class="league-info__place">
+          <mat-icon>location_on</mat-icon>
+          <span>{{ league.place }}</span>
+        </div>
+        <div class="league-info__enrolments">
+          <div>
+            <span>Matriculaciones: </span>
+            <span class="underline-league">{{ league.enrolments }} usuarios</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
   <app-no-data *ngIf="isEmpty" [data]="emptyData"></app-no-data>
 </div>
