@@ -15,7 +15,7 @@
 
   <div
     *ngFor="let league of leagues?.items"
-    (click)="goToLeagueDetail(league.id)"
+    (click)="goToLeagueDetail(league)"
   >
     <div [ngClass]="league.weeksPlayed === league.weeks ? 'league-container-disable' : 'league-container'"
          [matTooltip]="league.weeksPlayed === league.weeks ? 'Esta liga se ha terminado por lo tanto no se puede acceder a ella' : ''"

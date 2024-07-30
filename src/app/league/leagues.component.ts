@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import {NgClass, NgForOf, NgIf} from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { LeagueList } from '../../models/league';
+import {League, LeagueList} from '../../models/league';
 import { LeagueService } from '../../services/league.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { MatButton } from '@angular/material/button';
@@ -66,9 +66,9 @@ export class LeaguesComponent implements OnInit {
     this.currentUser = this.localStorageService.getItem('user');
   }
 
-  goToLeagueDetail(id: number): void {
-    if (this.leagues?.items[id].weeksPlayed === this.leagues?.items[id].weeks) {
-      this.router.navigateByUrl('/league/' + id);
+  goToLeagueDetail(league: League): void {
+    if (league.weeksPlayed < league.weeks) {
+      this.router.navigateByUrl('/league/' + league.id);
     }
   }
 
