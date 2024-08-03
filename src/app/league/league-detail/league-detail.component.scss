@@ -1,6 +1,6 @@
-::ng-deep .mat-typography {
-  margin: 2rem;
-}
+//::ng-deep .mat-typography {
+//  margin: 2rem;
+//}
 
 ::ng-deep .mat-mdc-menu-content {
   gap: 1rem;
@@ -23,6 +23,16 @@
 
 ::ng-deep .cdk-overlay-container {
   position: absolute;
+}
+
+h2 {
+  color: #5c5c5c;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.container {
+  margin: 2rem;
 }
 
 .pointer {

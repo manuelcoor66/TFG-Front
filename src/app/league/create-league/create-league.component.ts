@@ -66,7 +66,7 @@ export class CreateLeagueComponent {
   /**
    * points that can earn the winner
    */
-  pointsVictoryOptions = [1, 2, 3, 4, 5, 6, 7, 8];
+  pointsVictoryOptions = [2, 3, 4, 5, 6, 7, 8];
 
   /**
    * points that can earn the loser

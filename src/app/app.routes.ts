@@ -1,4 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
+import { AchievementsComponent } from './achievements/achievements.component';
 import { AppComponent } from './app.component';
 import { AuthGuard } from '../services/auth.guard';
 import { CreateLeagueComponent } from './league/create-league/create-league.component';
@@ -8,6 +9,7 @@ import { LeagueDetailComponent } from './league/league-detail/league-detail.comp
 import { LeaguesComponent } from './league/leagues.component';
 import { LoginComponent } from './login/login.component';
 import { LoginGuard } from '../services/login.guard';
+import { ManageUsersComponent } from './user/manage-users/manage-users.component';
 import { NgModule } from '@angular/core';
 import { ProfileComponent } from './profile/profile.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
@@ -15,8 +17,13 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/leagues',
     pathMatch: 'full',
+  },
+  {
+    path: 'leagues',
+    component: LeaguesComponent,
+    canActivate: [LoginGuard],
   },
   {
     path: 'home',
@@ -42,11 +49,6 @@ export const routes: Routes = [
     component: SubscriptionComponent,
   },
   {
-    path: 'leagues',
-    component: LeaguesComponent,
-    canActivate: [LoginGuard],
-  },
-  {
     path: 'league/:id',
     component: LeagueDetailComponent,
     canActivate: [LoginGuard],
@@ -55,6 +57,25 @@ export const routes: Routes = [
     path: 'create-league',
     component: CreateLeagueComponent,
     canActivate: [LoginGuard],
+  },
+  {
+    path: 'achievements',
+    component: AchievementsComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'manage-users',
+    component: ManageUsersComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'create-league',
+    component: CreateLeagueComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: '**',
+    redirectTo: '/leagues',
   },
 ];
 

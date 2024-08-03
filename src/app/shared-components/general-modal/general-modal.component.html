@@ -2,11 +2,8 @@
   <div class="icon">
     <mat-icon svgIcon="report"></mat-icon>
   </div>
-  <h1>Prueba</h1>
-  <p>
-    Hola, esta es una prueba de concepto. Para configurarla bien los estilos
-    deberían de estar bien y no se debería de ver nada raro.
-  </p>
+  <h1>{{ data.title }}</h1>
+  <p>{{ data.text }}</p>
   <div class="buttons">
     <a (click)="closeModal('no')" class="close">Cerrar</a>
     <button
@@ -17,7 +14,7 @@
       appLoadingButton
       (click)="closeModal('yes')"
     >
-      Matricularse
+      Continuar
     </button>
   </div>
 </div>

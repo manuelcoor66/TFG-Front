@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatIcon, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatButton } from '@angular/material/button';
-import { MatDialogRef } from '@angular/material/dialog';
 import { NgIf } from '@angular/common';
 
 @Component({
@@ -17,7 +17,9 @@ export class GeneralModalComponent {
   private matIconRegistry = inject(MatIconRegistry);
   private domSanitizer = inject(DomSanitizer);
 
-  constructor() {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { text: string; title: string },
+  ) {
     this.matIconRegistry.addSvgIcon(
       'report',
       this.domSanitizer.bypassSecurityTrustResourceUrl(

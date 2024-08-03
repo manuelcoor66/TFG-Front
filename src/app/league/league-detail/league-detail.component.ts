@@ -130,6 +130,18 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
   emptyFinalizedData =
     'Todavía no se ha terminado ningún partido de esta liga, si quiere ver los partidos vaya a la primera pestaña';
 
+  /**
+   * Delete league title
+   */
+  deleteLeagueTitle = 'Borrar liga';
+
+  /**
+   * Delete league text
+   */
+  deleteLeagueText =
+    '¿Estás seguro de que quieres borrar la liga? Si lo haces todos los usuarios perderán su ' +
+    'suscripción y sus registros.';
+
   @ViewChild(UserTableComponent) userTable!: UserTableComponent;
 
   constructor() {
@@ -225,7 +237,10 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
   deleteLeague(): void {
     const dialogRef = this.dialog.open(GeneralModalComponent, {
       width: '36rem',
-      data: { forgotPassword: false },
+      data: {
+        title: this.deleteLeagueTitle,
+        text: this.deleteLeagueText,
+      },
     });
     dialogRef.afterClosed().subscribe((data) => {
       if (data && data == 'yes') {

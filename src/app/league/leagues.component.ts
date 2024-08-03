@@ -1,21 +1,30 @@
 import { Component, OnInit, inject } from '@angular/core';
-import {NgClass, NgForOf, NgIf} from '@angular/common';
+import { League, LeagueList } from '../../models/league';
+import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import {League, LeagueList} from '../../models/league';
 import { LeagueService } from '../../services/league.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { NoDataComponent } from '../shared-components/no-data/no-data.component';
 import { SnackbarService } from '../../services/snackbar.service';
 import { User } from '../../models/user';
 import { catchError } from 'rxjs';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-league',
   standalone: true,
-  imports: [NgForOf, NgIf, RouterLink, MatButton, MatIcon, NoDataComponent, NgClass, MatTooltipModule],
+  imports: [
+    NgForOf,
+    NgIf,
+    RouterLink,
+    MatButton,
+    MatIcon,
+    NoDataComponent,
+    NgClass,
+    MatTooltipModule,
+  ],
   templateUrl: './leagues.component.html',
   styleUrls: ['./leagues.component.scss'],
 })
@@ -74,5 +83,24 @@ export class LeaguesComponent implements OnInit {
 
   createLeague(): void {
     this.router.navigateByUrl('/create-league');
+  }
+
+  showDeletedLeague(league: League): boolean {
+    const show: Date = new Date();
+    const milisegundosEnSemana = 7 * 24 * 60 * 60 * 1000;
+    show.setTime(
+      league.dateStart.getTime() +
+        milisegundosEnSemana * league.weeks +
+        4 * milisegundosEnSemana,
+    );
+    const now = new Date();
+
+    return league.weeksPlayed < league.weeks ? true : show > now;
+  }
+
+  showLeague(league: League): boolean {
+    const now = new Date();
+
+    return league.dateStart > now ? true : this.showDeletedLeague(league);
   }
 }
