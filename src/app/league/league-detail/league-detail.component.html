@@ -14,14 +14,16 @@
         <mat-icon class="pointer">more_vert</mat-icon>
       </div>
       <mat-menu #actions xPosition="before">
-        <button class="options__button pointer">
-          <mat-icon svgIcon="edit"></mat-icon>
-          Editar liga
-        </button>
-        <button class="options__button pointer" (click)="deleteLeague()">
-          <mat-icon svgIcon="delete"></mat-icon>
-          Borrar liga
-        </button>
+        <div class="center">
+          <button class="options__button pointer">
+            <mat-icon svgIcon="edit"></mat-icon>
+            Editar liga
+          </button>
+          <button class="options__button pointer" (click)="deleteLeague()">
+            <mat-icon svgIcon="delete"></mat-icon>
+            Borrar liga
+          </button>
+        </div>
       </mat-menu>
     </div>
   </div>

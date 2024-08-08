@@ -1,1 +1,40 @@
-<p>achievements works!</p>
+<div class="container">
+  <h1>Logros</h1>
+
+  <div class="matches">
+    <div *ngFor="let achievement of achievements" class="item">
+      <div
+        [ngClass]="{
+          'gray-color': !achievement.finalized,
+          'achievement-container': true,
+        }"
+      >
+        <div class="achievement-container__text">
+          <div class="align">
+            <img
+              [ngClass]="{ 'gray-scale': !achievement.finalized, trophy: true }"
+              src="assets/images/trophy.jpg"
+              alt="Trophy"
+            />
+            <div class="align__text">
+              {{ achievement.description }}
+              <div class="progress">
+                <mat-progress-bar
+                  class="progress__bar"
+                  mode="determinate"
+                  [value]="calculateProgress(achievement)"
+                ></mat-progress-bar>
+                <div *ngIf="!achievement.finalized">
+                  {{ achievement.made }}/{{ achievement.amount }}
+                </div>
+                <div *ngIf="achievement.finalized">
+                  {{ achievement.amount }}/{{ achievement.amount }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

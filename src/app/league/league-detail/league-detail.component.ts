@@ -167,7 +167,7 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
           }),
         )
         .subscribe((matches) => {
-          this.finalizedMatches = matches;
+          this.activeMatches = matches;
           this.isEmptyActive = matches.total === 0;
         });
 
@@ -181,7 +181,7 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
           }),
         )
         .subscribe((matches) => {
-          this.activeMatches = matches;
+          this.finalizedMatches = matches;
           this.isEmptyFinalized = matches.total === 0;
         });
     });

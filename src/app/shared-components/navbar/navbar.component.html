@@ -1,24 +1,26 @@
-<div class="navbar" *ngIf="!showNavbar()">
-  <button class="redirect" (click)="goTo('leagues')">Ligas</button>
-  <button class="redirect" (click)="goTo('profile')">Mis ligas</button>
-  <img
-    class="profile"
-    src="assets/images/profile.png"
-    alt="Profile"
-    [matMenuTriggerFor]="actions"
-  />
+<div class="container">
+  <div class="navbar" *ngIf="!showNavbar()">
+    <button class="redirect" (click)="goTo('leagues')">Ligas</button>
+    <button class="redirect" (click)="goTo('profile')">Mis ligas</button>
+    <img
+      class="profile"
+      src="assets/images/profile.png"
+      alt="Profile"
+      [matMenuTriggerFor]="actions"
+    />
+  </div>
+  <mat-menu #actions xPosition="before">
+    <button class="options__button" (click)="goTo('profile')">
+      <mat-icon>person</mat-icon>
+      <span class="options__button__text">Datos personales</span>
+    </button>
+    <button class="options__button" (click)="goTo('achievements')">
+      <mat-icon>stars</mat-icon>
+      <span class="options__button__text">Logros</span>
+    </button>
+    <!--  <button class="options__button" (click)="goTo('users')">-->
+    <!--    <mat-icon>stars</mat-icon>-->
+    <!--    <span class="options__button__text">Gestión usuarios</span>-->
+    <!--  </button>-->
+  </mat-menu>
 </div>
-<mat-menu #actions xPosition="before">
-  <button class="options__button" (click)="goTo('profile')">
-    <mat-icon>person</mat-icon>
-    <span class="options__button__text">Datos personales</span>
-  </button>
-  <button class="options__button" (click)="goTo('achievements')">
-    <mat-icon>stars</mat-icon>
-    <span class="options__button__text">Logros</span>
-  </button>
-  <button class="options__button" (click)="goTo('users')">
-    <mat-icon>stars</mat-icon>
-    <span class="options__button__text">Gestión usuarios</span>
-  </button>
-</mat-menu>

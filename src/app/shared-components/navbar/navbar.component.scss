@@ -7,6 +7,10 @@
   align-items: flex-start;
 }
 
+.container {
+  width: 99.2%;
+}
+
 .redirect {
   height: 100%;
   width: 12%;
@@ -15,6 +19,8 @@
   border: 0;
   cursor: pointer;
   font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .navbar {
@@ -48,6 +54,7 @@
     gap: 0.5rem;
     padding: 0.5rem;
     cursor: pointer;
+    width: 100%;
 
     &__text {
       display: flex;
