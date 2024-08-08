@@ -6,7 +6,6 @@
   gap: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 ::ng-deep .cdk-overlay-connected-position-bounding-box {
@@ -162,4 +161,11 @@ table {
     font-size: 1rem;
     line-height: 1.5rem;
   }
+}
+
+.center {
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

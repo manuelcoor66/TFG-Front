@@ -39,7 +39,7 @@ export class MatchesService {
 
   getActiveLeagueMatches(leagueId: number): Observable<MatchesList> {
     return this.http
-      .get<IJsonObject>(`${this.path}/finalized/league/${leagueId}`)
+      .get<IJsonObject>(`${this.path}/active/league/${leagueId}`)
       .pipe(
         map((leagues) => Deserialize(leagues, () => MatchesList)),
         catchError((err) => {

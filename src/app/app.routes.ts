@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from '../services/auth.guard';
 import { CreateLeagueComponent } from './league/create-league/create-league.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
-import { HomeComponent } from './home/home.component';
 import { LeagueDetailComponent } from './league/league-detail/league-detail.component';
 import { LeaguesComponent } from './league/leagues.component';
 import { LoginComponent } from './login/login.component';
@@ -24,10 +23,6 @@ export const routes: Routes = [
     path: 'leagues',
     component: LeaguesComponent,
     canActivate: [LoginGuard],
-  },
-  {
-    path: 'home',
-    component: HomeComponent,
   },
   {
     path: 'login',
