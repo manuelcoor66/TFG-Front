@@ -3,6 +3,7 @@ import { League, LeagueList } from '../models/league';
 import { Observable, catchError, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { formatDate } from '../utils/shared-functions';
 
 @Injectable({
   providedIn: 'root',
@@ -58,12 +59,30 @@ export class LeagueService {
     dateStart: string,
     place: number,
     sport: number,
+    price: number,
   ): Observable<League> {
     return this.http
       .post<League>(
         `${this.path}/create-league?name=${name}&description=${description}
         &created_by=${createdBy}&points_victory=${pointsVictory}&place=${place}
-        &sport_id=${sport}&points_defeat=${pointsDefeat}&weeks=${weeks}&date_start=${dateStart}`,
+        &sport_id=${sport}&points_defeat=${pointsDefeat}&weeks=${weeks}&date_start=${dateStart}&price=${price}`,
+        {},
+      )
+      .pipe(
+        catchError((err) => {
+          throw err;
+        }),
+      );
+  }
+
+  modifyLeague(league: League, date: Date): Observable<void> {
+    const formattedDate = formatDate(date);
+
+    return this.http
+      .patch<void>(
+        `${this.path}/modify-league?id=${league.id}&name=${league.name}&description=${league.description}
+        &points_victory=${league.pointsVictory}&points_defeat=${league.pointsDefeat}&weeks=${league.weeks}
+        &date_start=${formattedDate}`,
         {},
       )
       .pipe(

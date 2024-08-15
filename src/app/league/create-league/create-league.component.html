@@ -97,6 +97,24 @@
     </div>
 
     <div class="form-wrapper">
+      <mat-label>Price</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          class="form__input"
+          placeholder="Precio (sin decimales)"
+          type="price"
+          formControlName="price"
+          name="price"
+          required
+        />
+        <mat-error *ngIf="leagueForm.get('name')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper">
       <mat-label>Lugar</mat-label>
       <mat-form-field>
         <mat-select
