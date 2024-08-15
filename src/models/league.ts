@@ -71,6 +71,11 @@ export class League {
    */
   @autoserializeAs(() => String, 'sport_icon') sportIcon: string;
 
+  /**
+   * Created By
+   */
+  @autoserializeAs(() => Number) price: number;
+
   constructor(
     id: number,
     name: string,
@@ -86,6 +91,7 @@ export class League {
     dateStart: Date,
     sport: string,
     sportIcon: string,
+    price: number,
   ) {
     this.id = id;
     this.name = name;
@@ -101,6 +107,7 @@ export class League {
     this.dateStart = dateStart;
     this.sport = sport;
     this.sportIcon = sportIcon;
+    this.price = price;
   }
 }
 

@@ -25,6 +25,7 @@ import { Router } from '@angular/router';
 import { SnackbarService } from '../../../services/snackbar.service';
 import { Sport } from '../../../models/sports';
 import { SportsService } from '../../../services/sports.service';
+import { formatDate } from '../../../utils/shared-functions';
 
 @Component({
   selector: 'app-create-league',
@@ -59,7 +60,7 @@ export class CreateLeagueComponent {
   private sportsService = inject(SportsService);
 
   /**
-   * Login form
+   * League form
    */
   public leagueForm: FormGroup;
 
@@ -94,6 +95,7 @@ export class CreateLeagueComponent {
       description: new FormControl('', Validators.required),
       pointsVictory: new FormControl('', Validators.required),
       pointsDefeat: new FormControl('', Validators.required),
+      price: new FormControl('', Validators.required),
       place: new FormControl('', Validators.required),
       sport: new FormControl('', Validators.required),
       weeks: new FormControl('', Validators.required),
@@ -115,7 +117,7 @@ export class CreateLeagueComponent {
         this.leagueForm.get('pointsVictory')?.value >
         this.leagueForm.get('pointsDefeat')?.value
       ) {
-        const formattedDate = this.formatDate(
+        const formattedDate = formatDate(
           this.leagueForm.get('dateStart')?.value,
         );
         const user = this.localStorageService.getItem('user');
@@ -130,6 +132,7 @@ export class CreateLeagueComponent {
             formattedDate,
             this.leagueForm.get('place')?.value,
             this.leagueForm.get('sport')?.value,
+            this.leagueForm.get('price')?.value,
           )
           .subscribe(() => {
             this.router.navigateByUrl('/leagues');
@@ -141,13 +144,5 @@ export class CreateLeagueComponent {
         );
       }
     }
-  }
-
-  formatDate(date: Date): string {
-    const day = ('0' + date.getDate()).slice(-2);
-    const month = ('0' + (date.getMonth() + 1)).slice(-2); // Months are 0-based
-    const year = date.getFullYear();
-
-    return `${year}-${month}-${day}`;
   }
 }

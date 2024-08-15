@@ -2,6 +2,7 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Enrolment } from '../models/enrolment';
 import { League } from '../models/league';
 import { User } from '../models/user';
+import { UserTicket } from '../models/ticket';
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
@@ -25,7 +26,10 @@ export class LocalStorageService {
     return true;
   }
 
-  setItem(key: string, value: User | League[] | Enrolment[]): void {
+  setItem(
+    key: string,
+    value: User | League[] | Enrolment[] | UserTicket[],
+  ): void {
     if (this.isLocalStorageAvailable()) {
       const jsonValue = JSON.stringify(value);
       localStorage.setItem(key, jsonValue);

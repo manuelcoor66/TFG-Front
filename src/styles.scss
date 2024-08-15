@@ -18,6 +18,7 @@ mat-snack-bar-container {
 }
 
 .mat-mdc-snack-bar-container {
+  position: fixed !important;
   &.warning {
     --mdc-snackbar-container-color: #d1d1d1;
     --mat-mdc-snack-bar-button-color: #fff;

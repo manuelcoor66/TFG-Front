@@ -1,0 +1,128 @@
+<div class="container">
+  <h1>{{ data.league.name }}</h1>
+  <h3 class="price">Precio: {{ data.league.price }}€</h3>
+  <form
+    novalidate
+    class="form-container"
+    [formGroup]="payForm"
+    (ngSubmit)="payLeague()"
+  >
+    <div class="form-wrapper element">
+      <mat-label>{{ "DNI, NIE" }}</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          class="form__input"
+          placeholder="DNI, NIE"
+          type="dni"
+          formControlName="dni"
+          name="dni"
+          required
+        />
+        <mat-error *ngIf="payForm.get('dni')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+        <mat-error *ngIf="payForm.get('dni')?.hasError('pattern')">
+          DNI incorrecto
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper element">
+      <mat-label>{{ "Dirección" }}</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          class="form__input"
+          placeholder="Dirección"
+          type="direction"
+          formControlName="direction"
+          name="direction"
+          required
+        />
+        <mat-error *ngIf="payForm.get('direction')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!--    <div class="element">-->
+    <!--      <mat-icon>warning</mat-icon>-->
+    <!--      Se van a usar sus datos pesonales, si se quieren cambiar por favor vaya <span class="redirect" (click)="goToProfile()">aquí</span>, si no continue rellenando los campos-->
+    <!--    </div>-->
+
+    <div class="form-wrapper element">
+      <mat-label>{{ "Número de la tarjeta" }}</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          class="form__input"
+          placeholder="Número de la tarjeta"
+          type="numberCard"
+          formControlName="numberCard"
+          name="numberCard"
+          required
+        />
+        <mat-error *ngIf="payForm.get('numberCard')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+        <mat-error *ngIf="payForm.get('numberCard')?.hasError('pattern')">
+          Número incorrecto
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper element">
+      <mat-label>{{ "Fecha de expiración" }}</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          class="form__input"
+          placeholder="MM/AA"
+          type="expirationCard"
+          formControlName="expirationCard"
+          name="expirationCard"
+          required
+        />
+        <mat-error *ngIf="payForm.get('expirationCard')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+        <mat-error *ngIf="payForm.get('expirationCard')?.hasError('pattern')">
+          Formato incorrecto
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper element">
+      <mat-label>{{ "CVC" }}</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          class="form__input"
+          placeholder="CVC"
+          type="cvcCard"
+          formControlName="cvcCard"
+          name="cvcCard"
+          required
+        />
+        <mat-error *ngIf="payForm.get('cvcCard')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+        <mat-error *ngIf="payForm.get('cvcCard')?.hasError('pattern')">
+          Número incorrecto
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="element">
+      <button
+        mat-button
+        type="submit"
+        data-test-id="login-button"
+        appLoadingButton
+      >
+        Cambiar
+      </button>
+    </div>
+  </form>
+</div>

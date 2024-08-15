@@ -1,6 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   CUSTOM_ELEMENTS_SCHEMA,
+  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
@@ -28,10 +29,14 @@ import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatchesList } from '../../../models/matches';
 import { MatchesService } from '../../../services/matches.service';
+import { ModifyLeagueModalComponent } from '../modify-league-modal/modify-league-modal.component';
 import { NoDataComponent } from '../../shared-components/no-data/no-data.component';
+import { PayLeagueModalComponent } from '../pay-league-modal/pay-league-modal.component';
 import { SnackbarService } from '../../../services/snackbar.service';
+import { TicketState } from '../../../utils/enum';
 import { User } from '../../../models/user';
 import { UserTableComponent } from '../user-table/user-table.component';
+import { UserTicket } from '../../../models/ticket';
 import { fourPlayers } from '../../../utils/shared-functions';
 
 @Component({
@@ -66,6 +71,7 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
   private domSanitizer = inject(DomSanitizer);
   private dialog = inject(MatDialog);
   private matchesService = inject(MatchesService);
+  private cdRef = inject(ChangeDetectorRef);
 
   /**
    * League detail data
@@ -118,6 +124,11 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
   isEmptyFinalized = true;
 
   /**
+   * User tickets
+   */
+  userTickets!: UserTicket[];
+
+  /**
    * Empty active data text
    */
   emptyActiveData =
@@ -141,6 +152,18 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
   deleteLeagueText =
     '¿Estás seguro de que quieres borrar la liga? Si lo haces todos los usuarios perderán su ' +
     'suscripción y sus registros.';
+
+  /**
+   * Delete league title
+   */
+  deleteEnrolmentTitle = 'Desmatricularse';
+
+  /**
+   * Delete league text
+   */
+  deleteEnrolmentText =
+    '¿Estás seguro de que quieres desmatricularte? Si lo haces no podrás recuperar el dinero pagado y si quieres ' +
+    'volver a matricularte tendrás que volver a pagar de nuevo.';
 
   @ViewChild(UserTableComponent) userTable!: UserTableComponent;
 
@@ -189,6 +212,7 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentUser = this.localStorageService.getItem('user');
+    this.userTickets = this.localStorageService.getItem('tickets');
 
     this.route.params.subscribe((params) => {
       this.isEnroled = this.enrolments?.some(
@@ -225,9 +249,15 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
   }
 
   isEnrolled(): boolean {
-    return this.enrolments?.some(
+    const validTicket = this.userTickets?.some(
+      (element) =>
+        TicketState[element.state as unknown as keyof typeof TicketState],
+    ) as boolean;
+    const enrolled = this.enrolments?.some(
       (element) => element.userId == this.currentUser?.id,
     ) as boolean;
+
+    return validTicket && enrolled;
   }
 
   isCreator(): boolean {
@@ -267,52 +297,104 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
     });
   }
 
+  editLeague(): void {
+    const dialogRef = this.dialog.open(ModifyLeagueModalComponent, {
+      width: '36rem',
+      data: {
+        league: this.leagueDetail,
+      },
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.leagueService.getLeagueById(this.leagueId).subscribe((league) => {
+        this.leagueDetail = league;
+        this.cdRef.detectChanges();
+      });
+    });
+  }
+
   enrolOnLeague(): void {
     if (this.leagueDetail?.id && this.currentUser?.id) {
-      this.enrolmentService
-        .createEnrolment(this.leagueDetail?.id, this.currentUser?.id, false)
-        .pipe(
-          catchError((err) => {
-            this.snackbarService.openSnackBar(err.error.message, 'warning');
-            throw err;
-          }),
-        )
-        .subscribe((enrolment) => {
-          this.isEnroled = true;
-          this.userTable.refreshData();
-          this.enrolments?.push(enrolment);
-          this.localStorageService.setItem(
-            'enrolments',
-            this.enrolments as Enrolment[],
-          );
-          this.snackbarService.openSnackBar(
-            'Usuario matriculado con éxito',
-            'success',
-          );
-        });
+      const dialogRef = this.dialog.open(PayLeagueModalComponent, {
+        width: '36rem',
+        data: {
+          league: this.leagueDetail,
+          snackbar: true,
+        },
+      });
+      dialogRef.afterClosed().subscribe((data) => {
+        if (data && data == 'yes') {
+          this.enrolmentService
+            .createEnrolment(
+              this.leagueDetail?.id as number,
+              this.currentUser?.id as number,
+              false,
+            )
+            .pipe(
+              catchError((err) => {
+                this.snackbarService.openSnackBar(err.error.message, 'warning');
+                throw err;
+              }),
+            )
+            .subscribe((enrolment) => {
+              this.isEnroled = true;
+              this.userTable.refreshData();
+
+              if (!this.enrolments) {
+                this.enrolments = [];
+              }
+              this.enrolments?.push(enrolment);
+
+              this.localStorageService.setItem(
+                'enrolments',
+                this.enrolments as Enrolment[],
+              );
+              this.snackbarService.openSnackBar(
+                'Usuario matriculado con éxito',
+                'success',
+              );
+            });
+        }
+      });
     }
   }
 
   deleteEnrolment(): void {
     if (this.leagueDetail?.id && this.currentUser?.id) {
-      this.enrolmentService
-        .finalizeEnrolment(this.leagueDetail?.id, this.currentUser?.id)
-        .pipe(
-          catchError((err) => {
-            this.snackbarService.openSnackBar(err.error.message, 'warning');
-            throw err;
-          }),
-        )
-        .subscribe((enrolments) => {
-          this.isEnroled = false;
-          this.userTable.refreshData();
+      const dialogRef = this.dialog.open(GeneralModalComponent, {
+        width: '36rem',
+        data: {
+          title: this.deleteEnrolmentTitle,
+          text: this.deleteEnrolmentText,
+        },
+      });
+      dialogRef.afterClosed().subscribe((data) => {
+        if (data && data == 'yes') {
+          this.enrolmentService
+            .finalizeEnrolment(
+              this.leagueDetail?.id as number,
+              this.currentUser?.id as number,
+            )
+            .pipe(
+              catchError((err) => {
+                this.snackbarService.openSnackBar(err.error.message, 'warning');
+                throw err;
+              }),
+            )
+            .subscribe((enrolments) => {
+              this.isEnroled = false;
+              this.userTable.refreshData();
 
-          this.localStorageService.setItem('enrolments', enrolments.items);
-          this.snackbarService.openSnackBar(
-            'Usuario desmatriculado con éxito',
-            'success',
-          );
-        });
+              this.localStorageService.setItem('enrolments', enrolments.items);
+              this.snackbarService.openSnackBar(
+                'Usuario desmatriculado con éxito',
+                'success',
+              );
+
+              this.enrolments = enrolments.items;
+              this.cdRef.detectChanges();
+            });
+        }
+      });
     }
   }
 
