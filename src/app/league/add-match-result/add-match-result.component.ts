@@ -1,9 +1,4 @@
-import { Component, inject, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Matches } from '../../../models/matches';
-import { League } from '../../../models/league';
-import { MatCheckbox } from '@angular/material/checkbox';
-import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { Component, Inject, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -11,16 +6,21 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { fourPlayers } from '../../../utils/shared-functions';
-import { NgIf } from '@angular/common';
-import { MatButton } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { League } from '../../../models/league';
+import { MatButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
 import { MatInput } from '@angular/material/input';
+import { Matches } from '../../../models/matches';
 import { MatchesService } from '../../../services/matches.service';
-import { catchError, EMPTY } from 'rxjs';
+import { NgIf } from '@angular/common';
 import { SnackbarService } from '../../../services/snackbar.service';
-import { SportsService } from '../../../services/sports.service';
 import { Sport } from '../../../models/sports';
+import { SportsService } from '../../../services/sports.service';
+import { catchError } from 'rxjs';
+import { fourPlayers } from '../../../utils/shared-functions';
 
 @Component({
   selector: 'app-add-match-result',
@@ -70,7 +70,6 @@ export class AddMatchResultComponent {
     this.resultForm = new FormGroup({
       result: new FormControl('', Validators.required),
     });
-    console.log(this.data.league);
     this.sportService
       .getSportByName(this.data.league.sport)
       .subscribe((sport) => {

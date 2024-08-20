@@ -1,8 +1,8 @@
 import { Deserialize, IJsonObject } from 'dcerialize';
 import { Observable, catchError, map } from 'rxjs';
+import { Sport, SportList } from '../models/sports';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Sport, SportList } from '../models/sports';
 
 @Injectable({
   providedIn: 'root',

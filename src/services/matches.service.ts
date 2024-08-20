@@ -1,8 +1,8 @@
 import { Deserialize, IJsonObject } from 'dcerialize';
+import { Matches, MatchesList } from '../models/matches';
 import { Observable, catchError, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Matches, MatchesList } from '../models/matches';
 
 @Injectable({
   providedIn: 'root',
@@ -51,14 +51,15 @@ export class MatchesService {
   addMatchResult(
     matchId: number,
     result: string,
-    win_player_1: boolean,
-    win_player_2: boolean,
-    win_player_3?: boolean,
-    win_player_4?: boolean,
+    winPlayer1: boolean,
+    winPlayer2: boolean,
+    winPlayer3?: boolean,
+    winPlayer4?: boolean,
   ): Observable<Matches> {
     return this.http
       .post<Matches>(
-        `${this.path}/add-result?match_id=${matchId}&result=${result}&win_player_1=${win_player_1}&win_player_2=${win_player_2}&win_player_3=${win_player_3}&win_player_4=${win_player_4}`,
+        `${this.path}/add-result?match_id=${matchId}&result=${result}&win_player_1=${winPlayer1}` +
+              `&win_player_2=${winPlayer2}&win_player_3=${winPlayer3}&win_player_4=${winPlayer4}`,
         {},
       )
       .pipe(
