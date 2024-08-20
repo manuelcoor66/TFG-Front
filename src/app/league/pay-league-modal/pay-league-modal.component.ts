@@ -6,10 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import {
   creditCardRegex,
@@ -50,7 +47,6 @@ export class PayLeagueModalComponent {
   private router = Inject(Router);
   private snackbarService = inject(SnackbarService);
   private dialogRef = inject(MatDialogRef<PayLeagueModalComponent>);
-
   private ticketService = inject(TicketService);
   private localStorageService = inject(LocalStorageService);
 

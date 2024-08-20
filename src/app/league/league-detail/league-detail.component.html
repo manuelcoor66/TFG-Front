@@ -118,13 +118,28 @@
               <div class="match-container__text">
                 <div class="match-container__name">
                   <div>{{ match.playerName1 }}</div>
-                  <div>{{ match.playerName2 }}</div>
+                  <div>{{ match.playerName3 }}</div>
                 </div>
                 <div class="match-container__name">
-                  <div>{{ match.playerName3 }}</div>
+                  <div>{{ match.playerName2 }}</div>
                   <div>{{ match.playerName4 }}</div>
                 </div>
-                <span class="match-container__result">{{ match.result }}</span>
+                <span *ngIf="match.result" class="match-container__result">{{
+                  match.result
+                }}</span>
+                <div class="center">
+                  <button
+                    *ngIf="!match.result && isPlayer(match)"
+                    mat-button
+                    class="btn--primary btn--lg add-result"
+                    type="submit"
+                    data-test-id="login-button"
+                    appLoadingButton
+                    (click)="openAddMatchResult(match)"
+                  >
+                    Añadir resultado
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -135,7 +150,22 @@
                   <div>{{ match.playerName1 }}</div>
                   <div>{{ match.playerName2 }}</div>
                 </div>
-                <span class="match-container__result">{{ match.result }}</span>
+                <span *ngIf="match.result" class="match-container__result">{{
+                  match.result
+                }}</span>
+                <div class="center">
+                  <button
+                    *ngIf="!match.result && isPlayer(match)"
+                    mat-button
+                    class="btn--primary btn--lg add-result"
+                    type="submit"
+                    data-test-id="login-button"
+                    appLoadingButton
+                    (click)="openAddMatchResult(match)"
+                  >
+                    Añadir resultado
+                  </button>
+                </div>
               </div>
             </div>
           </div>

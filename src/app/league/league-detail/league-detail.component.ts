@@ -27,7 +27,7 @@ import { LeagueService } from '../../../services/league.service';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { MatchesList } from '../../../models/matches';
+import { Matches, MatchesList } from '../../../models/matches';
 import { MatchesService } from '../../../services/matches.service';
 import { ModifyLeagueModalComponent } from '../modify-league-modal/modify-league-modal.component';
 import { NoDataComponent } from '../../shared-components/no-data/no-data.component';
@@ -38,6 +38,7 @@ import { User } from '../../../models/user';
 import { UserTableComponent } from '../user-table/user-table.component';
 import { UserTicket } from '../../../models/ticket';
 import { fourPlayers } from '../../../utils/shared-functions';
+import { AddMatchResultComponent } from '../add-match-result/add-match-result.component';
 
 @Component({
   selector: 'app-league-detail',
@@ -101,7 +102,7 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
   /**
    * Finalized league matches
    */
-  finalizedMatches?: MatchesList;
+  finalizedMatches!: MatchesList;
 
   /**
    * Finalized league matches
@@ -396,6 +397,47 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  isPlayer(match: Matches): boolean {
+    const fullname = this.currentUser?.name + ' ' + this.currentUser?.lastNames;
+    return [
+      match.playerName1,
+      match.playerName2,
+      match.playerName3,
+      match.playerName4,
+    ].includes(fullname);
+  }
+
+  openAddMatchResult(match: Matches): void {
+    const dialogRef = this.dialog.open(AddMatchResultComponent, {
+      width: '36rem',
+      data: {
+        match: match,
+        league: this.leagueDetail,
+      },
+    });
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data) {
+        const indexToEdit = this.finalizedMatches?.items.findIndex(
+          (m) => m.id === match.id,
+        );
+        this.enrolmentService.getLeagueEnrolments(this.leagueDetail?.id as number)
+        .pipe(
+          catchError((err) => {
+            this.snackbarService.openSnackBar(err.error.message, 'warning');
+            throw err;
+          }),
+        )
+        .subscribe((enrolments) => {
+          this.localStorageService.setItem('enrolments', enrolments.items);
+          this.enrolments = enrolments.items;
+          this.userTable.refreshData();
+        });
+        this.finalizedMatches.items[indexToEdit as number].result = data;
+        this.cdRef.detectChanges();
+      }
+    });
   }
 
   isStarted(): boolean {

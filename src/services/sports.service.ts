@@ -2,7 +2,7 @@ import { Deserialize, IJsonObject } from 'dcerialize';
 import { Observable, catchError, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SportList } from '../models/sports';
+import { Sport, SportList } from '../models/sports';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +20,15 @@ export class SportsService {
   getAllSports(): Observable<SportList> {
     return this.http.get<IJsonObject>(`${this.path}/all-sports`).pipe(
       map((sports) => Deserialize(sports, () => SportList)),
+      catchError((err) => {
+        throw err;
+      }),
+    );
+  }
+
+  getSportByName(name: string): Observable<Sport> {
+    return this.http.get<IJsonObject>(`${this.path}/${name}`).pipe(
+      map((sport) => Deserialize(sport, () => Sport)),
       catchError((err) => {
         throw err;
       }),

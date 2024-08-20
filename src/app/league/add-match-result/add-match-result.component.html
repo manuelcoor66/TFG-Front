@@ -1,0 +1,65 @@
+<div class="container">
+  <h1>{{ data.league.name }}</h1>
+  <h3>Ganador</h3>
+  <mat-radio-group
+    [(ngModel)]="selectedOption"
+    *ngIf="fourPlayers(this.data.match)"
+    class="options"
+  >
+    <mat-radio-button value="option1">
+      <p>{{ this.data.match.playerName1 }} y</p>
+      <p>{{ this.data.match.playerName2 }}</p>
+    </mat-radio-button>
+    <mat-radio-button value="option2">
+      <p>{{ this.data.match.playerName3 }} y</p>
+      <p>{{ this.data.match.playerName4 }}</p>
+    </mat-radio-button>
+  </mat-radio-group>
+
+  <mat-radio-group
+    [(ngModel)]="selectedOption"
+    *ngIf="!fourPlayers(this.data.match)"
+  >
+    <mat-radio-button value="option1" color="primary">{{
+      this.data.match.playerName1
+    }}</mat-radio-button>
+    <mat-radio-button value="option2" color="accent">{{
+      this.data.match.playerName2
+    }}</mat-radio-button>
+  </mat-radio-group>
+
+  <form
+    novalidate
+    class="form-container"
+    [formGroup]="resultForm"
+    (ngSubmit)="addResult()"
+  >
+    <div class="form-wrapper element">
+      <mat-label>{{ "Resultado" }}</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          class="form__input"
+          type="text"
+          formControlName="result"
+          name="result"
+          required
+        />
+        <mat-error *ngIf="resultForm.get('result')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="center">
+      <button
+        mat-button
+        type="submit"
+        data-test-id="login-button"
+        appLoadingButton
+      >
+        Cambiar
+      </button>
+    </div>
+  </form>
+</div>

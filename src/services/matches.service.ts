@@ -2,7 +2,7 @@ import { Deserialize, IJsonObject } from 'dcerialize';
 import { Observable, catchError, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatchesList } from '../models/matches';
+import { Matches, MatchesList } from '../models/matches';
 
 @Injectable({
   providedIn: 'root',
@@ -42,6 +42,26 @@ export class MatchesService {
       .get<IJsonObject>(`${this.path}/active/league/${leagueId}`)
       .pipe(
         map((leagues) => Deserialize(leagues, () => MatchesList)),
+        catchError((err) => {
+          throw err;
+        }),
+      );
+  }
+
+  addMatchResult(
+    matchId: number,
+    result: string,
+    win_player_1: boolean,
+    win_player_2: boolean,
+    win_player_3?: boolean,
+    win_player_4?: boolean,
+  ): Observable<Matches> {
+    return this.http
+      .post<Matches>(
+        `${this.path}/add-result?match_id=${matchId}&result=${result}&win_player_1=${win_player_1}&win_player_2=${win_player_2}&win_player_3=${win_player_3}&win_player_4=${win_player_4}`,
+        {},
+      )
+      .pipe(
         catchError((err) => {
           throw err;
         }),
