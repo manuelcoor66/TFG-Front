@@ -11,8 +11,13 @@ export function fourPlayers(match: Matches): boolean {
 
 export function formatDate(date: Date): string {
   const day = ('0' + date.getDate()).slice(-2);
-  const month = ('0' + (date.getMonth() + 1)).slice(-2); // Months are 0-based
+  const month = ('0' + (date.getMonth() + 1)).slice(-2); // Los meses en JavaScript son 0-basados
   const year = date.getFullYear();
 
-  return `${year}-${month}-${day}`;
+  const hours = ('0' + date.getHours()).slice(-2);
+  const minutes = ('0' + date.getMinutes()).slice(-2);
+  const seconds = ('0' + date.getSeconds()).slice(-2);
+
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 }
+

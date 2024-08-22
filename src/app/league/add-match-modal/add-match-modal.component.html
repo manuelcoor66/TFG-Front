@@ -1,0 +1,56 @@
+<div class="container">
+  <h1>Crear partido</h1>
+
+  <form
+    novalidate
+    class="form-container"
+    [formGroup]="matchForm"
+    (ngSubmit)="addMatch()"
+  >
+    <div class="form-wrapper element">
+      <mat-label>Fecha</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          placeholder="Elige una fecha"
+          formControlName="date"
+          (dateChange)="onDateChange($event)"
+          required
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="matchForm.get('date')?.hasError('required')">
+          Requerido
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper element">
+      <mat-label>Hora</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          type="time"
+          placeholder="Elige una hora"
+          formControlName="hour"
+          required
+        />
+        <mat-error *ngIf="matchForm.get('hour')?.hasError('required')">
+          Requerido
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="element">
+      <button
+        mat-button
+        type="submit"
+        data-test-id="login-button"
+        appLoadingButton
+      >
+        Cambiar
+      </button>
+    </div>
+  </form>
+</div>

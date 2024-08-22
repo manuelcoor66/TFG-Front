@@ -24,17 +24,17 @@ export class Matches {
   /**
    * Created By
    */
-  @autoserializeAs(() => String, 'player_name_2') playerName2: string;
+  @autoserializeAs(() => String, 'player_name_2') playerName2?: string;
 
   /**
    * Enrolments
    */
-  @autoserializeAs(() => String, 'player_name_3') playerName3: string;
+  @autoserializeAs(() => String, 'player_name_3') playerName3?: string;
 
   /**
    * Points Victory
    */
-  @autoserializeAs(() => String, 'player_name_4') playerName4: string;
+  @autoserializeAs(() => String, 'player_name_4') playerName4?: string;
 
   /**
    * Weeks
@@ -51,11 +51,11 @@ export class Matches {
     leagueId: number,
     result: string,
     playerName1: string,
-    playerName2: string,
-    playerName3: string,
-    playerName4: string,
     date: Date,
     place: number,
+    playerName2?: string,
+    playerName3?: string,
+    playerName4?: string,
   ) {
     this.id = id;
     this.leagueId = leagueId;

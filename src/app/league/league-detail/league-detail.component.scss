@@ -38,6 +38,10 @@ h2 {
   cursor: pointer;
 }
 
+.cursor-default {
+  cursor: default;
+}
+
 .breadcumb {
   color: #5c5c5c;
   font-size: 1.25rem;
@@ -155,6 +159,12 @@ table {
     gap: 0.5rem;
   }
 
+  &__date {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
   &__name {
     display: flex;
     gap: 1rem;
@@ -172,6 +182,10 @@ table {
   }
 }
 
+.available {
+  font-weight: 400;
+}
+
 .center {
   gap: 1rem;
   display: flex;
@@ -181,4 +195,14 @@ table {
 
 .add-result {
   width: 70%;
+}
+
+.create-match {
+  margin: 1rem;
+  width: auto;
+}
+
+.horizontal-end {
+  display: flex;
+  justify-content: flex-end;
 }
