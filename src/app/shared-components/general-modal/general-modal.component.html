@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="icon">
+    <mat-icon svgIcon="report"></mat-icon>
+  </div>
+  <h1>{{ data.title }}</h1>
+  <p>{{ data.text }}</p>
+  <div class="buttons">
+    <a (click)="closeModal('no')" class="close">Cerrar</a>
+    <button
+      mat-button
+      class="btn--primary btn--lg"
+      type="submit"
+      data-test-id="login-button"
+      appLoadingButton
+      (click)="closeModal('yes')"
+    >
+      Continuar
+    </button>
+  </div>
+</div>

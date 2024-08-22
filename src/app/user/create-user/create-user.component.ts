@@ -15,6 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { User } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
 import { catchError } from 'rxjs';
+import { emailRegex } from '../../../utils/utils';
 import { matchValidator } from '../../utils/functions';
 
 @Component({
@@ -41,17 +42,13 @@ export class CreateUserComponent {
    */
   public loginForm: FormGroup;
 
-  private emailRegex = new RegExp(
-    '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$',
-  );
-
   constructor() {
     this.loginForm = new FormGroup({
       name: new FormControl('', Validators.required),
       lastnames: new FormControl('', Validators.required),
       email: new FormControl('', [
         Validators.required,
-        Validators.pattern(this.emailRegex),
+        Validators.pattern(emailRegex),
       ]),
       password: new FormControl('', [
         Validators.required,

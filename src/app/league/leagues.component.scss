@@ -1,0 +1,110 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.leagues-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  h1 {
+    width: 95%;
+  }
+}
+
+.league-container {
+  flex: 1;
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+  border: 1px solid gray;
+  border-radius: 1rem;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.league-container-disable {
+  flex: 1;
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+  border: 1px solid gray;
+  border-radius: 1rem;
+  overflow: hidden;
+  color: gray;
+}
+
+.prueba {
+  background-color: #333; // Color de fondo
+  color: #fff; // Color del texto
+  font-size: 14px; // Tamaño del texto
+  padding: 8px; // Espaciado interno
+  border-radius: 4px; // Bordes redondeados
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); // Sombra del tooltip
+  pointer-events: none; // Hace que el tooltip no sea clicable
+}
+
+.league-dates {
+  width: 89%;
+  min-width: 13%;
+  overflow: hidden;
+}
+
+.league-info {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  padding-right: 2rem;
+  min-width: 6rem;
+  flex-shrink: 0;
+  flex-grow: 1;
+  width: auto;
+
+  &__enrolments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  &__place {
+    display: flex;
+    flex-direction: row;
+    min-width: 0;
+    font: 16px/24px;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    overflow: hidden;
+  }
+
+  mat-icon {
+    margin-right: 0.5rem;
+  }
+}
+
+.underline-league {
+  text-decoration: underline;
+  font: 16px/24px;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+button {
+  width: 40%;
+  background-color: #046b99;
+  border-radius: 0.5rem;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  width: 9rem;
+  border-radius: 10px;
+}

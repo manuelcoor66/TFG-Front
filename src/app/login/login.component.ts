@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { AuthService } from '../../services/auth.service';
+import { EnrolmentService } from '../../services/enrolment.service';
 import { HashService } from '../../services/hash.service';
 import { LoadingService } from '../../services/loading.service';
 import { MatButton } from '@angular/material/button';
@@ -16,6 +17,7 @@ import { Router } from '@angular/router';
 import { SnackbarService } from '../../services/snackbar.service';
 import { UserService } from '../../services/user.service';
 import { catchError } from 'rxjs';
+import { emailRegex } from '../../utils/utils';
 
 @Component({
   selector: 'app-login',
@@ -39,21 +41,18 @@ export class LoginComponent {
   private hashService = inject(HashService);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private enrolmentService = inject(EnrolmentService);
 
   /**
    * Login form
    */
   public loginForm: FormGroup;
 
-  private emailRegex = new RegExp(
-    '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$',
-  );
-
   constructor() {
     this.loginForm = new FormGroup({
       email: new FormControl('', [
         Validators.required,
-        Validators.pattern(this.emailRegex),
+        Validators.pattern(emailRegex),
       ]),
       password: new FormControl('', [
         Validators.required,
@@ -80,7 +79,11 @@ export class LoginComponent {
               user.password as string,
             )
           ) {
-            this.authService.login(user);
+            this.enrolmentService
+              .getUserEnrolments(user.id as number)
+              .subscribe((enrolmentList) => {
+                this.authService.login(user, enrolmentList);
+              });
             this.router.navigateByUrl('/home');
           }
         });

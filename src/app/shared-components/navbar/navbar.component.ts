@@ -1,10 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { MatIcon, MatIconRegistry } from '@angular/material/icon';
+import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
+import { DomSanitizer } from '@angular/platform-browser';
+import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [NgIf, MatMenuTrigger, MatIcon, MatMenu],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss',
+  styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+  private router = inject(Router);
+  private matIconRegistry = inject(MatIconRegistry);
+  private domSanitizer = inject(DomSanitizer);
+
+  constructor() {
+    this.matIconRegistry.addSvgIcon(
+      'delete',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        'assets/icons/delete.svg',
+      ),
+    );
+    this.matIconRegistry.addSvgIcon(
+      'edit',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/edit.svg'),
+    );
+  }
+
+  showNavbar(): boolean {
+    return (
+      this.router.url.includes('create-user') ||
+      this.router.url.includes('login')
+    );
+  }
+
+  goTo(text: string): void {
+    this.router.navigateByUrl('/' + text);
+  }
+}

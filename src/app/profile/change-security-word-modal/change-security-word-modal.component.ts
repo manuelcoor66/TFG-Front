@@ -93,7 +93,7 @@ export class ChangeSecurityWordModalComponent {
           )
           .pipe(
             catchError((err) => {
-              this.snackbarService.openSnackBar(err.error.message, 'success');
+              this.snackbarService.openSnackBar(err.error.message, 'warning');
               throw err;
             }),
           )

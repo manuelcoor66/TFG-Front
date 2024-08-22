@@ -1,0 +1,54 @@
+<div class="container">
+  <h1>Editar {{ data.league.name }}</h1>
+  <form
+    novalidate
+    class="form-container"
+    [formGroup]="leagueForm"
+    (ngSubmit)="modifyLeague()"
+  >
+    <div class="form-wrapper element">
+      <mat-label>{{ "Nombre" }}</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          class="form__input"
+          type="text"
+          formControlName="name"
+          name="name"
+          required
+        />
+        <mat-error *ngIf="leagueForm.get('name')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper element">
+      <mat-label>{{ "Descripción" }}</mat-label>
+      <mat-form-field>
+        <textarea
+          matInput
+          class="form__input"
+          formControlName="description"
+          name="description"
+          required
+          rows="4"
+        ></textarea>
+        <mat-error *ngIf="leagueForm.get('description')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="element">
+      <button
+        mat-button
+        type="submit"
+        data-test-id="login-button"
+        appLoadingButton
+      >
+        Cambiar
+      </button>
+    </div>
+  </form>
+</div>

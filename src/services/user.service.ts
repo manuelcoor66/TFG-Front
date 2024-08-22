@@ -1,7 +1,6 @@
+import { Deserialize, IJsonObject } from 'dcerialize';
 import { Observable, catchError, map } from 'rxjs';
-import { Deserialize } from 'dcerialize';
 import { HttpClient } from '@angular/common/http';
-import { IJsonObject } from 'dcerialize';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 
@@ -50,6 +49,15 @@ export class UserService {
     );
   }
 
+  getUserByid(id: number): Observable<User> {
+    return this.http.get<IJsonObject>(`${this.path}/id/${id}`).pipe(
+      map((user) => Deserialize(user, () => User)),
+      catchError((err) => {
+        throw err;
+      }),
+    );
+  }
+
   changePassword(email: string, password: string): Observable<void> {
     return this.http
       .patch<void>(
@@ -83,12 +91,10 @@ export class UserService {
     password?: string,
     securityWord?: string,
   ): Observable<void> {
-    console.log(password);
-
     return this.http
       .patch<void>(
         `${this.path}/modify-user?name=${name}&last_names=${lastNames}` +
-            `&email=${email}&password=${password}&security_word=${securityWord}`,
+          `&email=${email}&password=${password}&security_word=${securityWord}`,
         {},
       )
       .pipe(

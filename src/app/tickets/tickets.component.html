@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="ticket-container" *ngFor="let ticket of userTickets?.items">
+    <div
+      [ngClass]="{
+        pointer: getTicketState(ticket.state) === ticketState.REJECTED,
+      }"
+      (click)="paidLeague(ticket)"
+    >
+      <h2>{{ ticket.leagueName }}</h2>
+      <div class="ticket-container__container">
+        <div class="ticket-container__text">
+          Fecha de pago: <span>{{ getDate(ticket) }}</span>
+        </div>
+        <div class="chip-container">
+          <mat-chip
+            [ngStyle]="{
+              'background-color': getColorForState(ticket.state),
+              color: 'white',
+            }"
+            >{{ getTicketStateValue(ticket.state) }}</mat-chip
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
