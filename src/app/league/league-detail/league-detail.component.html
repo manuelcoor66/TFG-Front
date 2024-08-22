@@ -94,72 +94,66 @@
       <ng-template mat-tab-label>
         <mat-icon class="pointer">sports</mat-icon> Partidos
       </ng-template>
-        <div class="horizontal-end">
-          <button
-            *ngIf="canCreate()"
-            mat-button
-            class="btn--primary btn--lg create-match"
-            type="submit"
-            data-test-id="login-button"
-            appLoadingButton
-            (click)="createMatch()"
-          >
-            Crear partido
-          </button>
-        </div>
-        <div class="matches" *ngIf="!isEmptyFinalized">
-          <div
-            class="tab cursor-default"
-            *ngFor="let match of activeMatches?.items"
-            (mouseenter)="showMessage = true"
-            (mouseleave)="showMessage = false"
-          >
-            <div *ngIf="match">
-              <div class="match-container">
-                <div class="match-container__text"
-                  [matTooltip]="
-                    matchFull(match)
-                      ? 'Partido completo'
-                      : ''
-                  "
-                >
-                  <div class="match-container__date underline">
-                    {{ getDate(match.date) }}
-                  </div>
-                  <div class="match-container__name">
-                    <div *ngIf="match.playerName1">{{ match.playerName1 }}</div>
-                    <div class="available" *ngIf="!match.playerName1">Libre</div>
-                    <div *ngIf="match.playerName3">{{ match.playerName3 }}</div>
-                    <div class="available" *ngIf="!match.playerName3">Libre</div>
-                  </div>
-                  <div class="match-container__name" *ngIf="sport?.players == 4">
-                    <div *ngIf="match.playerName2">{{ match.playerName2 }}</div>
-                    <div class="available" *ngIf="!match.playerName2">Libre</div>
-                    <div *ngIf="match.playerName4">{{ match.playerName4 }}</div>
-                    <div class="available" *ngIf="!match.playerName4">Libre</div>
-                  </div>
-                  <div class="center">
-                    <button
-                      *ngIf="canCreate()"
-                      mat-button
-                      class="btn--primary btn--lg add-result"
-                      type="submit"
-                      data-test-id="login-button"
-                      appLoadingButton
-                      (click)="addPlayer(match)"
-                    >
-                      Apuntarse
-                    </button>
-                  </div>
+      <div class="horizontal-end">
+        <button
+          *ngIf="canCreate()"
+          mat-button
+          class="btn--primary btn--lg create-match"
+          type="submit"
+          data-test-id="login-button"
+          appLoadingButton
+          (click)="createMatch()"
+        >
+          Crear partido
+        </button>
+      </div>
+      <div class="matches" *ngIf="!isEmptyFinalized">
+        <div
+          class="tab cursor-default"
+          *ngFor="let match of activeMatches?.items"
+          (mouseenter)="showMessage = true"
+          (mouseleave)="showMessage = false"
+        >
+          <div *ngIf="match">
+            <div class="match-container">
+              <div
+                class="match-container__text"
+                [matTooltip]="matchFull(match) ? 'Partido completo' : ''"
+              >
+                <div class="match-container__date underline">
+                  {{ getDate(match.date) }}
+                </div>
+                <div class="match-container__name">
+                  <div *ngIf="match.playerName1">{{ match.playerName1 }}</div>
+                  <div class="available" *ngIf="!match.playerName1">Libre</div>
+                  <div *ngIf="match.playerName3">{{ match.playerName3 }}</div>
+                  <div class="available" *ngIf="!match.playerName3">Libre</div>
+                </div>
+                <div class="match-container__name" *ngIf="sport?.players === 4">
+                  <div *ngIf="match.playerName2">{{ match.playerName2 }}</div>
+                  <div class="available" *ngIf="!match.playerName2">Libre</div>
+                  <div *ngIf="match.playerName4">{{ match.playerName4 }}</div>
+                  <div class="available" *ngIf="!match.playerName4">Libre</div>
+                </div>
+                <div class="center">
+                  <button
+                    *ngIf="canCreate()"
+                    mat-button
+                    class="btn--primary btn--lg add-result"
+                    type="submit"
+                    data-test-id="login-button"
+                    appLoadingButton
+                    (click)="addPlayer(match)"
+                  >
+                    Apuntarse
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <app-no-data
-          *ngIf="isEmptyActive"
-          [data]="emptyActiveData"
-        ></app-no-data>
+      </div>
+      <app-no-data *ngIf="isEmptyActive" [data]="emptyActiveData"></app-no-data>
     </mat-tab>
     <mat-tab>
       <ng-template mat-tab-label>

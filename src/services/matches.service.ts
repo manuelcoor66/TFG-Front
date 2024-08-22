@@ -3,7 +3,7 @@ import { Matches, MatchesList } from '../models/matches';
 import { Observable, catchError, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {formatDate} from "../utils/shared-functions";
+import { formatDate } from '../utils/shared-functions';
 
 @Injectable({
   providedIn: 'root',
@@ -60,7 +60,7 @@ export class MatchesService {
     return this.http
       .post<Matches>(
         `${this.path}/add-result?match_id=${matchId}&result=${result}&win_player_1=${winPlayer1}` +
-              `&win_player_2=${winPlayer2}&win_player_3=${winPlayer3}&win_player_4=${winPlayer4}`,
+          `&win_player_2=${winPlayer2}&win_player_3=${winPlayer3}&win_player_4=${winPlayer4}`,
         {},
       )
       .pipe(
@@ -74,10 +74,11 @@ export class MatchesService {
     leagueId: number,
     playerName1: number,
     date: Date,
-    place: number
+    place: number,
   ): Observable<Matches> {
     const formattedDate = formatDate(date);
-     return this.http
+
+    return this.http
       .post<Matches>(
         `${this.path}/create?league_id=${leagueId}&player_name_1=${playerName1}&date=${formattedDate}&place=${place}`,
         {},

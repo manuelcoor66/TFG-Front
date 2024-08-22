@@ -1,43 +1,48 @@
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
+  CUSTOM_ELEMENTS_SCHEMA,
   ChangeDetectorRef,
   Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  inject,
   OnDestroy,
   OnInit,
   ViewChild,
+  inject,
 } from '@angular/core';
-import {catchError, EMPTY} from 'rxjs';
-import {MatIconModule, MatIconRegistry} from '@angular/material/icon';
-import {MatMenu, MatMenuTrigger} from '@angular/material/menu';
-import {MatTab, MatTabContent, MatTabGroup, MatTabLabel,} from '@angular/material/tabs';
-import {Matches, MatchesList} from '../../../models/matches';
-import {NgForOf, NgIf} from '@angular/common';
-import {AddMatchResultComponent} from '../add-match-result/add-match-result.component';
-import {DomSanitizer} from '@angular/platform-browser';
-import {Enrolment} from '../../../models/enrolment';
-import {EnrolmentService} from '../../../services/enrolment.service';
-import {GeneralModalComponent} from '../../shared-components/general-modal/general-modal.component';
-import {League} from '../../../models/league';
-import {LeagueService} from '../../../services/league.service';
-import {LocalStorageService} from '../../../services/local-storage.service';
-import {MatButton} from '@angular/material/button';
-import {MatDialog} from '@angular/material/dialog';
-import {MatchesService} from '../../../services/matches.service';
-import {ModifyLeagueModalComponent} from '../modify-league-modal/modify-league-modal.component';
-import {NoDataComponent} from '../../shared-components/no-data/no-data.component';
-import {PayLeagueModalComponent} from '../pay-league-modal/pay-league-modal.component';
-import {SnackbarService} from '../../../services/snackbar.service';
-import {TicketState} from '../../../utils/enum';
-import {User} from '../../../models/user';
-import {UserTableComponent} from '../user-table/user-table.component';
-import {UserTicket} from '../../../models/ticket';
-import {fourPlayers} from '../../../utils/shared-functions';
-import {Sport} from "../../../models/sports";
-import {SportsService} from "../../../services/sports.service";
-import {MatTooltipModule} from "@angular/material/tooltip";
-import {AddMatchModalComponent} from "../add-match-modal/add-match-modal.component";
+import { EMPTY, catchError } from 'rxjs';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
+import {
+  MatTab,
+  MatTabContent,
+  MatTabGroup,
+  MatTabLabel,
+} from '@angular/material/tabs';
+import { Matches, MatchesList } from '../../../models/matches';
+import { NgForOf, NgIf } from '@angular/common';
+import { AddMatchModalComponent } from '../add-match-modal/add-match-modal.component';
+import { AddMatchResultComponent } from '../add-match-result/add-match-result.component';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Enrolment } from '../../../models/enrolment';
+import { EnrolmentService } from '../../../services/enrolment.service';
+import { GeneralModalComponent } from '../../shared-components/general-modal/general-modal.component';
+import { League } from '../../../models/league';
+import { LeagueService } from '../../../services/league.service';
+import { LocalStorageService } from '../../../services/local-storage.service';
+import { MatButton } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatchesService } from '../../../services/matches.service';
+import { ModifyLeagueModalComponent } from '../modify-league-modal/modify-league-modal.component';
+import { NoDataComponent } from '../../shared-components/no-data/no-data.component';
+import { PayLeagueModalComponent } from '../pay-league-modal/pay-league-modal.component';
+import { SnackbarService } from '../../../services/snackbar.service';
+import { Sport } from '../../../models/sports';
+import { SportsService } from '../../../services/sports.service';
+import { TicketState } from '../../../utils/enum';
+import { User } from '../../../models/user';
+import { UserTableComponent } from '../user-table/user-table.component';
+import { UserTicket } from '../../../models/ticket';
+import { fourPlayers } from '../../../utils/shared-functions';
 
 @Component({
   selector: 'app-league-detail',
@@ -134,11 +139,6 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
    * League sport
    */
   sport!: Sport;
-
-  /**
-   * New match to add
-   */
-  new_match!: Matches;
 
   /**
    * Empty active data text
@@ -242,17 +242,18 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
         .subscribe((league) => {
           this.leagueDetail = league;
 
-          this.sportService
-            .getSportByName(league.sport)
-            .subscribe((sport) => {
-              this.sport = sport;
-            });
+          this.sportService.getSportByName(league.sport).subscribe((sport) => {
+            this.sport = sport;
+          });
 
           const startDate: Date = new Date(league.dateStart);
           const currentDate: Date = new Date();
-          const timeDifference: number = currentDate.getTime() - startDate.getTime();
-          league.weeksPlayed = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 7));
-          this.leagueService.modifyLeague(league, league.dateStart)
+          const timeDifference: number =
+            currentDate.getTime() - startDate.getTime();
+          league.weeksPlayed = Math.floor(
+            timeDifference / (1000 * 60 * 60 * 24 * 7),
+          );
+          this.leagueService.modifyLeague(league, league.dateStart);
         });
     });
 
@@ -433,37 +434,50 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
   }
 
   matchFull(match: Matches): boolean {
-    const players = [match.playerName1, match.playerName2, match.playerName3, match.playerName4];
+    const players = [
+      match.playerName1,
+      match.playerName2,
+      match.playerName3,
+      match.playerName4,
+    ];
     const filledPlayers = players.filter(Boolean).length;
 
-    return filledPlayers === this.sport.players
+    return filledPlayers === this.sport.players;
   }
 
   canEnrol(match: Matches): boolean {
-    const players = [match.playerName1, match.playerName2, match.playerName3, match.playerName4];
+    const players = [
+      match.playerName1,
+      match.playerName2,
+      match.playerName3,
+      match.playerName4,
+    ];
     const filledPlayers = players.filter(Boolean).length;
 
     return filledPlayers < this.sport.players;
   }
 
   canCreate(): boolean {
-  const fullName = `${this.currentUser?.name ?? ''} ${this.currentUser?.lastNames ?? ''}`.trim().toLowerCase();
+    const fullName =
+      `${this.currentUser?.name ?? ''} ${this.currentUser?.lastNames ?? ''}`
+        .trim()
+        .toLowerCase();
 
-  const exists = this.activeMatches.items.some(match => {
-    const playerNames = [
-      match.playerName1,
-      match.playerName2,
-      match.playerName3,
-      match.playerName4
-    ].filter(name => name !== undefined && name !== null);
+    const exists = this.activeMatches.items.some((match) => {
+      const playerNames = [
+        match.playerName1,
+        match.playerName2,
+        match.playerName3,
+        match.playerName4,
+      ].filter((name) => name !== undefined && name !== null);
 
-    return playerNames.some(playerName =>
-      playerName?.toLowerCase().trim() === fullName
-    );
-  });
+      return playerNames.some(
+        (playerName) => playerName?.toLowerCase().trim() === fullName,
+      );
+    });
 
-  return !exists;
-}
+    return !exists;
+  }
 
   createMatch(): void {
     const dialogRef = this.dialog.open(AddMatchModalComponent, {
@@ -474,8 +488,9 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe((data) => {
       if (data) {
-        data.date = new Date(data.date)
-        data.playerName1 = this.currentUser?.name + ' ' + this.currentUser?.lastNames
+        data.date = new Date(data.date);
+        data.playerName1 =
+          this.currentUser?.name + ' ' + this.currentUser?.lastNames;
         this.activeMatches.items.push(data);
         this.cdRef.detectChanges();
       }
@@ -483,20 +498,22 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
   }
 
   addPlayer(match: Matches): void {
-    this.matchesService.addPlayer(match.id, this.currentUser?.id as number).subscribe();
     this.matchesService
-        .getActiveLeagueMatches(this.leagueDetail?.id as number)
-        .pipe(
-          catchError(() => {
-            this.isEmptyActive = true;
+      .addPlayer(match.id, this.currentUser?.id as number)
+      .subscribe();
+    this.matchesService
+      .getActiveLeagueMatches(this.leagueDetail?.id as number)
+      .pipe(
+        catchError(() => {
+          this.isEmptyActive = true;
 
-            return EMPTY;
-          }),
-        )
-        .subscribe((matches) => {
-          this.activeMatches = matches;
-          this.cdRef.detectChanges();
-        });
+          return EMPTY;
+        }),
+      )
+      .subscribe((matches) => {
+        this.activeMatches = matches;
+        this.cdRef.detectChanges();
+      });
   }
 
   isPlayer(match: Matches): boolean {

@@ -8,10 +8,9 @@ describe('AddMatchModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddMatchModalComponent]
-    })
-    .compileComponents();
-    
+      imports: [AddMatchModalComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(AddMatchModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

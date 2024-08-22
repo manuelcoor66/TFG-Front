@@ -1,8 +1,8 @@
 import { Deserialize, IJsonObject } from 'dcerialize';
 import { Observable, catchError, map } from 'rxjs';
+import { Place, PlaceList } from '../models/places';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Place, PlaceList} from '../models/places';
 
 @Injectable({
   providedIn: 'root',

@@ -20,4 +20,3 @@ export function formatDate(date: Date): string {
 
   return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 }
-
