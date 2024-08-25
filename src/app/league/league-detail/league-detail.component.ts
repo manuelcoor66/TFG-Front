@@ -39,7 +39,7 @@ import { PayLeagueModalComponent } from '../pay-league-modal/pay-league-modal.co
 import { SnackbarService } from '../../../services/snackbar.service';
 import { Sport } from '../../../models/sports';
 import { SportsService } from '../../../services/sports.service';
-import { TicketState } from '../../../utils/enum';
+import {TicketState, UserRole} from '../../../utils/enum';
 import { User } from '../../../models/user';
 import { UserTicket } from '../../../models/ticket';
 import { fourPlayers } from '../../../utils/shared-functions';
@@ -585,4 +585,5 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
   }
 
   protected readonly fourPlayers = fourPlayers;
+  protected readonly userRole = UserRole;
 }

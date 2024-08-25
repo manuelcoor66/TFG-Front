@@ -10,7 +10,7 @@
         <h1>{{ leagueDetail?.name }}</h1>
         <h2>{{ leagueDetail?.description }}</h2>
       </div>
-      <div *ngIf="isCreator()" [matMenuTriggerFor]="actions">
+      <div *ngIf="isCreator() || currentUser?.role !== userRole.USER" [matMenuTriggerFor]="actions">
         <mat-icon class="pointer">more_vert</mat-icon>
       </div>
       <mat-menu #actions xPosition="before">
