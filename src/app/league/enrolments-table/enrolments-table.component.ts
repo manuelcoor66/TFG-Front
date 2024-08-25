@@ -21,7 +21,7 @@ import { NgIf } from '@angular/common';
 import { NoDataComponent } from '../../shared-components/no-data/no-data.component';
 
 @Component({
-  selector: 'app-user-table',
+  selector: 'app-enrolments-table',
   standalone: true,
   imports: [
     MatCell,
@@ -38,10 +38,10 @@ import { NoDataComponent } from '../../shared-components/no-data/no-data.compone
     NgIf,
     NoDataComponent,
   ],
-  templateUrl: './user-table.component.html',
-  styleUrls: ['./user-table.component.scss'],
+  templateUrl: './enrolments-table.component.html',
+  styleUrls: ['./enrolments-table.component.scss'],
 })
-export class UserTableComponent implements AfterViewInit {
+export class EnrolmentsTableComponent implements AfterViewInit {
   private enrolmentService = inject(EnrolmentService);
   private route = inject(ActivatedRoute);
 

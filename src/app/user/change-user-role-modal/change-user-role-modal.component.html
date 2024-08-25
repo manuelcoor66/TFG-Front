@@ -1,0 +1,62 @@
+<div class="container">
+  <h1>Cambiar rol de un usuario</h1>
+
+  <form
+    novalidate
+    class="form-container"
+    [formGroup]="userForm"
+    (ngSubmit)="changeUserRole()"
+  >
+    <div class="form-wrapper">
+      <mat-label>Usuario</mat-label>
+      <mat-form-field>
+        <mat-select
+          class="form__input"
+          placeholder="Elige un usuario"
+          formControlName="user"
+          name="user"
+          required
+        >
+          <mat-option *ngFor="let user of data.users" [value]="user.id">
+            {{ user.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="userForm.get('user')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper">
+      <mat-label>Rol</mat-label>
+      <mat-form-field>
+        <mat-select
+          class="form__input"
+          placeholder="Elige un rol"
+          formControlName="role"
+          name="role"
+          required
+        >
+          <mat-option *ngFor="let role of userRolesList" [value]="role.id">
+            {{ role.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="userForm.get('role')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="button">
+      <button
+        mat-button
+        class="btn--primary btn--lg"
+        type="submit"
+        data-test-id="login-button"
+        appLoadingButton
+      >
+        <span>Cambiar</span>
+      </button>
+    </div>
+  </form>
+</div>

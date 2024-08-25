@@ -15,6 +15,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MatDatepickerInputEvent,
+  MatDatepickerModule,
+} from '@angular/material/datepicker';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import {
   MatOption,
@@ -24,7 +28,6 @@ import {
 import { League } from '../../../models/league';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import { MatButton } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInput } from '@angular/material/input';
 import { MatchesService } from '../../../services/matches.service';
 import { PlacesService } from '../../../services/places.service';
@@ -56,7 +59,7 @@ import { User } from '../../../models/user';
     { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
   ],
   templateUrl: './add-match-modal.component.html',
-  styleUrl: './add-match-modal.component.scss',
+  styleUrls: ['./add-match-modal.component.scss'],
 })
 export class AddMatchModalComponent {
   private snackbarService = inject(SnackbarService);
@@ -85,9 +88,9 @@ export class AddMatchModalComponent {
     this.currentUser = this.localStorageService.getItem('user');
   }
 
-  onDateChange(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    this.matchForm.get('date')?.setValue(inputElement.value);
+  onDateChange(event: MatDatepickerInputEvent<Date>): void {
+    const selectedDate = event.value;
+    this.matchForm.get('date')?.setValue(selectedDate);
     this.cdRef.detectChanges();
   }
 

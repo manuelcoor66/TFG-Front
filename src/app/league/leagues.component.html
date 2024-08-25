@@ -8,6 +8,7 @@
       data-test-id="login-button"
       appLoadingButton
       (click)="createLeague()"
+      *ngIf="currentUser?.role !== userRole.USER"
     >
       Crear nueva
     </button>

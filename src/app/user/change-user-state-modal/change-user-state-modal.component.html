@@ -1,0 +1,44 @@
+<div class="container">
+  <h1 *ngIf="data.ban">Banear usuario</h1>
+  <h1 *ngIf="!data.ban">Desbanear usuario</h1>
+
+  <form
+    novalidate
+    class="form-container"
+    [formGroup]="userForm"
+    (ngSubmit)="changeState()"
+  >
+    <div class="form-wrapper">
+      <mat-label>Usuario</mat-label>
+      <mat-form-field>
+        <mat-select
+          class="form__input"
+          placeholder="Elige un usuario"
+          formControlName="user"
+          name="user"
+          required
+        >
+          <mat-option *ngFor="let user of data.users.items" [value]="user.id">
+            {{ user.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="userForm.get('user')?.hasError('required')">
+          'Requerido'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="button">
+      <button
+        mat-button
+        class="btn--primary btn--lg"
+        type="submit"
+        data-test-id="login-button"
+        appLoadingButton
+      >
+        <span *ngIf="data.ban">Banear</span>
+        <span *ngIf="!data.ban">Desbanear</span>
+      </button>
+    </div>
+  </form>
+</div>
