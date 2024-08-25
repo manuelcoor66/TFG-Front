@@ -4,7 +4,7 @@
   margin: 2rem;
   padding: 1rem;
   gap: 1rem;
-  width: 90%;
+  width: 95%;
   flex-wrap: wrap;
   overflow: hidden;
   justify-content: center;
@@ -14,4 +14,14 @@ h1 {
   display: flex;
   justify-content: center;
   margin-bottom: 0;
+}
+
+button {
+  background-color: #046b99;
+}
+
+.buttons-container {
+  gap: 1rem;
+  display: flex;
+  justify-content: flex-end;
 }

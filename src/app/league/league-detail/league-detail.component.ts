@@ -24,6 +24,7 @@ import { AddMatchResultComponent } from '../add-match-result/add-match-result.co
 import { DomSanitizer } from '@angular/platform-browser';
 import { Enrolment } from '../../../models/enrolment';
 import { EnrolmentService } from '../../../services/enrolment.service';
+import { EnrolmentsTableComponent } from '../enrolments-table/enrolments-table.component';
 import { GeneralModalComponent } from '../../shared-components/general-modal/general-modal.component';
 import { League } from '../../../models/league';
 import { LeagueService } from '../../../services/league.service';
@@ -40,7 +41,6 @@ import { Sport } from '../../../models/sports';
 import { SportsService } from '../../../services/sports.service';
 import { TicketState } from '../../../utils/enum';
 import { User } from '../../../models/user';
-import { EnrolmentsTableComponent } from '../enrolments-table/enrolments-table.component';
 import { UserTicket } from '../../../models/ticket';
 import { fourPlayers } from '../../../utils/shared-functions';
 
@@ -177,7 +177,8 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
     '¿Estás seguro de que quieres desmatricularte? Si lo haces no podrás recuperar el dinero pagado y si quieres ' +
     'volver a matricularte tendrás que volver a pagar de nuevo.';
 
-  @ViewChild(EnrolmentsTableComponent) userTable!: EnrolmentsTableComponent;
+  @ViewChild(EnrolmentsTableComponent)
+    enrolmentsTable!: EnrolmentsTableComponent;
 
   constructor() {
     this.matIconRegistry.addSvgIcon(
@@ -362,7 +363,7 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
             )
             .subscribe((enrolment) => {
               this.isEnroled = true;
-              this.userTable.refreshData();
+              this.enrolmentsTable.refreshData();
 
               if (!this.enrolments) {
                 this.enrolments = [];
@@ -407,7 +408,7 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
             )
             .subscribe((enrolments) => {
               this.isEnroled = false;
-              this.userTable.refreshData();
+              this.enrolmentsTable.refreshData();
 
               this.localStorageService.setItem('enrolments', enrolments.items);
               this.snackbarService.openSnackBar(
@@ -551,7 +552,7 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
           .subscribe((enrolments) => {
             this.localStorageService.setItem('enrolments', enrolments.items);
             this.enrolments = enrolments.items;
-            this.userTable.refreshData();
+            this.enrolmentsTable.refreshData();
           });
         this.finalizedMatches.items[indexToEdit as number].result = data;
         this.cdRef.detectChanges();

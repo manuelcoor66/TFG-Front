@@ -1,5 +1,5 @@
-import { autoserializeAs, autoserializeAsArray } from 'dcerialize';
 import { UserRole, UserState } from '../utils/enum';
+import { autoserializeAs, autoserializeAsArray } from 'dcerialize';
 
 export class User {
   /**
@@ -65,6 +65,40 @@ export class User {
   updateNames(user: User): void {
     this.name = user.name;
     this.lastNames = user.lastNames;
+  }
+}
+
+export class UserByStateRole {
+  /**
+   * ID
+   */
+  @autoserializeAs(() => Number) id: number;
+
+  /**
+   * User name
+   */
+  @autoserializeAs(() => String) name: string;
+
+  constructor(id: number, name: string) {
+    this.id = id;
+    this.name = name;
+  }
+}
+
+export class UserByStateRoleList {
+  /**
+   * Items
+   */
+  @autoserializeAsArray(() => UserByStateRole) items: UserByStateRole[];
+
+  /**
+   * Total
+   */
+  @autoserializeAs(() => Number) total: number;
+
+  constructor(items: UserByStateRole[], total: number) {
+    this.items = items;
+    this.total = total;
   }
 }
 

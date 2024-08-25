@@ -5,8 +5,13 @@ export enum TicketState {
 }
 
 export enum UserState {
-  AVAILABLE = 'Dispobible',
+  AVAILABLE = 'Disponible',
   BANNED = 'Baneado',
+}
+
+export enum UserStateName {
+  AVAILABLE = 'AVAILABLE',
+  BANNED = 'BANNED',
 }
 
 export enum UserRole {

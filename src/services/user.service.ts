@@ -1,8 +1,9 @@
 import { Deserialize, IJsonObject } from 'dcerialize';
 import { Observable, catchError, map } from 'rxjs';
+import { User, UserByStateRoleList, UserTableList } from '../models/user';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User, UserTableList } from '../models/user';
+import { UserStateName } from '../utils/enum';
 
 @Injectable({
   providedIn: 'root',
@@ -111,5 +112,34 @@ export class UserService {
         throw err;
       }),
     );
+  }
+
+  getUsersByState(state: UserStateName): Observable<UserByStateRoleList> {
+    return this.http
+      .get<IJsonObject>(`${this.path}/state-users?state=${state}`)
+      .pipe(
+        map((users) => Deserialize(users, () => UserByStateRoleList)),
+        catchError((err) => {
+          throw err;
+        }),
+      );
+  }
+
+  changeUserState(id: number): Observable<void> {
+    return this.http.patch<void>(`${this.path}/change-state/${id}`, {}).pipe(
+      catchError((err) => {
+        throw err;
+      }),
+    );
+  }
+
+  changeUserRole(id: number, role: string): Observable<void> {
+    return this.http
+      .patch<void>(`${this.path}/change-role?id=${id}&role=${role}`, {})
+      .pipe(
+        catchError((err) => {
+          throw err;
+        }),
+      );
   }
 }

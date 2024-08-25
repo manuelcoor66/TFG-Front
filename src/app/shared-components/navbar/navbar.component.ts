@@ -2,11 +2,11 @@ import { Component, inject } from '@angular/core';
 import { MatIcon, MatIconRegistry } from '@angular/material/icon';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { DomSanitizer } from '@angular/platform-browser';
+import { LocalStorageService } from '../../../services/local-storage.service';
 import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { User } from '../../../models/user';
-import { LocalStorageService } from '../../../services/local-storage.service';
-import { UserRole, UserRoleName } from '../../../utils/enum';
+import { UserRoleName } from '../../../utils/enum';
 
 @Component({
   selector: 'app-navbar',
@@ -52,5 +52,5 @@ export class NavbarComponent {
     this.router.navigateByUrl('/' + text);
   }
 
-  protected readonly UserRoleName = UserRoleName;
+  protected readonly userRoleName = UserRoleName;
 }

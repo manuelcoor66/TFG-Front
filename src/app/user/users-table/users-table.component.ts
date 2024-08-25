@@ -1,4 +1,5 @@
-import { Component, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
+import { EMPTY, catchError } from 'rxjs';
 import {
   MatCell,
   MatCellDef,
@@ -12,13 +13,12 @@ import {
   MatTable,
   MatTableDataSource,
 } from '@angular/material/table';
+import { UserRole, UserState } from '../../../utils/enum';
 import { MatPaginator } from '@angular/material/paginator';
 import { NgIf } from '@angular/common';
 import { NoDataComponent } from '../../shared-components/no-data/no-data.component';
-import { UserTable } from '../../../models/user';
-import { EMPTY, catchError } from 'rxjs';
 import { UserService } from '../../../services/user.service';
-import { UserRole, UserState } from '../../../utils/enum';
+import { UserTable } from '../../../models/user';
 
 @Component({
   selector: 'app-users-table',
@@ -41,7 +41,7 @@ import { UserRole, UserState } from '../../../utils/enum';
   templateUrl: './users-table.component.html',
   styleUrls: ['./users-table.component.scss'],
 })
-export class UsersTableComponent {
+export class UsersTableComponent implements AfterViewInit {
   private userService = inject(UserService);
 
   displayedColumns: string[] = ['name', 'email', 'role', 'state'];
@@ -92,7 +92,4 @@ export class UsersTableComponent {
   refreshData(): void {
     this.loadEnrolments();
   }
-
-  protected readonly UserState = UserState;
-  protected readonly UserRole = UserRole;
 }
