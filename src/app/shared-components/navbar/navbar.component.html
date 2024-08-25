@@ -18,9 +18,13 @@
       <mat-icon>stars</mat-icon>
       <span class="options__button__text">Logros</span>
     </button>
-    <!--  <button class="options__button" (click)="goTo('users')">-->
-    <!--    <mat-icon>stars</mat-icon>-->
-    <!--    <span class="options__button__text">Gestión usuarios</span>-->
-    <!--  </button>-->
+    <button
+      class="options__button"
+      (click)="goTo('manage-users')"
+      *ngIf="currentUser?.role?.valueOf() === UserRoleName.ADMIN"
+    >
+      <mat-icon>group</mat-icon>
+      <span class="options__button__text">Gestión usuarios</span>
+    </button>
   </mat-menu>
 </div>

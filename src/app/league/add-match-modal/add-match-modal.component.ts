@@ -24,7 +24,10 @@ import {
 import { League } from '../../../models/league';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import { MatButton } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import {
+  MatDatepickerInputEvent,
+  MatDatepickerModule,
+} from '@angular/material/datepicker';
 import { MatInput } from '@angular/material/input';
 import { MatchesService } from '../../../services/matches.service';
 import { PlacesService } from '../../../services/places.service';
@@ -85,9 +88,9 @@ export class AddMatchModalComponent {
     this.currentUser = this.localStorageService.getItem('user');
   }
 
-  onDateChange(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    this.matchForm.get('date')?.setValue(inputElement.value);
+  onDateChange(event: MatDatepickerInputEvent<Date>): void {
+    const selectedDate = event.value;
+    this.matchForm.get('date')?.setValue(selectedDate);
     this.cdRef.detectChanges();
   }
 

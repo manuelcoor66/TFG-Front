@@ -4,6 +4,9 @@ import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
+import { User } from '../../../models/user';
+import { LocalStorageService } from '../../../services/local-storage.service';
+import { UserRole, UserRoleName } from '../../../utils/enum';
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +19,12 @@ export class NavbarComponent {
   private router = inject(Router);
   private matIconRegistry = inject(MatIconRegistry);
   private domSanitizer = inject(DomSanitizer);
+  private localStorageService = inject(LocalStorageService);
+
+  /**
+   * Current user data
+   */
+  currentUser?: User;
 
   constructor() {
     this.matIconRegistry.addSvgIcon(
@@ -28,6 +37,8 @@ export class NavbarComponent {
       'edit',
       this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/edit.svg'),
     );
+
+    this.currentUser = this.localStorageService.getItem('user');
   }
 
   showNavbar(): boolean {
@@ -40,4 +51,6 @@ export class NavbarComponent {
   goTo(text: string): void {
     this.router.navigateByUrl('/' + text);
   }
+
+  protected readonly UserRoleName = UserRoleName;
 }

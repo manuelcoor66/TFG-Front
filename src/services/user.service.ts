@@ -2,7 +2,7 @@ import { Deserialize, IJsonObject } from 'dcerialize';
 import { Observable, catchError, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../models/user';
+import { User, UserTableList } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -102,5 +102,14 @@ export class UserService {
           throw err;
         }),
       );
+  }
+
+  getLeagueEnrolmentsTable(): Observable<UserTableList> {
+    return this.http.get<IJsonObject>(`${this.path}/table`).pipe(
+      map((users) => Deserialize(users, () => UserTableList)),
+      catchError((err) => {
+        throw err;
+      }),
+    );
   }
 }

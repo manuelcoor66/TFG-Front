@@ -75,6 +75,11 @@ export const routes: Routes = [
     canActivate: [LoginGuard],
   },
   {
+    path: 'manage-users',
+    component: ManageUsersComponent,
+    canActivate: [LoginGuard],
+  },
+  {
     path: '**',
     redirectTo: '/leagues',
   },

@@ -40,7 +40,7 @@ import { Sport } from '../../../models/sports';
 import { SportsService } from '../../../services/sports.service';
 import { TicketState } from '../../../utils/enum';
 import { User } from '../../../models/user';
-import { UserTableComponent } from '../user-table/user-table.component';
+import { EnrolmentsTableComponent } from '../enrolments-table/enrolments-table.component';
 import { UserTicket } from '../../../models/ticket';
 import { fourPlayers } from '../../../utils/shared-functions';
 
@@ -57,7 +57,7 @@ import { fourPlayers } from '../../../utils/shared-functions';
     MatTabContent,
     MatTabGroup,
     MatTabLabel,
-    UserTableComponent,
+    EnrolmentsTableComponent,
     NgForOf,
     NoDataComponent,
     MatTooltipModule,
@@ -177,7 +177,7 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
     '¿Estás seguro de que quieres desmatricularte? Si lo haces no podrás recuperar el dinero pagado y si quieres ' +
     'volver a matricularte tendrás que volver a pagar de nuevo.';
 
-  @ViewChild(UserTableComponent) userTable!: UserTableComponent;
+  @ViewChild(EnrolmentsTableComponent) userTable!: EnrolmentsTableComponent;
 
   constructor() {
     this.matIconRegistry.addSvgIcon(
