@@ -10,8 +10,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NoDataComponent } from '../shared-components/no-data/no-data.component';
 import { SnackbarService } from '../../services/snackbar.service';
 import { User } from '../../models/user';
+import { UserRole } from '../../utils/enum';
 import { catchError } from 'rxjs';
-import {UserRole} from "../../utils/enum";
 
 @Component({
   selector: 'app-league',
@@ -105,5 +105,5 @@ export class LeaguesComponent implements OnInit {
     return league.dateStart > now ? true : this.showDeletedLeague(league);
   }
 
-    protected readonly userRole = UserRole;
+  protected readonly userRole = UserRole;
 }

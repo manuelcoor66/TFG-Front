@@ -1,4 +1,5 @@
 import { Component, Inject, inject } from '@angular/core';
+import { EMPTY, catchError } from 'rxjs';
 import {
   FormControl,
   FormGroup,
@@ -12,6 +13,7 @@ import { NgForOf, NgIf } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/autocomplete';
 import { MatSelect } from '@angular/material/select';
+import { SnackbarService } from '../../../services/snackbar.service';
 import { UserByStateRole } from '../../../models/user';
 import { UserRole } from '../../../utils/enum';
 import { UserService } from '../../../services/user.service';
@@ -37,6 +39,7 @@ import { UserService } from '../../../services/user.service';
 export class ChangeUserRoleModalComponent {
   private userService = inject(UserService);
   private dialogRef = inject(MatDialogRef<ChangeUserRoleModalComponent>);
+  private snackbarService = inject(SnackbarService);
 
   /**
    * User form
@@ -73,6 +76,13 @@ export class ChangeUserRoleModalComponent {
         .changeUserRole(
           this.userForm.get('user')?.value,
           this.userForm.get('role')?.value,
+        )
+        .pipe(
+          catchError((err) => {
+            this.snackbarService.openSnackBar(err.error.message, 'warning');
+
+            return EMPTY;
+          }),
         )
         .subscribe(() => {
           this.dialogRef.close(true);

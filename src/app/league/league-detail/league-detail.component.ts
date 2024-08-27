@@ -19,6 +19,7 @@ import {
 } from '@angular/material/tabs';
 import { Matches, MatchesList } from '../../../models/matches';
 import { NgForOf, NgIf } from '@angular/common';
+import { TicketState, UserRole } from '../../../utils/enum';
 import { AddMatchModalComponent } from '../add-match-modal/add-match-modal.component';
 import { AddMatchResultComponent } from '../add-match-result/add-match-result.component';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -39,7 +40,6 @@ import { PayLeagueModalComponent } from '../pay-league-modal/pay-league-modal.co
 import { SnackbarService } from '../../../services/snackbar.service';
 import { Sport } from '../../../models/sports';
 import { SportsService } from '../../../services/sports.service';
-import {TicketState, UserRole} from '../../../utils/enum';
 import { User } from '../../../models/user';
 import { UserTicket } from '../../../models/ticket';
 import { fourPlayers } from '../../../utils/shared-functions';
