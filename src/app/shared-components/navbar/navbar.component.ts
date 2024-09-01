@@ -52,5 +52,10 @@ export class NavbarComponent {
     this.router.navigateByUrl('/' + text);
   }
 
+  exit(): void {
+    this.localStorageService.clear();
+    this.router.navigateByUrl('/login');
+  }
+
   protected readonly userRoleName = UserRoleName;
 }

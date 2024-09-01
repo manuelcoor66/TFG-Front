@@ -1,9 +1,11 @@
 import { ChangeDetectorRef, Component, ViewChild, inject } from '@angular/core';
 import { ChangeUserRoleModalComponent } from '../change-user-role-modal/change-user-role-modal.component';
 import { ChangeUserStateModalComponent } from '../change-user-state-modal/change-user-state-modal.component';
+import { FormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
 import { NgIf } from '@angular/common';
 import { UserByStateRoleList } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
@@ -13,11 +15,17 @@ import { UsersTableComponent } from '../users-table/users-table.component';
 @Component({
   selector: 'app-manage-users',
   standalone: true,
-  imports: [UsersTableComponent, MatButton, MatIcon, NgIf],
+  imports: [
+    UsersTableComponent,
+    MatButton,
+    MatIcon,
+    NgIf,
+    FormsModule,
+    MatInput,
+  ],
   templateUrl: './manage-users.component.html',
   styleUrls: ['./manage-users.component.scss'],
 })
-
 export class ManageUsersComponent {
   private userService = inject(UserService);
   private dialog = inject(MatDialog);
@@ -25,15 +33,10 @@ export class ManageUsersComponent {
 
   @ViewChild(UsersTableComponent) userTable!: UsersTableComponent;
 
-  /**
-   * Banned users
-   */
   bannedUsers = new UserByStateRoleList([], 0);
-
-  /**
-   * Banned users
-   */
   availableUsers = new UserByStateRoleList([], 0);
+
+  searchTerm: string = '';
 
   constructor() {
     this.loadData();
@@ -63,7 +66,6 @@ export class ManageUsersComponent {
     dialogRef.afterClosed().subscribe((data) => {
       if (data && data == true) {
         this.userTable.refreshData();
-
         this.loadData();
         this.cdRef.detectChanges();
       }
@@ -85,10 +87,17 @@ export class ManageUsersComponent {
     dialogRef.afterClosed().subscribe((data) => {
       if (data && data == true) {
         this.userTable.refreshData();
-
         this.loadData();
         this.cdRef.detectChanges();
       }
     });
+  }
+
+  onSearchChange(searchTerm: string): void {
+    this.searchTerm = searchTerm;
+    if (this.userTable) {
+      this.userTable.searchTerm = searchTerm;
+      this.userTable.applyFilter();
+    }
   }
 }

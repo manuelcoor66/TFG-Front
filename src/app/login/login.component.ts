@@ -16,6 +16,7 @@ import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { SnackbarService } from '../../services/snackbar.service';
 import { UserService } from '../../services/user.service';
+import { UserStateName } from '../../utils/enum';
 import { catchError } from 'rxjs';
 import { emailRegex } from '../../utils/utils';
 
@@ -68,23 +69,30 @@ export class LoginComponent {
         .getUserByEmail(this.loginForm.get('email')?.value)
         .pipe(
           catchError((err) => {
-            this.snackbarService.openSnackBar(err.error.message);
+            this.snackbarService.openSnackBar(err.error.message, 'warning');
             throw err;
           }),
         )
         .subscribe((user) => {
-          if (
-            this.hashService.comparePassword(
-              this.loginForm.get('password')?.value,
-              user.password as string,
-            )
-          ) {
-            this.enrolmentService
-              .getUserEnrolments(user.id as number)
-              .subscribe((enrolmentList) => {
-                this.authService.login(user, enrolmentList);
-              });
-            this.router.navigateByUrl('/home');
+          if (user.state?.valueOf() === UserStateName.AVAILABLE) {
+            if (
+              this.hashService.comparePassword(
+                this.loginForm.get('password')?.value,
+                user.password as string,
+              )
+            ) {
+              this.enrolmentService
+                .getUserEnrolments(user.id as number)
+                .subscribe((enrolmentList) => {
+                  this.authService.login(user, enrolmentList);
+                });
+              this.router.navigateByUrl('/home');
+            }
+          } else {
+            this.snackbarService.openSnackBar(
+              'El usuario no puede loggearse porque esa banneado',
+              'warning',
+            );
           }
         });
     }

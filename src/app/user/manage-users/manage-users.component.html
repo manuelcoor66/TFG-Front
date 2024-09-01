@@ -1,45 +1,55 @@
 <div class="container">
   <h1>Gestión de usuarios</h1>
 
-  <div class="buttons-container">
-    <button
-      *ngIf="availableUsers.total !== 0 && bannedUsers.total !== 0"
-      mat-button
-      class="btn--primary btn--lg enrol-button"
-      type="submit"
-      data-test-id="login-button"
-      appLoadingButton
-      (click)="openChangeUseRole()"
-    >
-      <mat-icon>manage_accounts</mat-icon>
-      Cambiar rol
-    </button>
+  <div class="top-container">
+    <input
+      matInput
+      placeholder="Buscar usuarios"
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="onSearchChange($event)"
+    />
 
-    <button
-      *ngIf="availableUsers.total !== 0"
-      mat-button
-      class="btn--primary btn--lg enrol-button"
-      type="submit"
-      data-test-id="login-button"
-      appLoadingButton
-      (click)="openChangeUserState(availableUsers, true)"
-    >
-      <mat-icon>lock_close</mat-icon>
-      Bannear
-    </button>
+    <div class="buttons-container">
+      <button
+        *ngIf="availableUsers.total !== 0 && bannedUsers.total !== 0"
+        mat-button
+        class="btn--primary btn--lg enrol-button"
+        type="submit"
+        data-test-id="login-button"
+        appLoadingButton
+        (click)="openChangeUseRole()"
+      >
+        <mat-icon>manage_accounts</mat-icon>
+        Cambiar rol
+      </button>
 
-    <button
-      *ngIf="bannedUsers.total !== 0"
-      mat-button
-      class="btn--primary btn--lg enrol-button"
-      type="submit"
-      data-test-id="login-button"
-      appLoadingButton
-      (click)="openChangeUserState(bannedUsers, false)"
-    >
-      <mat-icon>lock_open</mat-icon>
-      Desbannear
-    </button>
+      <button
+        *ngIf="availableUsers.total !== 0"
+        mat-button
+        class="btn--primary btn--lg enrol-button"
+        type="submit"
+        data-test-id="login-button"
+        appLoadingButton
+        (click)="openChangeUserState(availableUsers, true)"
+      >
+        <mat-icon>lock_close</mat-icon>
+        Bannear
+      </button>
+
+      <button
+        *ngIf="bannedUsers.total !== 0"
+        mat-button
+        class="btn--primary btn--lg enrol-button"
+        type="submit"
+        data-test-id="login-button"
+        appLoadingButton
+        (click)="openChangeUserState(bannedUsers, false)"
+      >
+        <mat-icon>lock_open</mat-icon>
+        Desbannear
+      </button>
+    </div>
   </div>
-  <app-users-table></app-users-table>
+
+  <app-users-table [searchTerm]="searchTerm"></app-users-table>
 </div>

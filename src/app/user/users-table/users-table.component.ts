@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { EMPTY, catchError } from 'rxjs';
 import {
   MatCell,
@@ -41,21 +49,18 @@ import { UserTable } from '../../../models/user';
   templateUrl: './users-table.component.html',
   styleUrls: ['./users-table.component.scss'],
 })
-export class UsersTableComponent implements AfterViewInit {
+export class UsersTableComponent implements AfterViewInit, OnChanges {
   private userService = inject(UserService);
 
   displayedColumns: string[] = ['name', 'email', 'role', 'state'];
-
   dataSource = new MatTableDataSource<UserTable>();
 
-  /**
-   * Whether is empty
-   */
   isEmpty = true;
-
   emptyData = 'No existen usuarios, vuelva a intentarlo más tarde';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  @Input() searchTerm: string = '';
 
   constructor() {
     this.loadEnrolments();
@@ -63,6 +68,12 @@ export class UsersTableComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['searchTerm']) {
+      this.applyFilter();
+    }
   }
 
   loadEnrolments(): void {
@@ -77,8 +88,15 @@ export class UsersTableComponent implements AfterViewInit {
       )
       .subscribe((users) => {
         this.dataSource.data = users.items;
+        this.applyFilter();
         this.isEmpty = users.total === 0;
       });
+  }
+
+  applyFilter(): void {
+    const filterValue = this.searchTerm.trim().toLowerCase();
+    this.dataSource.filter = filterValue;
+    this.isEmpty = this.dataSource.filteredData.length === 0;
   }
 
   getRoleValue(role: keyof typeof UserRole): string {
