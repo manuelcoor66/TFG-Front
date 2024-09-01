@@ -178,7 +178,7 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
     'volver a matricularte tendrás que volver a pagar de nuevo.';
 
   @ViewChild(EnrolmentsTableComponent)
-  enrolmentsTable!: EnrolmentsTableComponent;
+    enrolmentsTable!: EnrolmentsTableComponent;
 
   constructor() {
     this.matIconRegistry.addSvgIcon(

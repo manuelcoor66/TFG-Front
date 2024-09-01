@@ -1,4 +1,9 @@
-import { ChangeDetectorRef, Component, ViewChild, inject } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { ChangeUserRoleModalComponent } from '../change-user-role-modal/change-user-role-modal.component';
 import { ChangeUserStateModalComponent } from '../change-user-state-modal/change-user-state-modal.component';
 import { FormsModule } from '@angular/forms';
@@ -48,6 +53,7 @@ export class ManageUsersComponent {
       .subscribe((users) => {
         this.bannedUsers = users;
       });
+
     this.userService
       .getUsersByState(UserStateName.AVAILABLE)
       .subscribe((users) => {

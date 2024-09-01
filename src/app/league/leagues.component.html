@@ -1,6 +1,14 @@
 <div class="container">
   <div class="leagues-title">
     <h1>Ligas</h1>
+    <input
+      matInput
+      placeholder="Buscar ligas"
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="applyFilter()"
+      class="search-input"
+    />
+
     <button
       mat-button
       class="btn--primary btn--lg button"

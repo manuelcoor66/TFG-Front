@@ -49,7 +49,7 @@ export class NavbarComponent {
   }
 
   goTo(text: string): void {
-    this.router.navigateByUrl('/' + text);
+    window.location.href = text;
   }
 
   exit(): void {

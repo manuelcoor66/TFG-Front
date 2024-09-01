@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   Input,
   OnChanges,
@@ -51,6 +52,7 @@ import { UserTable } from '../../../models/user';
 })
 export class UsersTableComponent implements AfterViewInit, OnChanges {
   private userService = inject(UserService);
+  private cdRef = inject(ChangeDetectorRef);
 
   displayedColumns: string[] = ['name', 'email', 'role', 'state'];
   dataSource = new MatTableDataSource<UserTable>();
@@ -88,14 +90,22 @@ export class UsersTableComponent implements AfterViewInit, OnChanges {
       )
       .subscribe((users) => {
         this.dataSource.data = users.items;
-        this.applyFilter();
         this.isEmpty = users.total === 0;
+
+        if (this.paginator) {
+          this.dataSource.paginator = this.paginator;
+        }
+
+        this.applyFilter();
+
+        this.cdRef.detectChanges();
       });
   }
 
   applyFilter(): void {
     const filterValue = this.searchTerm.trim().toLowerCase();
     this.dataSource.filter = filterValue;
+
     this.isEmpty = this.dataSource.filteredData.length === 0;
   }
 
