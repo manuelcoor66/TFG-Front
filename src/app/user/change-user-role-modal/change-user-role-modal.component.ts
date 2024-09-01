@@ -47,14 +47,9 @@ export class ChangeUserRoleModalComponent {
   public userForm: FormGroup;
 
   /**
-   *
+   * User role list
    */
   userRolesList: { id: string; name: UserRole }[];
-
-  /**
-   *
-   * @param data
-   */
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { users: UserByStateRole[] },

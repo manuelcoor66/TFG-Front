@@ -45,8 +45,14 @@ export class EnrolmentsTableComponent implements AfterViewInit {
   private enrolmentService = inject(EnrolmentService);
   private route = inject(ActivatedRoute);
 
+  /**
+   * Displayed columns
+   */
   displayedColumns: string[] = ['id', 'name', 'points', 'wins', 'defeats'];
 
+  /**
+   * Data source
+   */
   dataSource = new MatTableDataSource<EnrolmentTable>();
 
   /**
@@ -54,6 +60,9 @@ export class EnrolmentsTableComponent implements AfterViewInit {
    */
   isEmpty = true;
 
+  /**
+   * Message to show if is empty
+   */
   emptyData = 'No existen usuarios, vuelva a intentarlo más tarde';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

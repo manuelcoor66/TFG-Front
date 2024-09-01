@@ -54,14 +54,34 @@ export class UsersTableComponent implements AfterViewInit, OnChanges {
   private userService = inject(UserService);
   private cdRef = inject(ChangeDetectorRef);
 
+  /**
+   * Displayed columns
+   */
   displayedColumns: string[] = ['name', 'email', 'role', 'state'];
+
+  /**
+   * Data source
+   */
   dataSource = new MatTableDataSource<UserTable>();
 
+  /**
+   * Whether is empty
+   */
   isEmpty = true;
+
+  /**
+   * Empty message to show
+   */
   emptyData = 'No existen usuarios, vuelva a intentarlo más tarde';
 
+  /**
+   * Paginator data
+   */
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  /**
+   * Input search terms
+   */
   @Input() searchTerm: string = '';
 
   constructor() {

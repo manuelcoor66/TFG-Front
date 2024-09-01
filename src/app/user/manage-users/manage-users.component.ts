@@ -1,9 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ViewChild,
-  inject,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild, inject } from '@angular/core';
 import { ChangeUserRoleModalComponent } from '../change-user-role-modal/change-user-role-modal.component';
 import { ChangeUserStateModalComponent } from '../change-user-state-modal/change-user-state-modal.component';
 import { FormsModule } from '@angular/forms';
@@ -36,11 +31,24 @@ export class ManageUsersComponent {
   private dialog = inject(MatDialog);
   private cdRef = inject(ChangeDetectorRef);
 
+  /**
+   * User table data
+   */
   @ViewChild(UsersTableComponent) userTable!: UsersTableComponent;
 
+  /**
+   * Banned users
+   */
   bannedUsers = new UserByStateRoleList([], 0);
+
+  /**
+   * Available users
+   */
   availableUsers = new UserByStateRoleList([], 0);
 
+  /**
+   * Search terms
+   */
   searchTerm: string = '';
 
   constructor() {

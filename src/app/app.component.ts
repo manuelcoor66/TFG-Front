@@ -21,5 +21,8 @@ import { UserService } from '../services/user.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
+  /**
+   * Title
+   */
   title = 'TFG-Front';
 }

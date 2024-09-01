@@ -39,10 +39,29 @@ export class LeaguesComponent implements OnInit {
   private snackbarService = inject(SnackbarService);
   private router = inject(Router);
 
+  /**
+   * league list data
+   */
   leagues?: LeagueList;
+
+  /**
+   * Current user data
+   */
   currentUser?: User;
+
+  /**
+   * Whether is empty
+   */
   isEmpty = true;
+
+  /**
+   * Search terms
+   */
   searchTerm: string = '';
+
+  /**
+   * Message to show if there are no data
+   */
   emptyData =
     'No se existen ligas en activo actualmente, si quiere apuntarse a una, va a tener que crearla ' +
     'en el botón de arriba a la derecha';
