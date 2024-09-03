@@ -85,8 +85,8 @@ export class LoginComponent {
                 .getUserEnrolments(user.id as number)
                 .subscribe((enrolmentList) => {
                   this.authService.login(user, enrolmentList);
+                  window.location.href = '/leagues';
                 });
-              this.router.navigateByUrl('/home');
             }
           } else {
             this.snackbarService.openSnackBar(

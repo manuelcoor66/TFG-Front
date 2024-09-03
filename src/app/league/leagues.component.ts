@@ -12,7 +12,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NoDataComponent } from '../shared-components/no-data/no-data.component';
 import { SnackbarService } from '../../services/snackbar.service';
 import { User } from '../../models/user';
-import { UserRole } from '../../utils/enum';
+import {UserRole, UserRoleName} from '../../utils/enum';
 import { catchError } from 'rxjs';
 
 @Component({
@@ -62,7 +62,11 @@ export class LeaguesComponent implements OnInit {
   /**
    * Message to show if there are no data
    */
-  emptyData =
+  emptyDataAdmin =
+    'No se existen ligas en activo actualmente, si quiere apuntarse a una, va a tener que crearla ' +
+    'en el botón de arriba a la derecha';
+
+  emptyDataUser =
     'No se existen ligas en activo actualmente, si quiere apuntarse a una, va a tener que crearla ' +
     'en el botón de arriba a la derecha';
 
@@ -135,5 +139,5 @@ export class LeaguesComponent implements OnInit {
     return league.dateStart > now ? true : this.showDeletedLeague(league);
   }
 
-  protected readonly userRole = UserRole;
+  protected readonly userRoleName = UserRoleName;
 }

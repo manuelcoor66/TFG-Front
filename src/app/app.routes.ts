@@ -11,7 +11,6 @@ import { LoginGuard } from '../services/login.guard';
 import { ManageUsersComponent } from './user/manage-users/manage-users.component';
 import { NgModule } from '@angular/core';
 import { ProfileComponent } from './profile/profile.component';
-import { SubscriptionComponent } from './subscription/subscription.component';
 import { TicketsComponent } from './tickets/tickets.component';
 
 export const routes: Routes = [
@@ -39,10 +38,6 @@ export const routes: Routes = [
     path: 'create-user',
     component: CreateUserComponent,
     canActivate: [AuthGuard],
-  },
-  {
-    path: 'subscription',
-    component: SubscriptionComponent,
   },
   {
     path: 'league/:id',
@@ -78,10 +73,6 @@ export const routes: Routes = [
     path: 'manage-users',
     component: ManageUsersComponent,
     canActivate: [LoginGuard],
-  },
-  {
-    path: '**',
-    redirectTo: '/leagues',
   },
 ];
 

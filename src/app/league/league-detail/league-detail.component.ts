@@ -374,6 +374,15 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
                 'enrolments',
                 this.enrolments as Enrolment[],
               );
+
+              this.leagueService.getAllLeagues().subscribe((leagues) => {
+                this.localStorageService.setItem('leagues', leagues.items);
+
+                this.leagueService.getLeagueById(this.leagueId).subscribe((league) => {
+                  this.leagueDetail = league;
+                })
+              });
+
               this.snackbarService.openSnackBar(
                 'Usuario matriculado con éxito',
                 'success',
@@ -411,6 +420,15 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
               this.enrolmentsTable.refreshData();
 
               this.localStorageService.setItem('enrolments', enrolments.items);
+
+              this.leagueService.getAllLeagues().subscribe((leagues) => {
+                this.localStorageService.setItem('leagues', leagues.items);
+
+                this.leagueService.getLeagueById(this.leagueId).subscribe((league) => {
+                  this.leagueDetail = league;
+                })
+              });
+
               this.snackbarService.openSnackBar(
                 'Usuario desmatriculado con éxito',
                 'success',

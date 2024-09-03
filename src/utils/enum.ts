@@ -1,6 +1,6 @@
 export enum TicketState {
   PAID = 'Pagado',
-  INPROGRESS = 'En progreso',
+  INPROGRESS = 'En procreso',
   REJECTED = 'Rechazado',
 }
 
