@@ -124,7 +124,7 @@ export class PayLeagueModalComponent {
 
         this.dialogRef.close();
       }
-      if (cvc.startsWith('2')) {
+      else if(cvc.startsWith('2')) {
         this.ticketService
           .createTicket(
             this.data.league.id,
