@@ -12,7 +12,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NoDataComponent } from '../shared-components/no-data/no-data.component';
 import { SnackbarService } from '../../services/snackbar.service';
 import { User } from '../../models/user';
-import {UserRole, UserRoleName} from '../../utils/enum';
+import { UserRoleName } from '../../utils/enum';
 import { catchError } from 'rxjs';
 
 @Component({

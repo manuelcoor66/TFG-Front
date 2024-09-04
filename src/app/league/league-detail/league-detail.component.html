@@ -11,7 +11,7 @@
         <h2>{{ leagueDetail?.description }}</h2>
       </div>
       <div
-        *ngIf="isCreator() || currentUser?.role !== userRole.USER"
+        *ngIf="isCreator() || currentUser?.role !== userRoleName.USER"
         [matMenuTriggerFor]="actions"
       >
         <mat-icon class="pointer">more_vert</mat-icon>
@@ -128,19 +128,36 @@
                 </div>
 
                 <div class="players">
-                  <div [class]="sport?.players === 4 ? 'column match-container__name' : 'row match-container__name'">
+                  <div
+                    [class]="
+                      sport?.players === 4
+                        ? 'column match-container__name'
+                        : 'row match-container__name'
+                    "
+                  >
                     <div *ngIf="match.playerName1">{{ match.playerName1 }}</div>
-                    <div class="available" *ngIf="!match.playerName1">Libre</div>
+                    <div class="available" *ngIf="!match.playerName1">
+                      Libre
+                    </div>
                     <span class="vs" *ngIf="sport?.players === 2">vs</span>
                     <div *ngIf="match.playerName2">{{ match.playerName2 }}</div>
-                    <div class="available" *ngIf="!match.playerName2">Libre</div>
+                    <div class="available" *ngIf="!match.playerName2">
+                      Libre
+                    </div>
                   </div>
                   <span class="vs" *ngIf="sport?.players === 4">vs</span>
-                  <div class="match-container__name" *ngIf="sport?.players === 4">
+                  <div
+                    class="match-container__name"
+                    *ngIf="sport?.players === 4"
+                  >
                     <div *ngIf="match.playerName3">{{ match.playerName3 }}</div>
-                    <div class="available" *ngIf="!match.playerName3">Libre</div>
+                    <div class="available" *ngIf="!match.playerName3">
+                      Libre
+                    </div>
                     <div *ngIf="match.playerName4">{{ match.playerName4 }}</div>
-                    <div class="available" *ngIf="!match.playerName4">Libre</div>
+                    <div class="available" *ngIf="!match.playerName4">
+                      Libre
+                    </div>
                   </div>
                 </div>
                 <div class="center">
@@ -174,7 +191,10 @@
           (mouseenter)="showMessage = true"
           (mouseleave)="showMessage = false"
         >
-          <div *ngIf="!canEnrol(match) && fourPlayers(match) && match" class="tab">
+          <div
+            *ngIf="!canEnrol(match) && fourPlayers(match) && match"
+            class="tab"
+          >
             <div class="match-container">
               <div class="match-container__text">
                 <div class="match-container__date underline">

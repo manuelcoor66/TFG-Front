@@ -19,7 +19,7 @@ import {
 } from '@angular/material/tabs';
 import { Matches, MatchesList } from '../../../models/matches';
 import { NgForOf, NgIf } from '@angular/common';
-import { TicketState, UserRole } from '../../../utils/enum';
+import { TicketState, UserRoleName } from '../../../utils/enum';
 import { AddMatchModalComponent } from '../add-match-modal/add-match-modal.component';
 import { AddMatchResultComponent } from '../add-match-result/add-match-result.component';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -378,9 +378,11 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
               this.leagueService.getAllLeagues().subscribe((leagues) => {
                 this.localStorageService.setItem('leagues', leagues.items);
 
-                this.leagueService.getLeagueById(this.leagueId).subscribe((league) => {
-                  this.leagueDetail = league;
-                })
+                this.leagueService
+                  .getLeagueById(this.leagueId)
+                  .subscribe((league) => {
+                    this.leagueDetail = league;
+                  });
               });
 
               this.snackbarService.openSnackBar(
@@ -424,9 +426,11 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
               this.leagueService.getAllLeagues().subscribe((leagues) => {
                 this.localStorageService.setItem('leagues', leagues.items);
 
-                this.leagueService.getLeagueById(this.leagueId).subscribe((league) => {
-                  this.leagueDetail = league;
-                })
+                this.leagueService
+                  .getLeagueById(this.leagueId)
+                  .subscribe((league) => {
+                    this.leagueDetail = league;
+                  });
               });
 
               this.snackbarService.openSnackBar(
@@ -603,5 +607,5 @@ export class LeagueDetailComponent implements OnInit, OnDestroy {
   }
 
   protected readonly fourPlayers = fourPlayers;
-  protected readonly userRole = UserRole;
+  protected readonly userRoleName = UserRoleName;
 }

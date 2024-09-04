@@ -63,5 +63,12 @@
     </div>
   </div>
 
-  <app-no-data *ngIf="isEmpty" [data]="currentUser?.role !== userRoleName.USER.valueOf() ? emptyDataAdmin : emptyDataUser"></app-no-data>
+  <app-no-data
+    *ngIf="isEmpty"
+    [data]="
+      currentUser?.role !== userRoleName.USER.valueOf()
+        ? emptyDataAdmin
+        : emptyDataUser
+    "
+  ></app-no-data>
 </div>
