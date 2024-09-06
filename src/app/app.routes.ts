@@ -12,6 +12,7 @@ import { ManageUsersComponent } from './user/manage-users/manage-users.component
 import { NgModule } from '@angular/core';
 import { ProfileComponent } from './profile/profile.component';
 import { TicketsComponent } from './tickets/tickets.component';
+import {AdminGuard} from "../services/admin.guard";
 
 export const routes: Routes = [
   {
@@ -57,7 +58,7 @@ export const routes: Routes = [
   {
     path: 'manage-users',
     component: ManageUsersComponent,
-    canActivate: [LoginGuard],
+    canActivate: [LoginGuard, AdminGuard],
   },
   {
     path: 'create-league',
