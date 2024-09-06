@@ -1,5 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { AchievementsComponent } from './achievements/achievements.component';
+import { AdminGuard } from '../services/admin.guard';
 import { AppComponent } from './app.component';
 import { AuthGuard } from '../services/auth.guard';
 import { CreateLeagueComponent } from './league/create-league/create-league.component';
@@ -12,7 +13,6 @@ import { ManageUsersComponent } from './user/manage-users/manage-users.component
 import { NgModule } from '@angular/core';
 import { ProfileComponent } from './profile/profile.component';
 import { TicketsComponent } from './tickets/tickets.component';
-import {AdminGuard} from "../services/admin.guard";
 
 export const routes: Routes = [
   {

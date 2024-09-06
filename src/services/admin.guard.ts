@@ -1,8 +1,7 @@
 import { CanActivate, Router, UrlTree } from '@angular/router';
-import { AuthService } from './auth.service';
-import {inject, Injectable} from '@angular/core';
-import {LocalStorageService} from "./local-storage.service";
-import {UserRoleName} from "../utils/enum";
+import { Injectable } from '@angular/core';
+import { LocalStorageService } from './local-storage.service';
+import { UserRoleName } from '../utils/enum';
 
 @Injectable({
   providedIn: 'root',
