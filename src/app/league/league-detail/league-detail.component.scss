@@ -91,7 +91,7 @@ h2 {
 }
 
 button {
-  background-color: #046b99;
+  background-color: cornflowerblue;
 }
 
 .button {
@@ -170,6 +170,7 @@ table {
     gap: 1rem;
     justify-content: center;
     font-weight: 500;
+    flex-direction: column;
   }
 
   &__result {
@@ -205,4 +206,25 @@ table {
 .horizontal-end {
   display: flex;
   justify-content: flex-end;
+}
+
+.players {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.vs {
+  display: flex;
+  align-items: center;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
 }

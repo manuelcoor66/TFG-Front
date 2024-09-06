@@ -59,11 +59,6 @@ export class AddMatchResultComponent {
    */
   sport!: Sport;
 
-  /**
-   *
-   * @param data
-   */
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { match: Matches; league: League },
   ) {

@@ -40,9 +40,9 @@ export class ProfileComponent implements OnInit {
   private snackbarService = inject(SnackbarService);
 
   /**
-   * User updated data
+   * Actual user data
    */
-  actualuser!: User;
+  actualUser!: User;
 
   /**
    * Login form
@@ -52,23 +52,23 @@ export class ProfileComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.actualuser = this.localStorageService.getItem('user');
+    this.actualUser = this.localStorageService.getItem('user');
 
     this.loginForm = new FormGroup({
-      name: new FormControl({ value: this.actualuser?.name, disabled: false }, [
+      name: new FormControl({ value: this.actualUser?.name, disabled: false }, [
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(20),
       ]),
       lastNames: new FormControl(
-        { value: this.actualuser?.lastNames, disabled: false },
+        { value: this.actualUser?.lastNames, disabled: false },
         [
           Validators.required,
           Validators.minLength(8),
           Validators.maxLength(20),
         ],
       ),
-      email: new FormControl({ value: this.actualuser?.email, disabled: true }),
+      email: new FormControl({ value: this.actualUser?.email, disabled: true }),
     });
   }
 
@@ -89,16 +89,16 @@ export class ProfileComponent implements OnInit {
   changePassword(): void {
     if (this.loginForm.valid) {
       if (
-        this.actualuser.name !== this.loginForm.get('name')?.value ||
-        this.actualuser.lastNames !== this.loginForm.get('lastNames')?.value
+        this.actualUser.name !== this.loginForm.get('name')?.value ||
+        this.actualUser.lastNames !== this.loginForm.get('lastNames')?.value
       ) {
         this.userService
           .modifyUser(
-            this.actualuser.email,
+            this.actualUser.email,
             this.loginForm.get('name')?.value,
             this.loginForm.get('lastNames')?.value,
-            this.actualuser.password,
-            this.actualuser.securityWord,
+            this.actualUser.password,
+            this.actualUser.securityWord,
           )
           .pipe(
             catchError((err) => {
@@ -107,9 +107,9 @@ export class ProfileComponent implements OnInit {
             }),
           )
           .subscribe(() => {
-            this.actualuser.name = this.loginForm.get('name')?.value;
-            this.actualuser.lastNames = this.loginForm.get('lastNames')?.value;
-            this.localStorageService.setItem('user', this.actualuser);
+            this.actualUser.name = this.loginForm.get('name')?.value;
+            this.actualUser.lastNames = this.loginForm.get('lastNames')?.value;
+            this.localStorageService.setItem('user', this.actualUser);
             this.snackbarService.openSnackBar(
               'Datos cambiados con éxito',
               'success',

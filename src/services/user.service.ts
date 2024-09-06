@@ -1,7 +1,7 @@
 import { Deserialize, IJsonObject } from 'dcerialize';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, catchError, map } from 'rxjs';
 import { User, UserByStateRoleList, UserTableList } from '../models/user';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserStateName } from '../utils/enum';
 
@@ -105,13 +105,20 @@ export class UserService {
       );
   }
 
-  getLeagueEnrolmentsTable(): Observable<UserTableList> {
-    return this.http.get<IJsonObject>(`${this.path}/table`).pipe(
-      map((users) => Deserialize(users, () => UserTableList)),
-      catchError((err) => {
-        throw err;
-      }),
-    );
+  getLeagueEnrolmentsTable(search?: string): Observable<UserTableList> {
+    let params = new HttpParams();
+    if (search) {
+      params = params.set('term', search);
+    }
+
+    return this.http
+      .get<IJsonObject>(`${this.path}/table/search`, { params })
+      .pipe(
+        map((users) => Deserialize(users, () => UserTableList)),
+        catchError((err) => {
+          throw err;
+        }),
+      );
   }
 
   getUsersByState(state: UserStateName): Observable<UserByStateRoleList> {

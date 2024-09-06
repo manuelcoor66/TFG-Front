@@ -1,5 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { AchievementsComponent } from './achievements/achievements.component';
+import { AdminGuard } from '../services/admin.guard';
 import { AppComponent } from './app.component';
 import { AuthGuard } from '../services/auth.guard';
 import { CreateLeagueComponent } from './league/create-league/create-league.component';
@@ -11,7 +12,6 @@ import { LoginGuard } from '../services/login.guard';
 import { ManageUsersComponent } from './user/manage-users/manage-users.component';
 import { NgModule } from '@angular/core';
 import { ProfileComponent } from './profile/profile.component';
-import { SubscriptionComponent } from './subscription/subscription.component';
 import { TicketsComponent } from './tickets/tickets.component';
 
 export const routes: Routes = [
@@ -41,10 +41,6 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'subscription',
-    component: SubscriptionComponent,
-  },
-  {
     path: 'league/:id',
     component: LeagueDetailComponent,
     canActivate: [LoginGuard],
@@ -62,7 +58,7 @@ export const routes: Routes = [
   {
     path: 'manage-users',
     component: ManageUsersComponent,
-    canActivate: [LoginGuard],
+    canActivate: [LoginGuard, AdminGuard],
   },
   {
     path: 'create-league',
@@ -78,10 +74,6 @@ export const routes: Routes = [
     path: 'manage-users',
     component: ManageUsersComponent,
     canActivate: [LoginGuard],
-  },
-  {
-    path: '**',
-    redirectTo: '/leagues',
   },
 ];
 

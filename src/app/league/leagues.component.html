@@ -1,6 +1,14 @@
 <div class="container">
   <div class="leagues-title">
     <h1>Ligas</h1>
+    <input
+      matInput
+      placeholder="Buscar ligas"
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="applyFilter()"
+      class="search-input"
+    />
+
     <button
       mat-button
       class="btn--primary btn--lg button"
@@ -8,7 +16,7 @@
       data-test-id="login-button"
       appLoadingButton
       (click)="createLeague()"
-      *ngIf="currentUser?.role !== userRole.USER"
+      *ngIf="currentUser?.role !== userRoleName.USER.valueOf()"
     >
       Crear nueva
     </button>
@@ -55,5 +63,12 @@
     </div>
   </div>
 
-  <app-no-data *ngIf="isEmpty" [data]="emptyData"></app-no-data>
+  <app-no-data
+    *ngIf="isEmpty"
+    [data]="
+      currentUser?.role !== userRoleName.USER.valueOf()
+        ? emptyDataAdmin
+        : emptyDataUser
+    "
+  ></app-no-data>
 </div>

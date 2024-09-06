@@ -35,7 +35,7 @@ export class AchievementsComponent {
   constructor() {
     this.actualUser = this.localStorageService.getItem('user');
     this.achievementsService
-      .getUserAchievements(37)
+      .getUserAchievements(this.actualUser.id as number)
       .subscribe((achievements) => {
         this.achievements = achievements.items;
       });

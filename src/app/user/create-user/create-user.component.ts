@@ -10,6 +10,7 @@ import { MatButton } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 import { SnackbarService } from '../../../services/snackbar.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { User } from '../../../models/user';
@@ -36,6 +37,7 @@ export class CreateUserComponent {
   private userService = inject(UserService);
   private snackbarService = inject(SnackbarService);
   private hashService = inject(HashService);
+  private router = inject(Router);
 
   /**
    * Login form
@@ -69,13 +71,12 @@ export class CreateUserComponent {
   createUser(): void {
     if (this.loginForm.valid) {
       const user = new User(
+        this.loginForm.get('email')?.value,
         this.loginForm.get('name')?.value,
         this.loginForm.get('lastnames')?.value,
-        this.loginForm.get('email')?.value,
         this.hashService.hashPassword(this.loginForm.get('password')?.value),
         this.loginForm.get('securityWord')?.value,
       );
-      // this.loginForm.disable();
       this.userService
         .createUser(user)
         .pipe(
@@ -84,7 +85,13 @@ export class CreateUserComponent {
             throw err;
           }),
         )
-        .subscribe();
+        .subscribe(() => {
+          this.snackbarService.openSnackBar(
+            'Usuario creado con éxito',
+            'success',
+          );
+          this.router.navigateByUrl('/leagues');
+        });
     }
   }
 }

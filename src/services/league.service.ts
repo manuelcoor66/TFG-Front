@@ -1,7 +1,7 @@
 import { Deserialize, IJsonObject } from 'dcerialize';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { League, LeagueList } from '../models/league';
 import { Observable, catchError, map } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { formatDate } from '../utils/shared-functions';
 
@@ -18,8 +18,13 @@ export class LeagueService {
     this.path = 'http://127.0.0.1:5000/league';
   }
 
-  getAllLeagues(): Observable<LeagueList> {
-    return this.http.get<IJsonObject>(`${this.path}/league-list`).pipe(
+  getAllLeagues(search?: string): Observable<LeagueList> {
+    let params = new HttpParams();
+    if (search) {
+      params = params.set('search', search);
+    }
+
+    return this.http.get<IJsonObject>(`${this.path}/search`, { params }).pipe(
       map((leagues) => Deserialize(leagues, () => LeagueList)),
       catchError((err) => {
         throw err;

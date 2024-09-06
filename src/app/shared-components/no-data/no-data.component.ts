@@ -13,6 +13,9 @@ export class NoDataComponent {
   private matIconRegistry = inject(MatIconRegistry);
   private domSanitizer = inject(DomSanitizer);
 
+  /**
+   * Input data
+   */
   @Input() data: string | undefined;
 
   constructor() {

@@ -15,7 +15,7 @@ export class LoginGuard implements CanActivate {
     if (this.authService.isLoggedIn()) {
       return true;
     } else {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/login']);
 
       return false;
     }

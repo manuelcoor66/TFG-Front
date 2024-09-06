@@ -96,7 +96,7 @@
 
 button {
   width: 40%;
-  background-color: #046b99;
+  background-color: cornflowerblue;
   border-radius: 0.5rem;
 }
 
@@ -107,4 +107,11 @@ button {
   height: 3rem;
   width: 9rem;
   border-radius: 10px;
+  margin-left: 2rem;
+}
+
+.search-input {
+  height: 80%;
+  padding: 6px;
+  box-sizing: border-box;
 }
